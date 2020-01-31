@@ -206,7 +206,95 @@ Design Strategy # 3:
         ...
         => finalArray = [1, 2, 3, 4, 5, 6, 7]
 
-        
 
+    Hybrid algorithms 
+    i.e. TimSort
+        -combines merge-sort and insertion-sort for worst-case O(n logn) and
+        best-case O(n) time
+            -python standard sorting algorithm since Py v.2.3
+            -switch to insertion sort when array is almost sorted
+
+    - in merge sort, we divided the arrays based on a trivial notion, position
+    this lead to efficient division however it left the real work to the combination phase
+    - meaning the computationally expensive part was taking the sorted subarrays and combining
+    them 
+    - a work around could be to pick a non trivial parameter based off which we will divide
+    sub arrays
+        - such as value
+    - we then shift the computationally expensive part to the division as opposed to the 
+    combination phase of the algorithm
+
+    - this divide and conquer based approach is called QuickSort
+
+    QuickSort(A) psudocode:
+        if len(A) <= 1:
+            return
+        pick some x = A[i] at random (call this the pivot)
+        partition the rest of A into:
+            L (less than x) and
+            R (greater than x)
+        replace A with [L, x, R] (re arrange A in this order)
+        QuickSort(L)
+        QuickSort(R)
+
+    how do you pick the pivot?
+        - you could pick a random index,
+        - you could pick the first, last, middle index
+
+    -What is the running time of QuickSort on a sorted array? Assume that the first
+    element is always chosen as the pivot. 
+        - since array is sorted, we will have a division where the element we pick
+        as the pivot is already in its place
+        - meaning we will thus have the worst case time compelexity -> O(n^2)
+        - same is true if the array is reverse sorted (still picking the first element
+        as the pivot)
+        - same is true on an array if all the elements are equal and we pick the pivot
+        at random
+    
+    -If the input array for Quicksort is expected to have a lot of duplicate elements, 
+    it is better to do two-way partitioning instead of three-way partitioning. 
+        - false
+            - three way partitioning -> O(n)
+            - two way partitioning -> O(n^2)
+
+    -MergeSort runs in O(n Log(n)) for the best, worst, and average cases
+    -QuickSort runsi in O(n Log(n)) for the best and average case, however in the wrost case
+        runs in O(n^2) time
+    -Does this mean merge sort is better?
+        -Must consider the fact QuickSort is an in-place algorithm
+        -both are recursive algorithm, meaning they do use additional call stack space
+
+    -what is stability in terms of sorting?
+        -irl a record will have multiple fields, i.e. name, id, address, grade, etc.
+        -you will often sort records across multiple fiels
+            -i.e. first sort records by name alphabetically,
+                then sort by section number
+                -however there are often multiple records with the same section number
+                -after the second sorting, the alphabetical sorting might not hold
+                for the records with similar section numbers
+        - a sorting algorithm that preserves the original relative ordering, is called a stable
+        sorting algorithm
+        -   selection sort -> NOT STABLE
+        -   bubble sort -> STABLE
+        -   insertion sort -> STABLE (depending on implementation) ( < vs <= )
+        -   merge sort -> STABLE (depending on implementation) ( < vs <= )
+        -   quick sort -> NOT STABLE (swap during partition have the tendancy to throw elements 
+        out of order)
+
+        -java -> primitive types -> quicksort 
+            -> objects (with possible multiple keys) -> mergesort
+
+        -python -> timsort is the standard
+
+        -C++ -> default uses quicksort, if you want stabilty you have to call stable_sort()
+
+
+"""
+
+
+# design strategy 4 - Transform and Conquer
+"""
+
+Design Strategy # 4: Transform and Conquer
 
 """

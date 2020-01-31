@@ -5,7 +5,8 @@
 #   - problem size at bottom of tree -> 1
 #   - O(nLog(n)) -> does not compare on whether the array is partially sorted or reverse sorted
 #   - no distinction between best, worst, and average base times
-
+# space complexity: 
+#   - not in place as we need an auxiliary array to store currently sorted arrays
 def mergeSort(myList):
     if len(myList) > 1:
         mid = len(myList) // 2
@@ -27,7 +28,7 @@ def mergeSort(myList):
         # i.e. left = [1, 2, 3] right = [2, 3, 7]
         # result = [left[0], left[1], right[0], left[2], right[1], right[2]] 
         while i < len(left) and j < len(right):
-            if left[i] < right[j]:
+            if left[i] <= right[j]:
               # The value from the left half has been used
               myList[k] = left[i]
               # Move the iterator forward
