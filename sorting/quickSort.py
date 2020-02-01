@@ -7,49 +7,33 @@
 
 # space complexity:
 #   - in-place unlike mergeSort! 
-
-def partition(array, start, end):
-    pivot = array[start]
-    low = start + 1
-    high = end
-
-    while True:
-        # If the current value we're looking at is larger than the pivot
-        # it's in the right place (right side of pivot) and we can move left,
-        # to the next element.
-        # We also need to make sure we haven't surpassed the low pointer, since that
-        # indicates we have already moved all the elements to their correct side of the pivot
-        while low <= high and array[high] >= pivot:
-            high = high - 1
-
-        # Opposite process of the one above
-        while low <= high and array[low] <= pivot:
-            low = low + 1
-
-        # We either found a value for both high and low that is out of order
-        # or low is higher than high, in which case we exit the loop
-        if low <= high:
-            array[low], array[high] = array[high], array[low]
-            # The loop continues
-        else:
-            # We exit out of the loop
-            break
-
-    array[start], array[high] = array[high], array[start]
-
-    return high
-
-def quickSort(givenArray, start, end):
+def helper(A, start, end):
+    # base case
     if start >= end: return
 
-    # pick some x = A[i] at random (call this the pivot)
-    pivot = partition(givenArray, start, end)
+    # recursive case
+    p_index = random.randint(start, end)
+    A[p_index], A[start] = A[start], A[p_index]
+    orange = start
 
-    # QuickSort(L)
-    # QuickSort(R)
-    quickSort(givenArray, start, pivot - 1)
-    quickSort(givenArray, pivot + 1, end)
+    for green in range(start, end):
+        if A[green] < A[start]:
+            orange += 1
+            A[orange], A[green] = A[green], A[orange]
+    # take pivot and insert it into its right place
+    # which should be the boundry between the orange and the green regions
+    A[start], A[orange] = A[orange], A[start] #pivot is now sitting at orange index
 
+    # now we have done the work of putting the pivot in its place, we can now do the recursive call
+    helper(A, start, orange - 1) # left partition
+    helper(A, orange + 1, end) # right partition
+
+    return 
+    
+
+def quickSort(nums):
+    helper(nums, 0, len(nums) - 1)
+    return nums
 
     
 testArray = [4,54,26,93,17,77,31,44,55,20]

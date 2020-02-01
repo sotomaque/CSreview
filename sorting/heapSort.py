@@ -3,6 +3,7 @@ import heapq
 # time-complexity: O(n Log(n))
 # stability: NOT STABLE
 
+# minheap implementation
 def heapSort(nums):
     heapq.heapify(nums)
     result = []

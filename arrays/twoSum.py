@@ -13,8 +13,9 @@ return [0, 1]."""
 def twoSum(nums, target):
         d = {}
         for i in range(0, len(nums)):
-            if target - nums[i] in d:
-                return [d[target - nums[i]], i]
+            complement = target - nums[i]
+            if complement in d:
+                return [d[complement], i]
             
             d[nums[i]] = i
 

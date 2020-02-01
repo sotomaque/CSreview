@@ -20,6 +20,9 @@ if so, return yes, otherwise return no
 
     assume a solution for n-1, expand to account for n
 
+3. Transform and Conquer:
+
+    use a dictionary!! 
 
 """
 
@@ -33,9 +36,9 @@ def twoSumAlt(someArray, target):
             d[i] += 1
         else:
             d[i] = 1
-
     # for each key
     for key in d: 
+        print("made it here")
         # compute the complement needed
         complement = target - key
         # account for the fact that we dont want to look at this specific key as a possible complement 
