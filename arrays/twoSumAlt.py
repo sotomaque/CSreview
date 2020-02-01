@@ -23,25 +23,34 @@ if so, return yes, otherwise return no
 
 """
 
+#dictionary approach
 def twoSumAlt(someArray, target):
+    # create a dictionary
     d = {}
+    # key: value -> value in array: count of occurances
     for i in someArray:
         if i in d:
             d[i] += 1
         else:
             d[i] = 1
 
+    # for each key
     for key in d: 
-        complement = key - target
-        if complement in d:
+        # compute the complement needed
+        complement = target - key
+        # account for the fact that we dont want to look at this specific key as a possible complement 
+        d[key] -= 1
+        # see if complement exists in our dictionary
+        if complement in d and d[complement] >= 1:
+            # if so return true
             return True
-
+    # otherwise return false
     return False
 
 
 def test():
-    array = [5, 9, 1, 3]
-    target = 6
+    array = [2, 9, 1, 4]
+    target = 4
     result = twoSumAlt(array, target)
     print (result)
 
