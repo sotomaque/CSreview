@@ -3,10 +3,12 @@
 # time complexity: 
 #   - height of recursion tree -> log(N)
 #   - problem size at bottom of tree -> 1
-#   - O(nLog(n)) -> does not compare on whether the array is partially sorted or reverse sorted
+#   - O(nLog(n)) -> does not depend on whether the array is partially sorted or reverse sorted
 #   - no distinction between best, worst, and average base times
 # space complexity: 
 #   - not in place as we need an auxiliary array to store currently sorted arrays
+# stability: STABLE
+
 def mergeSort(myList):
     if len(myList) > 1:
         mid = len(myList) // 2
