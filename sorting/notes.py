@@ -1,21 +1,21 @@
 # intro 
 """
-why sort?
+    why sort?
 
-- searchihng for a value is faster in a sorted array 
-- finding duplicates is easier
-- matching items in two or more files is possible
-- can find median, k smallest, k largest, etc easily
-- the truncated top of an immense sorted list is the 
-universal UI (presumably in order of revelance to user)
+    - searchihng for a value is faster in a sorted array 
+    - finding duplicates is easier
+    - matching items in two or more files is possible
+    - can find median, k smallest, k largest, etc easily
+    - the truncated top of an immense sorted list is the 
+    universal UI (presumably in order of revelance to user)
 
-other benefits
+    other benefits
 
-- learn how to attack programming problems in general
-    e.g. algorithm design stratieis like
-        decrease and conquer, divide and conquer, etc.
-- sorting provides an excellent illustration of how to analyze
-algorithms to analyze their preformance
+    - learn how to attack programming problems in general
+        e.g. algorithm design stratieis like
+            decrease and conquer, divide and conquer, etc.
+    - sorting provides an excellent illustration of how to analyze
+    algorithms to analyze their preformance
 """
 
 
@@ -279,7 +279,7 @@ Design Strategy # 3:
         -   insertion sort -> STABLE (depending on implementation) ( < vs <= )
         -   merge sort -> STABLE (depending on implementation) ( < vs <= )
         -   quick sort -> NOT STABLE (swap during partition have the tendancy to throw elements 
-        out of order)
+        out of relative order)
 
         -java -> primitive types -> quicksort 
             -> objects (with possible multiple keys) -> mergesort
@@ -295,6 +295,93 @@ Design Strategy # 3:
 # design strategy 4 - Transform and Conquer
 """
 
-Design Strategy # 4: Transform and Conquer
+Design Strategy # 4: 
+    -Transform and Conquer
+    
+    - so far we have assumed input is given to us in an array, and works with 
+    that one data structure to achieve a sorted arraay
+    - this design strategy will look at transforming the input to alternative
+    data structures to achieve the desired result
+
+    - want to represent the input as an Abstract Data Type (ADT)
+        - think of ADT as a black box that tells us, (1) what kind of data it is,
+        (2) the operations that will be preformed on the data
+            - description is calle the interface, it is what the user of the ADT will see,
+            not how it would be implemented under the hood.
+            - there could be different under the hood implementations of the same ADT
+                - i.e. a stack is an ADT, two operations, push, pop, however there are different
+                implementations of stacks (i.e. linked lists or dynamic arrays)
+    
+    - we desire a black box interface that allows us to (1) insert and (2) extract-minimum,
+    very efficiently
+        - called a priority queue
+            - unlike a regular queue (FIFO) order that it comes out is determined by the 
+            priority value (in this case min value)
+            - in general the data itself can be assumed to be a simple int, or it  could be any 
+            type of object with a well defined comparsion operator
+    
+    - two kinds of priority queues:
+        -min priority queue (lower the value the more important aka higher priority)
+        -max priority queue (higher the value, higher the priority)
+
+    - priority queues are not just useful for sorting
+        -i.e. determining what order to serve patients at an emergency room
+            - prioritize based on severity of symptoms
+                - priorities are dynamic and can change
+        -i.e. a printer might have a bunch of printing jobs, can order these 
+            with a priority queue
+        -i.e. scheduler for an OS 
+    
+    - how the ADT is implemented under the hood:
+        -a Priority Queue ADT can be implemented as a:
+            - Unsorted Array
+                -insertion -> O(1)
+                -extraction -> O(n)
+            - Sorted Array
+                -insertion -> O(n)
+                -extration -> O(1)
+            - Unsorted List
+                -insertion -> O(1)
+                -extration -> O(n)
+            - Sorted List
+                -insertion -> O(n)
+                -extration -> O(1)
+            
+            better way: want insert / extract in log(n) so that n operations take O(n Log(n)) time
+            - a complete binary tree with n elements is log(n)
+                - since the only element directly accesible for a binary tree is the root, 
+                it makes sense to sowmhow have the item with the highest priority as the root
+            - a binary heap is the most popular data structure that can do this
+                - structural property: complete binary tree
+                - heap property: priotiy of any node >= priority of its children
+            -terminology: heapify up -> same as bubbling node value up to maintain heap property
+            
+            -insert -> ~ log(n)
+
+            -increase/decrease key is very similar to an insert execpt an insert starts from the very bottom
+                and an increase key can start with a random node 
+                -> also O(log n)
+
+            -extract(min/max) -> grab the root node, erase the value for a variable, replace variable
+            with right most ground level node, ensure the heap property is preserved
+                -if heap property is violated for both children of a node, we have to check which
+                of the two children are bigger, and bring that one up as a parent
+                -time complexity is limited by the height of the tree 
+                -> log(n) -> O(log n)
+
+            - build heap procedure manages to build heap in O(n) as opposed to O(n Log(n)) time
+                - traverse tree from right to left
+                    - whenever we reach a non leaf node invoke heapify onto it ensure everything beneath that node
+                    obeys the heap property
+                -> O(n)
+            - so far, time-complexity: insert t.c. + extract t.c. + build t.c. => O(log n) + O(log n) + O(n)
+
+            - if we used this heap as our ADT, we would still have to do n extractions, therefore
+                the total time complexity of heapsort = the time complexity of heap + the time compelexity of n extractions,
+                = O(nlog n) + O(n) = O(n Log(n))
+    
+    - heapsort -> Yes
+    - stable -> No, heapify distrubs relative ordering of like-valued nodes
+
 
 """

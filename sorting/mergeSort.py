@@ -51,6 +51,8 @@ def mergeSort(myList):
             k += 1
 
     return myList
+
+
 testArray = [4,54,26,93,17,77,31,44,55,20]
 result = mergeSort(testArray)
 print(result)
