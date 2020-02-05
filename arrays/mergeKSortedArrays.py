@@ -106,9 +106,6 @@ def mergeKSortedArrays(givenArray):
     
         if first < last: ascending = True
 
-
-    print(ascending)
-
     for subArray in givenArray:
         for num in subArray:
             heappush(heap, num)

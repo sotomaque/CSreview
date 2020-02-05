@@ -23,6 +23,7 @@ def threeSum(array):
 
     for i in range(0, length - 2):
         if i > 0 and array[i] == array[i-1]:
+            print('skipping duplicates ', array[i])
             continue
         l = i + 1
         r = length - 1
@@ -45,7 +46,7 @@ def threeSum(array):
                 
 
 def test():
-    array = [-1, 0, 1, 2, -1, -4]
+    array = [10, 3, -4, -4, -4, 1, 1, 1, 1, -6, 9, 0, 0, 0]
     result = threeSum(array)
     print(result)
 

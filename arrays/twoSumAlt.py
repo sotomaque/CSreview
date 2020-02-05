@@ -1,6 +1,7 @@
 """
-you have an array of n numbers and a number, find out whether the array contains two
-elements whose sum is the target.
+you have an array of n numbers and a number, find out whether the 
+array contains two elements whose sum is the target.
+
 if so, return yes, otherwise return no
 """
 

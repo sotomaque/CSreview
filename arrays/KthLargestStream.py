@@ -1,7 +1,7 @@
 """
 design a class to ffind the Kth largest element in a stream.
 note that it is the kth largest element in the sorted order
-not thee Kth distinct element.
+not the Kth distinct element.
 
 Your KthLargest class will have a constructor which accepts an
 int, k, an an array, nums.
