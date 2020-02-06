@@ -38,30 +38,51 @@ constraint:
             swap(a[cur], a[high])
             high -= 1
 """
-def solution(givenArray):
+def dutchNationalFlag(givenArray):
     
     pivot = 2
     low = 0
     cur = 0
     high = len(givenArray) - 1
 
-    while cur < high:
+    while cur <= high:
 
         if givenArray[cur] == pivot:
             cur += 1
-        if givenArray[cur] < pivot:
+
+        elif givenArray[cur] < pivot:
             givenArray[cur], givenArray[low] = givenArray[low], givenArray[cur]
-            cur += 1
             low += 1
-        if givenArray[cur] > pivot:
+            cur += 1
+
+        else:
             givenArray[cur], givenArray[high] = givenArray[high], givenArray[cur]
             high -= 1
 
     return givenArray
 
+def mapLettersToInts(listOfLetters):
+
+    d = {
+        'R': 1,
+        'G': 2,
+        'B': 3
+    }
+
+    listOfNumbers = []
+
+    for letter in listOfLetters:
+        if letter in d:
+            listOfNumbers.append(d[letter])
+
+
+    return listOfNumbers
+
 
 def test():
-    balls = [1, 1, 2, 2, 1, 3, 3]
-    print(solution(balls))
-
+    colors = ['G', 'B', 'G', 'G', 'R', 'B', 'R', 'G']
+    nums = mapLettersToInts(colors)
+    result = dutchNationalFlag(nums)
+    print('output: ', result)
+    
 test()

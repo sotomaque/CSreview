@@ -62,7 +62,8 @@
 # Recursive Mathematical Functions
 """
     - Factorials:
-        - n! = n * (n - 1) * (n - 2) * ... * 2 * 1
+        - definition:
+            n! = n * (n - 1) * (n - 2) * ... * 2 * 1
         - arise in combinatorix 
             -i.e. arrange the four different letters, (a, b, c, d), in a straight
             line. in how many ways can this be done?
@@ -71,13 +72,22 @@
             - previously, repetition was not allowed
             - now we will allow repetition:
                     -i.e. number of binary strings of length n = ?
-                    -i.e. number of 4 digit passcodes = ?
+                    -i.e. number of 4 digit passcodes = ? = 10^4 (10 options for each digit, 4 times)
 
             - when repetition is allowed, we call the ordering as an arrangment
             - when repetition is not allowed, we call the ordering as a permutation
-            
-            
+        
+        - pseudocode for factorial -> decrease-and-conquer strategy:
 
+            def fact(n):
+                if n == 0:
+                    return 1
+                else:
+                    # chip away at the problem by reducing it to size n - 1
+                    # ask a worker clone to solve the smaller problem
+                    # construct the solution to the overall problem using that
+                    return n * fact(n - 1)
+            
     - Rule of Sum:
         - if an action can be perfomred by choosing one of A different options,
         OR one of B different options, then that choice can be made in 
@@ -91,6 +101,106 @@
         A x B ways
             -i.e. 10 shirts, 8 pants -> 80 ways
 
+    - Power Function:
+        - suppose we want to compute N^k
+            - defined as n * n * n * ... * n, k-times
+            - make a sub-problem of size k-1
+                - when we get that answer, multiply that result by n
+                - if k = 0, we know we can return 1 (decrease-and-conquer)
+
+        - pseudocode:
+
+            int RaiseIntToPower(int n, int k):
+                if k == 0: 
+                    return 1
+                else:
+                    return n * RaiseIntToPower(n, k - 1)
+            
+            - time-complexity: O(k)
+
+        - iterative pseudocode:
+
+             int RaiseIntToPower(int n, int k):
+                result = 1
+                for i in range(1, k):
+                    result *= i
+                return result
+        
+            - time-complexity: O(k) howeverunlike the recursive implementation,
+                the iterative solution does not push recursive calls onto the 
+                stack
+
+        - in general, when we do a decrease and conquer implementation, 
+            there exists a bottom up iterative alternative as well
+        
+    - Subsets of a Set:
+        - given a set of size n, how many subsets are there?
+            -i.e. 
+                given n = 1 -> {a} -> {a}, {}, therefore 
+                    output => 2
+                given n = 2 ->  {a, b} -> {a}, {b}, {a, b}, {}, therefore 
+                    output => 4
+                given n = 3 ->  {a, b, c} -> {a}, {b}, {c}, {a, b}, {a, c}, {b, c}, {a, b, c}, {}, therefore 
+                    output => 8
+                
+                in general output = 2^n
+
+        - pseudocode:
+
+            def subsets(n):
+                if n == 0:
+                    return 1
+                else:
+                    return 2 * subsets(n - 1)
+
+            # time-complexity: O(n) -> linear time 
+
+            alternative:
+                def subsets(n):
+                    if n == 0:
+                        return 1
+                    else:
+                        return subsets(n - 1) + subsets(n - 1)
+                        # the above line makes two recursive calls where as the 
+                        # original implementation only made one recursive call
+
+                # time-complexity: O(2^n) -> way worse! -> exponential time 
+        
+    - there is anther way to implement decrease and conquer,
+        instead of going from n -> n - 1
+        we can go from n -> n / 2
+        - as is the case with binary search
+        - in other words, we will decrease our problem by a constant factor
+        instead of decreasing by 1
+
+        - so for the power function, instead of going from 2^20 -> 2^19,
+            we can go from 2^20 -> 2^10 and then multiply that result with itself
+            
+        - the advantage is we would cut down the chain of recursive calls by
+            roughly n/2
+        
+        - so the time-complexity goes from O(n) -> O(log n)
+
+        - this is only possible if when we split the problem in half, both halfs are
+            identical. 
+            - in the case of n!, if we try to split the prob in half, the two halfs
+            are not identitical, so we cannot take advantage of splitting the problem 
+            by a constant factor like we could for taking a number and raising it to 
+            a power
+        
+"""
+
+# Computing Time-Complexity
+"""
+    - in general, you dont want to trace the chain of execution for every
+    problem. Focus instead on a single level of recursion.
+
+    - assume that any recursive call automatically gets the right answer as long
+    as the arguments are simpler than the original arguments.
+
+    - if you really want a formal proof, the combination of a base case and an 
+    analysis of the move from n-1 -> n can both be used to build up a proof
+    by mathematical induction.
     
 """
 
@@ -98,19 +208,95 @@
 """
 MCQ:
 
-(1) which of the following can be determined in a single scan 
-of an array if the numbers are sorted?
-    -find a specific number
-    -find all duplicates
-    -find the median
-    -find the mode
+    (1) What will happen if your recursive implementation does not have a base case?
+        - the decomposition process will keep making more and more calls, giving rise to the
+        recursive analogue of the infinite loop (non-terminating recursion).
 
-(2) You are given an array of unsorted numbers. Which of the 
-following quantities can be computed in a single scan of the 
-array without needing to sort the numbers? (Assume that beyond 
-a few local variables, you cannot use any extra space) 
-    -mean
-    -range
-    -NOT median
-    -NOT mode
+    (2) What will happen if your recursive implementation does not make the subproblem
+            simpler (of a slightly smaller size)?
+        - the decomposition process will keep making more and more calls, giving rise to the 
+        recursive analogue of the infinite loop (non-terminating recursion).
+
+    (3) if fact(0) was defined to be 0, instead of 1, then calling fact(n) on any
+        positive integer n will return:
+        - 0
+
+    (4) The number of ways of seating 6 students in a row of 6 chairs is:
+        - 6! = 720
+
+    (5) The number of ways of seating 6 students in a row of 4 chairs is: 
+        (only one student can sit on a single chair, so not everyone will find
+        a chair to sit on) 
+        - 360
+            - how many differnet ways can i pick 4 students out of 6?
+                - 6 choose 4 = 15
+            - out of the 4 picked, how many different ways can i arrange them?
+                - 4! = 24
+            - therefore final answer is 15 * 24 = 360
+
+    (6) A traveling salesman needs to travel to n cities to sell his products. 
+        He wants to consider all possible routes to pick the shortest one. 
+        How many different routes does he need to evaluate? 
+        - n!
+
+    (7) The maximum number of activation records on the call stack in the execution 
+        of the recursive code for fact(10) is: (assume that the first activation 
+        record is for n=10)
+        - 11
+
+    (8) X^Y can be computed efficiently in time:
+        -O(log y) -> when splitting the problem in half
+        -O(y) -> if we are not splitting the problem in half
+
+    (9) The recurrence equation for the time complexity of binary search is:
+        - T(n) = T(n / 2) + 1
+"""
+
+# fibonacci sequence
+"""
+    - origin: 
+        - Liber Abaci, chapter 12
+        - "a man put one pair of newborn rabbits into a certain place entirely
+    surrounded by a wall. how many pairs of rabbits can be produced from that pair
+    in a year, if the nature of these rabbits is such that every month, each pair
+    bears a new pair which from the second month on become productive?
+    (assume no rabbits die) 
+        - fibonacci sequence
+        - the number of adults at the end of month i == the population at the 
+        month i - 1 
+            - the adults from the previous month continue to be adults the next month
+            and the children grow to be adults
+            - the num of new born rabbits in month i == the number of adults in the
+            previous month
+                - however recallthe number of adults in a given month is just the 
+                population 2 months before
+            - therefore the pop at month i = pop month(i - 1) + pop month (i - 2)
+        - fib(N) = fib(N - 1) + fib(N -2)
+            - since it requires fin(N - 1) and fib(N - 2) we need two base cases
+            - assume fib(0) = 0 and fib(1) = 1
+    
+    - psudeocode:
+        def fib(n):
+            if n == 0 or n == 1:
+                return n
+            else:
+                return fib(n - 1) + fib(n - 2)
+        
+        -thie issue is this will make a call to compute fib(i) several times
+        in trying to calculate fib(n)
+            -i.e. fib(4) = fib(3) + fib(2)
+                --------------------
+                left-side of the tree
+                --------------------
+                    fib(3) = fib(2) + fib(1) = fib(2) + 1
+                    fib(2) = fib(1) + fib(0) = 1 + 0 = 1
+                ---------------------
+                right side of the tree
+                ----------------------
+                    fib(2) = fib(1) + fib(0) = 1 + 0 = 1
+
+            - notice we computed fib of 2 multiple times
+            
+
+
 """
