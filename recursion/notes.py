@@ -257,13 +257,13 @@ MCQ:
     - origin: 
         - Liber Abaci, chapter 12
         - "a man put one pair of newborn rabbits into a certain place entirely
-    surrounded by a wall. how many pairs of rabbits can be produced from that pair
-    in a year, if the nature of these rabbits is such that every month, each pair
-    bears a new pair which from the second month on become productive?
-    (assume no rabbits die) 
+            surrounded by a wall. how many pairs of rabbits can be produced from that pair
+            in a year, if the nature of these rabbits is such that every month, each pair
+            bears a new pair which from the second month on become productive?
+            (assume no rabbits die) 
         - fibonacci sequence
         - the number of adults at the end of month i == the population at the 
-        month i - 1 
+            month i - 1 
             - the adults from the previous month continue to be adults the next month
             and the children grow to be adults
             - the num of new born rabbits in month i == the number of adults in the
@@ -296,7 +296,66 @@ MCQ:
                     fib(2) = fib(1) + fib(0) = 1 + 0 = 1
 
             - notice we computed fib of 2 multiple times
+
+    - the fib sequence can be abstracted and reasoned about as a general additive
+    sequence
+
+        - given an arbitrary additive sequence:
+            - i.e. a, 3, 4, 8, 13, 21
+
+        - psuedocode:
+            def addSeq(n, b1, b2):
+                if n == 0:
+                    return b1
+                else:
+                    return addSeq(n - 1, b2, b1 + b2)
             
+            fib(n) = addSeq(n, 0, 1)
+        
+        - time-complexity: 
+            O(n)
+                
+"""
 
+# combinations
+"""
+    - recall:
+        - previously we have seen how to count ordered arrangments
+            - aka permutations
+            - there were two different types:
+                - repetition allowed
+                - repetition not allowed
+    - combinations -> number of ways to choose k objects out of n, where
+        repetition is not allowed and order is also not important
+        - in other words, {a, b, c} is identical to {b, a, c}, etc.
+        - C(n, n) = ? = 1 -> original set itself
+        - C(n, 0) = ? = 1 -> empty set
+        - C(n, 1) = ? = n -> each of the n elements as individual sets
+        - C(n, k) === C(n, n-k) -> because when we pick k out of n, we can either pick
+            the k that will be in the set, or pick the n - k that wont be in the set
+        
+    - C(n, k) = n Choose k = (n! / (k!(n-k)!))
+        - read as: the number of subsets of size k that can be formed out of a set 
+            of size n
 
+    - def C(n, k):
+        return factorial(n) / (factorial(k) * factorial(n - k))
+
+    - if you want to directly calculate this, without relying no the factorial function
+        we can use a decrease and conquer strategy
+        - for each student, we can decide whether that element will go into the set or not
+            - two options
+            - if you chose to include it in the set, we have n - 1 elements remaining, out of 
+                which we need to pick k - 1 elments
+            - if you chose to not include it in the set, we have n - 1 elements remaining, out of
+                which we have to pick k elements
+            - once these two sub-answers are solved, we will add their results and return it as the
+                final result
+        - recurrance equation:
+            - C(N,K):
+                if n <= 1 or k == 0 or k == n:
+                    return 1
+                else:
+                    reutrn C(N - 1, K) + C(N - 1, K - 1)
+        
 """
