@@ -18,13 +18,7 @@ def most_frequent(given_list):
             max_count = count[item]
             max_item = item
 
-    #print(count)
-    #print('max count:', max_count)
-    #print('max item:', max_item)
     return max_item
-
-
-
 
 
 def test():

@@ -23,6 +23,7 @@ constraint:
     merge first into second, in place, in O(n) time
 """
 
+# O(n) time | O(1) space
 def merger_first_into_second(arr1, arr2):
     n = len(arr1)
 

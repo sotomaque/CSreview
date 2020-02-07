@@ -17,6 +17,7 @@ def fib_dp(n, cache = {1: 0, 2: 1}):
         return cache[n]
     else:
         cache[n] = fib_dp(n - 1, cache) + fib_dp(n - 2, cache)
+        print(cache)
         return cache[n]
 
 # iterative solution
@@ -37,6 +38,6 @@ def fib_iterative(n):
 
 def test():
     n = 5
-    print('the', n, 'th fib number is: ', fib_iterative(n))
+    print('the', n, 'th fib number is: ', fib_dp(n))
 
 test()

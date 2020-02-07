@@ -12,7 +12,7 @@ assumption: no duplicates, both arrays are of same length
 
 """
 
-# Implement your function below.
+# O(2n) -> O(n) time | O(1) space
 def is_rotation(list1, list2):
     if len(list1) != len(list2):
         return False

@@ -28,6 +28,7 @@ if so, return yes, otherwise return no
 """
 
 #dictionary approach
+# O(n) time | O(n) space
 def twoSumAlt(someArray, target):
     # create a dictionary
     d = {}

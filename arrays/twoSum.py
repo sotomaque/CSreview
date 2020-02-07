@@ -12,6 +12,7 @@ Because nums[0] + nums[1] = 2 + 7 = 9,
 return [0, 1].
 """
 
+# O(n) time | O(n) space
 def twoSum(nums, target):
         d = {}
         for i in range(0, len(nums)):

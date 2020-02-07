@@ -52,18 +52,7 @@ For input K = 3, N = 4 and arr = [
     [0, 9, 10, 11]
 ], output will be:
 
-0
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
+0 1 2 3 4 5 6 7 8 9 10 11
 
 Constraints:
 
@@ -79,8 +68,8 @@ Constraints:
 # compare the value of array[k][pointer] to the other pointer values
 # append the min to the output result array
 
-# problem with this approach is we cannot generalize the mergeSort approach to a variable k
-# need k variables, 
+    # problem with this approach is we cannot generalize the mergeSort approach to a variable k
+    # need k variables, 
 
 # instead we can use a minHeap, add the first element from each array to the minHeap
 # pop the min value, add it to our results array
@@ -95,6 +84,7 @@ Constraints:
 # the extra variable (what array the value came from) to our data structure
 from heapq import heappush, heappop
 
+# O(n log(k)) time | O(n*k) space
 def mergeKSortedArrays(givenArray):
     heap, res = [], []
     ascending = bool
@@ -118,7 +108,6 @@ def mergeKSortedArrays(givenArray):
     else:
         return res[::-1]
  
-
 def test():
     # K = 3
     # N = 4

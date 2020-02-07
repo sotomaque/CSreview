@@ -34,6 +34,14 @@ output -> [5, 1]
 #   
 from heapq import heappush, heappop
 
+"""
+    time-complexity: 
+        - n inserts
+            - each costs O(n log n)
+        - n - k deletes
+            - each costs O(n log n)
+        ~ O(n log n)
+"""
 def topK(arr, k):
     if not arr: return []
 
@@ -42,37 +50,29 @@ def topK(arr, k):
 
     #   add all the elements from arr to the heap
     for num in arr:
-        print('looking at ', num)
         # if this number is already in out set, skip
         if num in heap_set: 
-            print('duplicate found, ignoring ', num)
             continue
         # else push k elements total into our heap and heap_set
         if len(heap) < k:
             heappush(heap, num) 
             heap_set.add(num)
         else:
-            # if the number we are looking at is greater that the current head()
-            print('heap head: ', heap[0])
+            # if the number we are looking at is greater that the current head() -> greater than current min
             if num > heap[0]:
                 out = heappop(heap)
-                print('exceeded k, must remove an element from our set')
-                print('removing ', out)
                 heap_set.remove(out)
                 heappush(heap, num)
                 heap_set.add(num)
-        print('heap: ', heap)
-        print('heap_set: ', heap_set)
-        
-    print('finished out loop')
-    print('k biggest elements are', heap)
-    
-    
 
+    return heap
+    
+    
 def test():
-    arr = [1,5,4,4,2]
+    arr = [1,5,6, 4, 3, 7, 8, 11, 10, 0, 4, 2, 5]
     k = 2
 
-    (topK(arr, k))
+    print(topK(arr, k))
+
 
 test()

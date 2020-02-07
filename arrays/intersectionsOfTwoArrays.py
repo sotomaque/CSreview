@@ -1,12 +1,16 @@
 """
 given two arrays, a and b, asked to return the intersection
+
+assume arrays are sorted
 """
 
+# O(n^2) time | O(1) space
 def intersection(array1, array2):
     result = [value for value in array1 if value in array2]
     return result
 
-#assume arrays are sorted
+
+# O(n) time | O(n - x) space where x is the number of elements not shared by array1 and array2
 def intersectionWithPointers(array1, array2):
     i = 0
     j = 0
