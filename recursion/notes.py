@@ -250,6 +250,7 @@ MCQ:
 
     (9) The recurrence equation for the time complexity of binary search is:
         - T(n) = T(n / 2) + 1
+
 """
 
 # fibonacci sequence
@@ -358,4 +359,195 @@ MCQ:
                 else:
                     reutrn C(N - 1, K) + C(N - 1, K - 1)
         
+"""
+
+# recursive procedures
+"""
+
+    - procedures change the state of something as opposed to returning a value
+        like mathematical functions
+    
+    - tower of hanoi problem:
+        - three pillars
+        - on one of the pillars, there are sixty four disks of pure gold
+            - the largest disk resting on the brass plate while the others getting 
+                smaller and smaller up to the top one
+        - objective is to transfer the disks from one pillar to another
+        - rules:
+            - can only move one disk at a time
+            - can never place a larger disk on top of a smaller disk
+
+        - strategy:
+            - decrease and conquer
+                - as a lazy manager, i will focus only on doing the work for the 
+                    bottom disk
+                - my reports should do all the other work
+            - general stratgy to move n disks from src to destination using aux:
+                - if n == 1, move a single disk from src to destination
+                - else: 
+                    move n - 1 disks from src to aux, 
+                    move a single disk from src to destination,
+                    move n - 1 disks from aux to destination
+
+        - pseudocode:
+            - 
+        
+"""
+
+# exhaustive search/ enumeration sombinatorials
+"""
+    - given a set of n distinct object, enumerate all possible 'combinatorial objects'
+        - a combinatorial object can either be a permutation or a combination
+            - if order matters -> permutation
+            - otherwise -> combination aka subset
+        - within permutations, its possible that either repetition is allowed or not allowed
+    
+    - i.e. enumarate and print all possible binary strings of len == 3
+        2^8 options as repetition is allowed (permutations)
+        - brute force way:
+
+            for i from 0 to 1:
+                for j in 0 to 1:
+                    for k in o to 1:
+                        print(str(i) + str(j) + str(k))
+            
+        - the problem in the above code, we cannot have a variable number of for-loops
+            -if we were asked to expand to print all possbile strings of len n we need a new approach
+        - since we are exhausting all the possible permutations, the lowerbound on out time-complexity
+            will be O(2^n), cannot beat that
+
+        - def binaryStrings(n):
+            if n == 1:
+                return ["0", "1"]
+            else:
+                prev = binaryString(n-1)
+                result = []
+                for s in prev:
+                    result.append(s + "0")
+                    result.append(s + "1")
+            return result
+
+        - time-complexity: O(2^n)
+        - space-complexity: O(2^n)
+        - as we can see the above solution is unsatisfactory. we know that the TC is bound by 2^n but we can certainly improve the space-complexity
+            as well as the fact that the majority of the work is being done by the top node of the recursive stack
+
+        - iterative approach:
+            - def binaryString(n):
+                result = ["0", "1"]
+                for item in 2 to n:
+                    newResult = []
+                    for eachString in result:
+                        newResult.append(eachString + "0")
+                        newResult.append(eachString + "1")
+                    result = newResult
+        - this approach solves the issue of doing the majority of the work at the root levbl  of the recursive stack
+        - however we still have to reserve an expoential amount of space to store these results
+
+        - new approach  -> divide and conquer instead of decrease and conquer
+            - def binaryString(n):
+                if n == 1:
+                    print(['0', '1'])
+                else:
+                    print('0' + binaryString(n-1)) 
+                    print('1' + binaryString(n-1)) 
+            - however this wont work as the above two lines will only concatonate '0' and '1' to the first returned string from the recurive calls
+                not to every returned string 
+            - need to modify the code to accept a parameter, 'prefix' and additionally modify the basecase to know if len(prefix) == n, return prefix
+            - modified approach:
+                - def binaryString(prefix, n):
+                    if n == 0:
+                        print prefix
+                    else:
+                        print binaryString(prefix + '0', n - 1)
+                        print binaryString(prefix + '1', n - 1)
+
+            - def main():
+                n = 10
+                binaryStrings("", n)
+
+        - new time-complexity: still O(2^n)
+        - new space-comlexity: O(n)
+            - basically a depth-first search
+
+        - in summary we took two seperate approaches:
+            - a BFS, (a iterative a recursive approach, both with the same issue), took a lot of space
+            - a DPS, recursive approach, optimal
+
+    - extension: enumerate all decimal strings of length n
+        - first lets see how many decimal strings are there of length n
+            - n choices, each have 10 possible options, remember repetition is allowed
+            - therefore we have 10^n ways to generate a permutation of length n
+        - modification to previous solution:
+            def dsHelper(prefix, n):
+                if n == 0:
+                    print prefix
+                else:
+                    dsHelper(prefix + '0', n - 1)
+                    dsHelper(prefix + '1', n - 1)
+                    dsHelper(prefix + '2', n - 1)
+                    dsHelper(prefix + '3', n - 1)
+                    dsHelper(prefix + '4', n - 1)
+                    dsHelper(prefix + '5', n - 1)
+                    dsHelper(prefix + '6', n - 1)
+                    dsHelper(prefix + '7', n - 1)
+                    dsHelper(prefix + '8', n - 1)
+                    dsHelper(prefix + '9', n - 1)
+
+            def decimalString(n):
+                dsHelper("", n)
+
+        - improvment: 
+            def dsHelper(prefix, n):
+                if n == 0:
+                    print prefix
+                else:
+                    for i in range(0, 9):
+                        dsHelper(prefix + str(i), n - 1)
+
+            def decimalString(n):
+                dsHelper("", n)
+
+    - enumerating permutations without repetitions:
+        - given a set (or string) with n distinct characters, print out all permutations (of size n, no repetitions allowed)
+
+        i.e. abc -> len(result) = 3! = 6; print result
+
+        - def permutationsHelper(prefix, array):
+            if len(array) == 0:
+                print(prefix)
+            else:
+                for i in range(0, len{array}):
+                    permutationHelper(prefix + array[i], array[:i] + array[i + 1:])
+        
+        - time-complexity: O(n! * n) 
+            not O(n!) because the leaf nodes have to do O(n) work to print each permutation
+        
+        - space-complexity:
+            proportional to the deepest / longest activation record path possible ~ O(n)
+
+    - enumerating combinations as opposed to permutations
+        - given a set, S, of n distinct numbers, print (enumerate) all of its subsets
+            - i.e. if S = {1, 2, 3} return: {}, {1}, {2}, {3}, {1, 2}, {2, 3}, {3, 1}, {1, 2, 3}
+            - since we are talking about combination, order does not matter and repetition is not allowed
+        
+        - def subsetHelper(slate, array):
+            if len(array) == 0:
+                return slate
+            else:
+                // excude choice -> exclude the 0th element
+                subsetHelper(state, array[1:])
+                // include choice
+                subsetHelper(state + array[0], array[1:])
+
+        - def printSubsets(givenString):
+            subsetHelper([], givenString)
+
+        - time-complexity: 
+            - if every node were doing a constant amount of work, then the complexity would be proportional to the 
+                total amount of nodes in the tree ~ O(2^n) 
+            - however the leaf level nodes are doing O(n) work
+            - so the lower-bound => O(2^n * n)
+        - space-complexity:
+            - max size of the call stack -> O(n)
 """
