@@ -258,7 +258,6 @@ MCQ:
 
     () 
 
-
 """
 
 # fibonacci sequence
