@@ -251,6 +251,14 @@ MCQ:
     (9) The recurrence equation for the time complexity of binary search is:
         - T(n) = T(n / 2) + 1
 
+    () Given a set S of n distinct integers (assume n > 10), which is larger,
+        the number of subsets of S, or the number of permutations of S
+        (without repetitions)?
+        - The number of permutations of S
+
+    () 
+
+
 """
 
 # fibonacci sequence
