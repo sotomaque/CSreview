@@ -105,7 +105,6 @@
                     and parsing through collisions to find out element might take O(n) time
                     - we could still have the expected time-compelxity be constant: O(1)
                         if we minimize hash collisions
-                        
 """   
 
 # search trees 
@@ -143,8 +142,7 @@
         2. linked: Balanced Binary Search Tree - i.e. Map / Set
             - search: O(log(n))
             - insert: O(log(n))
-            - delete: O(log(n))
-            
+            - delete: O(log(n))       
 """
 
 # binary search tree - search foundations
@@ -216,8 +214,7 @@
 
         - time-complexity: O(log(n))
         - however, if we try to insert using this algo a set a keys in already sorted order, the tree will no longer be balnaced and will now have a height of n
-        - we need to re balance the tree post insert
-            
+        - we need to re balance the tree post insert        
 """
 
 # BST - Min / Max
@@ -306,11 +303,9 @@
                     else:
                         curr = curr.right
                 return ancestor
-                
+
             - time-complexity: O(log(n)) -> better than a hashtable where TC is O(n)
-
 """
-
 
 # BST Predecessor
 """
@@ -348,5 +343,389 @@
                 return ancestor
 
             - time-complexity: O(log(n)) -> better than a hashtable where TC is O(n)
+"""
+
+# BST Delete
+"""
+    - suppose we are given a refrence to the root node of a tree, and a key that we want to delete
+    - this function should return the new node of the tree after we have deleted the key
+        - there is no guarantee the root exists within the BST
+    - the first thing we would want to do is search for the node containing the key
+
+    - case 1:
+        - node is a leaf
+        - need to keep track of the previous pointer so we can set it to null
+    - case 2:
+        - node has exactly one child
+        - if curr is a left child of its parent, we want to have the parent.left's pointer now point to curr's only child
+        - if curr is a right child of its parent, we want to have parent.right's pointer now point to curr's only child
+    - case 3:
+        - node has two children
+        - a good candidate would either have to be the predecessor of k, or the succesor of k
+
+    - pseduocode:
+
+        - def delet(TreeNode root, int key):
+        
+            cur = root
+            prev = null
+
+            while curr is not null:
+                if key == curr.key:
+                    break # it is possible prev stays null if we want to delete the node in a tree with only one node, as we would break here 
+                elif key < curr.key:
+                    prev = curr
+                    curr = curr.left
+                else: # key > curr.key
+                    prev = curr
+                    curr = curr.right
+            
+            # if curr is null or tree is empty, 
+            if curr is null:
+                print "KEY NOT IN TREE"
+                return root
+            
+            # else curr is pointing to node we want to delete
+
+            # case 1: node is a leaf
+            if curr.left is null and curr.right is null:
+                # edge case, single node tree where we want to delete that node
+                if prev is null:
+                    return null
+                # otherwise
+                if curr is prev.left:
+                    prev.left = null
+                else: # curr is prev.right
+                    prev.right = null
+                return root
+
+            # case 2: node has one child
+            child = null
+            if current.left is null and current.right is not null:
+                child = curr.right
+            if current.left is not null and current.right is null:
+                child = curr.left
+            
+            if child not null:
+                # edge case
+                if prev == null:
+                    root = child
+                    return root
+                if current is prev.left:
+                    prev.left = child
+                else: // curr is prev.right:
+                prev.right = child
+
+                return root
+
+            # case 3: node has two children 
+            if curr.left is not null and curr.right is not null:
+                # find successor
+                succ = curr.right
+                prev = curr
+                while succ.left is not null:
+                    prev = succ
+                    succc = succ.left
+
+                curr.key = succ.key
+                if succ is prev.left:
+                    prev.left = succ.right
+                else: // succ is prev.right:
+                    prev.right = succ.right
+                return root
+
+        - time-complexity: 
+            - first search: O(log(n))
+            - case 1 or case 2: update parent pointers: no added complexity: O(1)
+            - case 3: copying value, etc, still constant tile, 
+            - O(log(n))
+"""
+
+# Heirarchial Data
+"""
+    - second context in which trees arise
+    - when data has a heirarchial element to it
+        - i.e. the tree of life
+        - i.e. a corporate structure
+        - i.e. a file system
+    - these trees are not restricted to two children like binary trees
+        - called an n-ary tree
+            - where arity is the limit on the number of children it could have
+
+    - class TreeNode(self):
+        int key
+        Object value
+        List<TreeNode> children // instead of two refrences to left / right child, we are now allowing for variable number of children
+
+    - traversing children:
+        -i.e.
+        Node
+        for child in node.children:
+            // do stuff
+"""
+
+#BFS 
+"""
+    - Traversal:
+        - a systematic way of visitng all the nodes of a given tree
+        - trivial if an array is represented in a linear fashion (array or linked-list)
+    - we will always begin our traversal from the root
+    - one approach is to traverse the nodes level-by-level (called level-order traversal, or Breadth First Search)
+    - another approach is to traverse the nodes path-by-path (called Depth First Search)
+
+    - given a binary tree. print its nodes in level order
+    - approach:
+        
+        - def levelOrder(TreeNode root):
+            q = new Queue()
+            q.push(root)
+
+            while q is not empty:
+                node = q.pop()
+                print(node)
+                if node.left is not null:
+                    q.push(node.left)
+                if node.right is not null:
+                    q.push(node.right)
+
+        - BFS is thus associated with using a queue data structure
+
+    - to do this for an n-ary tree we would need to make a small modification
+
+        - def levelOrderN_aryTree(TreeNode root):
+            if root is null: return
+
+            q = new Queue()
+            q.push(root)
+
+            while q is not empty:
+                node = q.pop()
+                print(node)
+                
+                for child in node.children:
+                    q.push(child)
+
+    - time-complexity: 
+        - pushing nodes, poping nodes, printing values - O(1)
+        - while loop -> O(n)
+    - space-complexity: 
+        - max size of queue:
+            - number of nodes in the last level 
+            - possible to have a tree where we just have a root node and everyone else is a child of it
+            - therefore max size in worst case: O(n)
+"""
+
+# Preorder / Inorder / Postorder DFS
+"""
+    - Depth-first Search (DFS)
+        - trace every path from root to leafs
+    
+    - pre-order
+        - print each node before you print their subtrees
+
+    - in-order
+        - print left sub-tree then root then right subtree
+        - in a BST, it will print all the nodes which are less than k (root), then k, then all the nodes greater than k
+
+    - post-order
+        -print subtrees before you print the root
+        
+    - all three can be done in O(n) time
+
+    - pseudocode
+
+        - def dfs(TreeNode root):
+            // special case
+            if root is null:
+                return
+            // print(root.key) here -> pre order
+            if root.left not null:
+                dfs(root.left)
+            // print(root.key) here -> in order
+            if root.right not null:
+                dfs(root.right)
+            // print(root.key) here -> post order
+
+        - time-complexity: O(n) (proportionate to recursive calls / size of tress)
+        - space-complexity: if tree is balanced O(log(n)), else O(n)
+            
+    - extend this to an n-ary tree
+
+        - def dfs(TreeNode root):
+            // special case
+            if root is null:
+                return
+            // print(root.key) here -> pre order
+            for child in root.children:
+                defs(child)
+            // print(root.key) here -> post order
+
+        - in order is not so clear as the number of children can vary
+
+        - time-complexity: O(n) (proportionate to recursive calls / size of tress)
+        - space-complexity: if tree is balanced O(log(n)), else O(n)
+
+    - pre-order example
+        - given a tree that represents a table of contents, print out the table of content with appropriate tabs
+            where the number of tabs is proportionate to the depth of the given node
+            i.e.
+                TOC
+                    Chapter 1
+                        sec. 1.1
+                        sec. 1.2
+                            sec. 1.2.1
+                    Chapter 2
+                    ...
+
+        - this is a pre order traversal, as we are looking to print out the key before we print out its children
+        - we simply have to modify it to have a way to keep track of the depth / amount of white space to print out
+
+        -   def helper(TreeNode node, int level):
+                if node is null: return
+                print("" * level, node.key)
+                for child in node.children:
+                    helper(child, level + 1)
+
+        -    dfs(TreeNode root):
+                helper(root, 0)
+    
+    - post-order example
+        - you are given a tree representing a file system an you wish to determine the amount of space occupied by a given directory
+        - the treenode class also has an antribute representing the amount of space occupied
+            - i.e. class TreeNode(self):
+                    string name
+                    int space
+                    List<TreeNode> children
+        - recursively sum disk usage of children, then add your space
+            - require all of childrens space before being able to compute total for a given node
+
+        - pseudocode:
+
+            def helper(TreeNode node):
+                diskUsage = node.space
+                for child in node.children:
+                    diskUsage += helper(child)
+                return diskUsage
+            
+            helper(root)
+"""
+
+# Successor and Predecessor again
+"""
+    - since in-order traversal of a bst prints the nodes in 'sorted' order,
+        we can call in-order traversal to find the successor, or the min element of the right sub-tree, 
+        as it will be the node retured immediately after the given node
+    - if you call a node without a right sub-tree, you go back up the ancestor chain until you take a "right turn", 
+        hitting the successor of the given node
+    - predecessor is the inverse
+"""
+
+# Reconstructing binary tree from traversals
+"""
+    - given the tree 
+            A
+          /   \
+         B     C
+    - its pre-order traversal will be: A B C
+    - its in-order traversal will be: B A C
+    - its post-order traversal will be: B C A
+
+    - question is, if you are given the traversals, can you re construct the tree?
+        i.e. we are only given the pre-order and the fact its a Binary Search tree
+        - A B C can be the pre-order traversal of the above tree and of
+            A
+              \
+                B
+                  \ 
+                    C
+        - so pre-order is not enough
+        - how about in-order?
+            - B A C can be contructed to look like a different tree:
+                  B
+                    \
+                      A
+                        \ 
+                          C
+            - so the same in-order traversal results can map to multplie different BST's
+        - how about post-order traversal?
+             A
+              \
+               C
+                \ 
+                 B
+            - not enought either
+        
+    - what if you are given two traversals, can we use these to reconstruct the tree?
+        pre-order results: k[left subtree][right subtree]
+        in-order results: [left subtree]k[right subtree]
+
+        given the preorder results, we know the first value will be the root of the tree
+            however we dont know where the boundry between L and R lie
+            however we can look at the results of the in-order traversal and look for k
+                from which we know the left subtree values lie before it
+                and the right lie after it
+            recurse on the left and right subtrees to achieve the final result
+
+        i.e. preorder sequence = [3, 9, 20, 15, 7]
+             inorder sequence = [9, 3, 15, 20, 7]
+
+             we know 3 will be the root of the tree
+             we know the left subtree will have the element 9
+             and the right subtree will have the elements [15, 20, 7]
+
+             out of the right subtree elements, we know 20 will be the root, as it appears
+                first in the pre-order sequence
+             since 15 appears before it in the in-order sequence, we know it is a left child
+             and since 7 lies after it in the in-order sequence, it is a right child
+
+    - what if we are given the in-order and post-order sequences?
+        - in the post order sequence, the root node will come at the end of the sequence
+        - everything lying to its left in the in-order sequence will be an element of a left subtree
+        - everything lying to its right in the in-order sequence will be an element of a right subtree
+         
+    - so it is possible with either [pre-order + in-order] or [post-order + in-order]
+
+    - what if we are given the pre-order and the post-order sequences?
+        we know: 
+            pre-order results: k[left subtree][right subtree]
+            post-order results: [left subtree][right subtree]k
+        
+        figuring out the root node is trivial, however figuring out the boundry between the left and the right subtrees would not be possible
+
+        ie. pre-order sequence: a, b, c
+            post-order sequence: c, b, a
+
+            it is not clear whether:
+                a
+               /
+              b
+             /
+            c
+            
+            or
+
+                a
+                 \
+                  b
+                   \
+                    c
+
+        - therefore the in-order sequence is necessary
+    
+    - a special case is a BST where we know the in-order sequence is the sorted version of the pre-order sequence, so we can always deduce the in-order sequence
+
+    BST:
+        in-order by itself -> not sufficent
+        pre-order -> can be used to deduce in-order -> combined suffiecent
+        post-order -> can be used to deduce in-order -> combined suffiecent
+
+    General Binary Tree:
+        pre-order + in-order: sufficent
+        post-order + in-order: sufficent
+        pre-order + post-order: not sufficent
+"""
+
+# Trees Test Review
+"""
 
 """
