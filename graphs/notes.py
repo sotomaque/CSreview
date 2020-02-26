@@ -22,17 +22,16 @@
     vertecies (nodes, represenging land) and edges join the vertecies represent
     bridges
         - we would use an undirected graph
-    - two vertecies are said to be adjacent if there is a path directly joining
-    them
+    - two verticies are said to be adjacent if there is a path directly joining
+        them
     - a path in a graph is a sequence of adjacent vertecies
     - a cycle in a graph is a path that ends at the same vertex where it started
-
     - this terminology was termed by Konig, 200 years after Euler looked at the problem
 """
 
 # Degrees of a Vertex 
 """
-    - the degree of a vertex is just the number of vertecies that are adjacent to a 
+    - the degree of a vertex is just the number of verticies that are adjacent to a 
         given vertex
         - nothing but the number of edges sticking out of a given vertex
     - in general graphs we will look at wont have multiple edges going from the a vertex 
@@ -50,9 +49,9 @@
     - what if we ask the same question for directed graphs?
         - we cant then just talk about the degrees of these vertex
             - we must distinguish between outbound edges and inbound edges
-            - out-degree
-            - in degree
-        => in this case we only count each edge once so the sum of the out-degrees -> number of edges
+                - out-degree
+                - in-degree
+        => in this case we only count each edge once so the sum of the out-degrees = number of edges
     - euler said the same thing about undirected graphs
     - An undirected airport graph has 200 airports, and each airport has a direct flight connection to 
         at least 5 other airports. Which of the following is the most precise statement we can make about
@@ -272,6 +271,97 @@
     g.addEdge(0,6);
     g.addEdge(0,8);
     g.addEdge(1,4);
+"""
 
+# General Graph Search
+"""
+    - so far, we asssumed the graph is connected.
+    - If it is not connected, there cannot be an Eulerian cycle / path in it
+        - even if the degree of every vertex is even
+    - we need to find a way to explore / traverse a graph starting from a source
+    vertex S
+        - find all reachable verticies from 
+        - if set of all reachable vertecies === set of all vertecies -> connected
     
+    - traversal general algorithm:
+        - generally this algorithm can be thought of maintaining two sets of vertecies
+            -> vertecies visited
+            -> vertecies yet to be visited
+        - we end up with a search tree in the "vertecies visited" set
+            - where each parent "captured" the child
+            - root of source tree is original starting vertex, S
+        - set of captured vertecies is percisely set of reachable vertecies 
+        - if any remain in the other set, graph is not connected
+    
+    - pseudocode:
+
+        class Graph {
+            ...
+
+            void search(int s) {
+                // captured and paretn initialized to 0 and null
+                captured[s] = 1
+                while there exists a fringe edge: // recall a fringe edge is an edge connecting the two sets
+                    pick one of them => (u, v)
+                    captured[v] = 1
+                    parent[v] = u
+            }
+        }
+    
+        - all algorithms we will look at will follow this template, where they will differ will be on line 307
+        on how they pick which node to "capture"
+
+    - major algorithm overview
+
+            algorithm                   policy                  search tree
+        ----------------------------------------------------------------------------
+        1.    BFS           chosse the fringe edge that         BFS tree
+                            was seen first              
+        
+        2.    DFS           choose the fringe edge that         DFS tree
+                            was seen last (most recently)
+
+        3.  Dijkstra's      chose the fringe edge whose RHS     Shortest path tree
+                            vertex has the smallest  label      
+                        
+        4.  Prim's          ----------same----------------      Minimum Spanining Tree (MST)
+
+        5.  Best-First      ----------same----------------      best-first search tree
+            Search
+
+        6.    A*            ---similar, except that vertecies   A* (A-star) tree
+                            have two labels which need to be
+                            added
+"""
+
+# BFS
+"""
+    - what breadth-first seach does is it explores the graph in increasing order of distance from S
+        - first capture the immediate neighbors of S (one hop away)
+        - then capture their neighbors (two hops away)
+        - repeat until you have captured all vertecies possible
+
+    - the need for a queue
+        - modify the original code for BFS
+            class Graph {
+                ...
+
+                void search(int s) {
+                    // captured and paretn initialized to 0 and null
+                    captured[s] = 1
+                    // add neighbors of our root vertex to a queue
+                    // when a vertex is pulled out of the queue, only then will we add its neighbors to the queue
+                    while there exists a fringe edge: // recall a fringe edge is an edge connecting the two sets
+                        pick one of them => (u, v)
+                        captured[v] = 1
+                        parent[v] = u
+                }
+            }
+    
+    - handling cycles
+        - the current implementation of our algorithm will fail if there is a cycle present in our graph
+            - every vertex should go into the queue exactly once
+            - we need to maintain a label to know if a vertex has been added to the queue or not
+        - one solution is to keep an array called visited, which will mark a vertex as visited as soon as we see it
+        - once determining if we should add it to the queue, we will check the visited array first
 """
