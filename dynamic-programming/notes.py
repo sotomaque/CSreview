@@ -15,6 +15,7 @@
         multiple times
 
     - recursive fib solution:
+        
         def fib(n):
             if n == 0 or n == 1:
                 return n
@@ -152,4 +153,22 @@
         
         - space-complexity:
             O(n*k)
+"""
+
+# More Notes
+"""
+    - if your recurance relationship exhibits
+        (1) overlapping subproblems - same sub problem computed multiple times => leads to memowization approach
+        (2) optimal substructure -  if what we are computing within the nodes is 'optimal', we will have an optimal substructure
+    
+    - two ways to DP
+        (1) Recursion + Memowization (Top-Down)
+        (2) Iterative (Bottom-up)
+    - they will both have the same time-complexity
+    - space-complexities will likely differ
+    - however Iterative is almost always prefered
+        - because iterative is faster, scalable (bc of stack-overflow)
+        - takes advantage of modern scalar processors
+        - takes advantage of your cache
+    - 
 """
