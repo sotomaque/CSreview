@@ -66,4 +66,90 @@
 
 # Climbing N Stairs
 """
+    - problem statement:
+        - a child is trying to climb a staircase. the maximum number of steps he can climb at a time is two.
+        that is, he can climb either one step at a time or two steps at a time. 
+        - if there are n steps in total, in how many different ways can he climb the staircase?
+   
+    - i.e. 
+        n = 1 -> 1
+        n = 2 -> 2
+        n = 3 -> 3
+
+    - in general for f(n) = ? 
+        - decrease and conquer!
+        - assume we have the solution for n - 1, extend it for n
+            - for the last step, we have two choice, we can either go from
+                f(n-1) => last step (single jump) or
+                f(n-2) => last step (double jump)
+            - so f(n) = f(n-2) + f(n-1)
+
+    - You are climbing a staircase. It takes n steps to reach to the top (n > 3).
+    Each time you can either climb 1 or 2 steps. In how many distinct ways can you
+    climb to the top? Pick the appropriate recurrence equation:
+        - f(n) = f(n-1) + f(n-2), f(0) = 1, f(1) = 1
+        - f(n) = f(n-1) + f(n-2), f(1) = 1, f(2) = 2
+
+    - You are climbing a staircase. It takes n steps to reach to the top (n > 3).
+    Each time you can either climb 1, 2 or 3 steps. In how many distinct ways can
+    you climb to the top? Pick the appropriate recurrence equation with base cases:
+        - f(n) = f(n-1) + f(n-2) + f(n-3), f(0) = 1, f(1) = 1, f(2) = 2
+
+    - How many distinct permutations of the numbers 1 and 2 (in which repetition is allowed) add up to n?
+        Assume that n > 2. For example, if n = 4, the permutations are 2-2, 1-1-2, 1-2-1, 2-1-1, 1-1-1-1 => (5)
+        if n = 3, the permutations are 2-1, 1-2, 1-1-1 => (3)
+        if n = 2, the permutations are 1-1, 2 => (2)
+        Suppose f(n) = The number of such permutations. 
+        The recurrence equation for f(n):
+        - f(n) = f(n-1) + f(n-2)
+"""
+
+# Counting Subsets of Size K
+"""
+    - we have seen before tha N choose K is the number of ways of choosing n out of k elements
+        C(n, k) = C(n-1, k) + C(n-1, k-1)
+
+    - recursive version:
+
+        def C(n, k):
+            # base case
+            if k == 0 or k == n:
+                return 1
+            # recursive case
+            return C(n-1, k) + C(n-1, k-1)
+
+        - time complexity: 2^n
+            - exponential in n
+
+    - this implementation will do a lot of repeated work
+
+    - dp version:
+
+        def C(n,k):
+            if n == 0 or k == n:
+                return 1
+            # recursive case
+            table = [[None]*(n + 1), [None]*(k + 1)]
+
+            # base case 1
+            for row in range(0, n):
+                table[row][n] = 1
+
+            # base case 2
+            for column in range(0, k):
+                table[n][column] = 1
+
+            for row in range(2, n + 1):
+                for columns in range(1,  k + 1):
+                    table[row][columns] = table[row - 1][column] + table[row - 1][column - 1]
+
+            return table[n][k]
+
+        - time-complexity:
+            within the body of the for-loop -> addition -> O(1)
+            do that n * k times
+            => O(n*k) 
+        
+        - space-complexity:
+            O(n*k)
 """
