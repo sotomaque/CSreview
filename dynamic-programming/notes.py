@@ -155,6 +155,42 @@
             O(n*k)
 """
 
+# Counting Unique Paths on a Grid
+"""
+    - problem statement:
+        - given a 2d grid with m rows and n columns, count the number of unique paths starting at the top-left
+        corner, and getting to the bottom-right corner.
+        - all moves must either go right or down
+
+    - i.e. m = 2; n = 3
+                n
+        -------------------------
+        |       |       |       |
+        |   S --|->-----|-->-   |
+     m  ----|-------|-------|----
+        |   v   |   v   |   v   |
+        |   -->-|--->---|---E   |
+        -------------------------
+        - here we can see the number of unique paths from (m,n) = (0,0) to  (m-1, n-1) = (1,2) == 3
+
+    - since we can only move right down:
+        - we know a right move will increase the column number
+        - and a move down will increase the row number my one
+    - cumulatively, any unique path will have a path of ((m-1) + (n-1)) == m + n - 2 
+        - question is how many such valid paths are there
+
+    - given the sum = m + n - 2, this becomes a queestion of "how many different ways can you choose (n - 1) out of (m + n - 2)"
+        those will go to the right; the remaining m - 1 nodes will go down
+
+    - so the total number of ways for our robot to move from the top left to the bottom right
+        = C(m + n - 2, n -1)
+"""
+
+# Decrease and Conquer approach to Previous Prob (DP soution)
+"""
+
+"""
+
 # More Notes
 """
     - if your recurance relationship exhibits

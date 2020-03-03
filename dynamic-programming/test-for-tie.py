@@ -62,6 +62,7 @@ def testForTie(listOfWeights):
 #   - 2D array since we have two conditions that have to be the same to make a subproblem an overlapping subproblem
 #       - i and sum have to be the same, two problems computing same sum but different i are not overlapping subproblems
 #       - DP[len(givenArray) + 1][halfSum + 1]
+#   -> cheap trick, complexity is size of the table, table dimensions are based of number of changing variables
 
 """                     sum
    DP = [    0  1  2  3  4  5  6  7  8  9  10  11
