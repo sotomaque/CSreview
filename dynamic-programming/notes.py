@@ -188,6 +188,138 @@
 
 # Decrease and Conquer approach to Previous Prob (DP soution)
 """
+    - much like the approach for couting a subset, we will use a 2d array
+    - here our base cases lie along the 0 col and 0 row
+        - there is only one such path to get to the last col in the 0th row, that to take
+        all right moves.
+            - similarily there is only one path to the last row, 0th column, thats to take
+            all down moves.
+        - so we will initialize those grids to hold 1's as there is only one way to get there
+        - then we will iterate through the remaining grid, and set
+            table[row][column] = table[row - 1][column] + table[row][column-1]
+        - so we are iterating row by row, from left to right, and a grids value is equal to the
+        value above it + the value to the left of it, both of which are alread computed
+        - value of a path = sum of the values of all the cells making up that path
+
+    - i.e.
+        -------------------------
+        |   1->-|---3->-|---1   |
+        --------------------|----
+        |   1   |   5   |   1   |
+        --------------------|----
+        |   4   |   2   |   1   |
+        -------------------------
+        - the path drawn here has a value of 1 + 3 + 1 + 1 + 1 = 7
+    - the problem that we want to solve is:
+        - among all the different paths the robot could have taken to go from to the top left corner to the bottom right corner,
+        which path has the max value
+            - we want the value of that max path
+            - as well as the path itself
+
+    - one approach would be to derive all paths, then pick the one with the max value
+        - problem is there could be an exponential number of paths of M ~ N are roughly of the same order of magnitude
+
+    - optimal substructure property:
+        - if my optimal sequence has a particular set of moves from S -> E, it will also be an optimal path from S -> first step between S -> E, and for 
+        the second step, etc.
+        - with this property, we can build up the solution to the overall problem by cumulatively building up the solution to larger and larger subproblems
+        starting with end point, and looking at its left neighbor / top neighbor
+            - compare the value of the optimal value of these two, the one with the maximum value contributes to the final cell's optimal path
+"""
+
+# Maximum Path Sum
+"""
+    - we will now transition from looking at counting problems to looking at optimization problems
+        - these are problems where we have to max / min some value
+        - percisely what DP was designed for originially
+    - problem statement:
+        - similar to the "count unique paths" grid, consider a situation where the grid contains value
+            - that is each cell in the grid has some value (or weight) which can be thought of as the number of 
+            points that will be earned if one vists that cell
+        - find the path that maximizes the number of points
+    - here there a lot of overlapping problems
+"""
+
+# Maximum Cost Stair Climb
+"""
+    - optimization version of the stair climbing question we already saw
+    - this will be a minimization problem
+
+    - problem will still have same rules, either one step or two steps allowed
+    - however now each step will have an associated cost
+    
+    - we want to find the cheapest way to go from ground floor to top floor
+        - neither the ground nor the top floors have associated costs
+
+    - brute force attempt: enumerate all possible paths, find the min
+        - enumerating each possible path will be exponential in size of input because this gives us the fibonaci recurance in n
+    
+    - input for weights will be provided in an array:
+        - i.e. [0, 10, 15, 20, 10, 12, ..., 0]
+    
+    - decrease and conquer method:
+        - focus on very last move that was taken to arrive to top floor
+            - either we arrived at it through floor n-1 (single jump) or through floor n-2 (double jump)
+    
+        - this problem also has the property of an optimal substructure:
+            - if we are given a min cost path from s -> d
+                - then any prefix of the path must also be a min-cost path from s to the endpoint of that prefix
+        
+        - total number of subproblems that we have ~ n
+        
+"""
+
+# Number of Paths in a Matrix
+"""
+    problem statement:
+        - given a matrix
+            i.e. [[1,1,0,1], [1,1,1,1]]
+        - return how many paths exist from top left to top right
+        - you can take the path only of a 1 exists in that cell
+        - you can only move right or down
+            - the above example only has two paths
+"""
+
+# Cut the Rope
+"""
+    problem statement:
+        - given a rope of some length
+            - cut the rope in such a way that the product of the length of all the pieces
+            is the maximum possible product
+            - there should be at least one cut
+            - cuts must be of integer lengths
+            - return the max product
+        
+        - i.e. length = 2
+            - only one way to cut it, 1, 1 product = 1
+
+        - i.e. length = 3
+            - can cut 1, 1, 1 => product = 1
+            - can cut 2, 1 => product = 2 <-!!
+
+        - i.e. length = 4
+            - can cut 1, 1, 2 => product = 2
+            - can cut 1, 3 => product = 3
+            - can cut 2, 2 => product = 4 <-!!
+
+        - i.e. length = 5
+            - can cut 1, 1, 1, 1, 1 => product = 1
+            - can cut 3, 2 => product = 6 <-!!
+            - can cut 2, 2, 1 => product = 4
+    
+    - recurssive solution:
+        - defining the function f(k) that gives us the max product for a rope of length k, 
+
+        - from i = 1, to 1 = n:
+            get max(i * (n - 1), f(n-i) * i)
+
+        - symmetry: 
+            once i = 1, the remaining is f(4)
+            once i = 2, the remaining is f(3)
+            once i = 3, the remaining is f(2) (already have)
+            once i = 4, the remaining is f(1) (already have)
+        
+        - however our cache will help us with these overlapping subproblems
 
 """
 
