@@ -266,7 +266,122 @@
                 - then any prefix of the path must also be a min-cost path from s to the endpoint of that prefix
         
         - total number of subproblems that we have ~ n
+    
+     - representing each subproblem as a node in a dependancy graph, we see each node depends on the 
+        previous two nodes to derive its value
+        - its value being the min of the previous two + its own cost
+        - f(i) = min(f(i-1), f(i-2)) + costs[i] 
+"""
+
+# Coin Change
+"""
+    - problem statement:
+        - you are a cashier instructed to give out change using the fewest possible number of coins
+            - all the change you give out is given out strictly in coins
+        - given:
+            - coins of diff denominations
+                i.e. [1, 2, 5] (unlimited supply of each such coin)
+            - and a total "amount" of money
+                i.e. amount = 11
+                => output [5, 5, 1] == 3 coins
+        - compute the fewest number of coins that you need to make up that amoung.
+        - if there is no valid answer, return -1
+
+    - what type of problem is this?
+        - minimization problem (optimization)
+        - when you have an optimization problem, you know to think DP
+
+    - brute force approach:
+        - try to constuct all possible sequences of coins that add up to amount
+        - return the shortest such sequence
+        - exhaustive enumeration can lead to exponential time-complexity
+   
+        - recursive strategy:
+            - start from 0, can pick 1, 2, 5
+                - from this one i can again pick 1, 2, or 5
+                    - repeat.
+            - at each step i have 3 choices
+            - bad because at a branching factor of three, ~ 3^h nodes
+
+    - greedy strategy: make locally optimal choice
+        - first pick a coin of the largest denomination, if it fits into amount, add it to our
+        change array, subtract it from amount
+            - repeat until it doesnt fit into amount
+        - then move down to the next largest coin that does fit into amount  
+
+        - the problem with this approach:
+            - say the coins = [1, 5, 7]
+                and amount = 10
+            - greedy solution would give us change = [7, 1, 1, 1] = 4 coins
+            - where as we can certainly do better by simply giving change = [5, 5] = 2 coins    
+"""
+
+# Coin Change using DP
+"""
+    - unlike the previous optimization problems we have seen,
+    this one does not have a counting analog we have seen yet
+
+    - come up with a recurrence equation (via decrease and conquer) (lazy manager approach)
+        - given an optimal solution (using fewest # of coins)
+            - i.e. c1 + c2 + ... + ck = A
+        - a decrease and conquer approach will work only if our optimal soluion
+        has a optimal substructure property
+            - which is true in this case
+            - every prefix of an optimal solution must also be optimal
+        - given coins = [1, 2, 5]
+        - given we have to construct this amount, A, we know the last coin that could lead
+        to A could be could be 1, 2, or 5. 
+            - if it were 1, we know the second to last amount (ck) added up to a - 1 
+            - if it were 2, we know the second to last amount (ck) added up to a - 2
+            - if it were 5, we know the second to last amount (ck) added up to a - 5
+                - we can then call our "subordinates", assigned the tasks of figuring otu
+                the optimal way to get to (a-1), (a-2), and (a-5).
+                - all three of them come back with the optimal solution.
+                    - say the first subordiante used X coins to come up with their optimal amount
+                    - the second subordiante used Y coins to come up with their optimal amount
+                    - third subordinate used Z coins to come up with their optimal amount
+                        - which of these three options is going to be the prefix to my optimal solution?
+                            - min(X, Y, Z)
+                            - then we add one more coin to get to A
+        - recurrance equtaion:
+            - let f(a) = fewest # coins needed to construt amount A
+            - if the list of distinct coin denominations given to me:
+                coins = [c1, c2, c3, ... ck]
+            - call k subordinates:
+                (1) f(a-c1)
+                (2) f(a-c2)
+                ...
+                (k) f(a-k)
+            - so f(a) = (min(over all k) of (f(a - Ck))) + 1
+    
+    - identify all different possible subproblems:
+        - if we want to construct an amount A,
+            we want to go all the way back to 0:
+                subproblems: 0, ..., a - 2, a - 1
+        - so there are only A + 1 distinct subproblems that are possible in the recursion true
+        even through the absolute number of nodes in the tree may be huge
+
+    - identify dependancies
+        - represent each subproblem as a vertex in the dependancy graph
+        - if one subproblem requires another, there will be a directed graph from requred node to other node
+        - we can decide what order to compute the subproblem solutions in once we have the dependancy graph
+            - want to go in topological sort order to build up solutions
         
+    - identify how we are going to cache subproblem solutions
+        - data structure
+        - dimensions
+        - size etc.
+
+        - here we have A + 1 subproblems and one single variant
+        - so we will have a one dimensional cache, of size A + 1
+
+        table = [None] * (A + 1)
+        table[i] = the solution to the subproblem of size i (f(i))
+
+        - we will fill in table by topological sort order
+            - in this example, from left to right
+
+    - write up DP algo
 """
 
 # Number of Paths in a Matrix
