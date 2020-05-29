@@ -1,5 +1,3 @@
-
-
 # time complexity: 
 #   - height of recursion tree -> log(N)
 #   - problem size at bottom of tree -> 1

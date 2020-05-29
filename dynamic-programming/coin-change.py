@@ -1,4 +1,3 @@
-
 # Coin Change
 """
     - problem statement:
@@ -18,6 +17,8 @@ import math
 # time-complexity:
     # in terms of amount, a, and number of coins, k
     # O(a*k)
+# space-complexity:
+    # O(a)
 def coinChange(coinList, amount):
     # initialize cache array of size amount + 1
     cache = [math.inf] * (amount + 1)
@@ -46,12 +47,13 @@ def coinChange(coinList, amount):
         cache[i] += 1
 
     # return cahce[amount]
+    print(cache)
     return cache[amount]
 
 def test():
     coins = [1, 5, 7]
     amount = 10
     result = coinChange(coins, amount)
-    print(result)
+    print(result, " coins needed to make change ", amount, "cents given the array of coins: ", coins)
 
 test()
