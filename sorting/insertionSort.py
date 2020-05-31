@@ -1,5 +1,3 @@
-
-
 # time complexity: 
 #   - best case -> O(n)
 #   - worst case -> O(n^2)
@@ -13,7 +11,7 @@ def insertionSortRecursive(givenArray, n):
     if n <= 1: return
 
     # sort first n - 1 elements
-    insertionSortRecursive1(givenArray, n-1)
+    insertionSortRecursive(givenArray, n-1)
 
     # insert last element into its correct position in sorted array
     last = givenArray[n - 1]

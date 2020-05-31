@@ -64,7 +64,7 @@ Design Strategy #1:
                 swap the min with a[i]
 
     -instead of scanning the array from left to right, we could have scanned
-        the array from righ to left and looked at pairs of adjacent elements.
+        the array from right to left and looked at pairs of adjacent elements.
         - whenever we see the smaller element appears on the right and the 
             larger element appeared on the left, we could have swapped them
         - this is the inspiration for bubble sort
@@ -114,7 +114,7 @@ Design Strategy # 2:
         -solution is similar to how we would insert a new card into a hand that
         has already been sorted
             -possible soltution: 
-                -start with the n-1th element, keep looking further and futher
+                -start with the n-1 st element, keep looking further and futher
                 behind until we find an element that is smaller than the value
                 of the new card
                     -so that we end up with A[j - 1] <= A[j] <= A[j + 1]
