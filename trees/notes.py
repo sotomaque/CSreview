@@ -293,7 +293,8 @@
                 
                 # p does not have a right subtree
                 # search for p starting for the root so we can keep track of p's parents
-                # trying to find the deepest such event where we follow a left child pointer, after which we only have right child pointers leading up to p
+                # trying to find the deepest such event where we follow a left child pointer, 
+                # after which we only have right child pointers leading up to p
                 ancestor = null
                 curr = root
                 while curr.key is not p.key:

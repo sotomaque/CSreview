@@ -17,6 +17,9 @@
  * - total O(1)
  * - IN PLACE ALGORITHM
  * 
+ * stability:
+ *  NOT STABLE
+ * 
  * @param {array} someArray 
  */
 function selectionSort(someArray) {

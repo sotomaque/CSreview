@@ -7,7 +7,9 @@
  *  - no distinction between best, worst, and average base times
  * 
  * space-complexity:
- *  - not in place as we need aux array's to store currently sorted arrays
+ *  - not in place 
+ *      - aux array's to store currently sorted arrays
+ *  - recursive algorithm -> using space in call stack
  *  
  * stability:
  *  - STABLE

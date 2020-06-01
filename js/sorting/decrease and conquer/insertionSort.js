@@ -10,6 +10,9 @@
  *  - O(n-1) + 3*O(1) = O(n)
  *  - IN PLACE ALGORITHM
  * 
+ * stability:
+ *  -STABLE
+ * 
  * @param {[int]} someArray - array we want sorted
  * @param {int} n - represents the length of the array 
  */

@@ -162,9 +162,16 @@ function helper(someArray, startIndex, endIndex) {
 
 /**
  * time-complexity:
+ *  - best-case:  O(nLog(n))
+ *  - worst-case:  O(n^2)
+ *  - average-case: O(nLog(n))
  * 
  * space-complexity:
  *  - in place (unlike merge sort)
+ *  - recursive algorithm -> using space in call stack
+ * 
+ * stability:
+ *  - NOT STABLE
  *  
  * @param {*} someArray 
  */

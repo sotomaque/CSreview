@@ -18,6 +18,9 @@
  *      O(1)
  * - IN PLACE ALGORITHM
  * 
+ * stability:
+ *  - STABLE
+ * 
  * @param {array} someArray 
  */
 function bubbleSort(someArray) {
