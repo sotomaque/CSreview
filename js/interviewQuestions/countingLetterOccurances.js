@@ -17,13 +17,14 @@
  * @param {STRING} someString 
  */
 function letterOccurances(someString) {
+
+    if (!someString) return;
+
     let result = {}
 
     for (let i = 0; i < someString.length; i++) {
         let currentLetter = someString[i]
-        console.log('currentletter', currentLetter)
         if (result[currentLetter]) {
-            console.log('in here')
             result[currentLetter] = result[currentLetter] + 1
         } else {
             result[currentLetter] = 1

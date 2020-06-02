@@ -8,7 +8,7 @@
  * 
  * space-complexity:
  *  - not in place 
- *      - aux array's to store currently sorted arrays
+ *      - aux array's to store currently sorted arrays: O(n)
  *  - recursive algorithm -> using space in call stack
  *  
  * stability:

@@ -129,10 +129,8 @@ function swap(list, iA, iB){
  */
 function helper(someArray, startIndex, endIndex) {
     // base case
-    if (startIndex >= endIndex) {
-        return
-    }
-
+    if (startIndex >= endIndex) return
+    
     // get random pivot index
     const pivot_index = getRandomInt(startIndex, endIndex)
 
@@ -143,14 +141,19 @@ function helper(someArray, startIndex, endIndex) {
     let slow_pointer = startIndex;
 
     for (let fast_pointer = startIndex; fast_pointer <= endIndex; fast_pointer++) {
-        // fast pointer is pointing at an element < pivot
+        // advance fast pointer every iteration,
+        // if fast pointer points at something smaller than what the slow pointer points at
+            // swap
+            // incremement slow poitner
         if (someArray[fast_pointer] < someArray[startIndex]) {
             slow_pointer = slow_pointer + 1;
             someArray = swap(someArray, slow_pointer, fast_pointer)
         }
     }
+    // slow pointer now points at last element < pivot value
+    // fast pointer now points at end of array
 
-    // take pivot and insert it into its right place
+    // take pivot and insert it into its right place (where the slow pointer is pointing )
     someArray = swap(someArray, startIndex, slow_pointer)
 
     // recursively call quickSort on left / right partitions
