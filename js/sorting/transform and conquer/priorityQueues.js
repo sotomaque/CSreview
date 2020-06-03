@@ -24,6 +24,7 @@
         result = [x, 2, 4, 6, 8]
         pq.removeMax()
         result = [1, 2, 4, 6, 8]
+        
     ----------------------------------------
                 TIME COMPLEXITY
       cost of a remove operation: O(log(n))
