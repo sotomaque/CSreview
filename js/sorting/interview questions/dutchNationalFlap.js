@@ -85,18 +85,19 @@
                         high
         
          -> BREAK LOOP, return array
-                        
-         
+
+    in psudocode:
 
         while cur <= high:
+            // first condition, current points to pivot, increment current
             if a[cur] === pivot:
                 cur += 1;
-            
+            // second condition, current < pivot, swap low with cur, increment current and low
             if a[cur] < pivot:
                 swap(a[cur], a[low])
                 cur += 1
                 low += 1
-            
+            // third condition, current > pivot, swap cur with high, decrement high
             if a[cur] > pivot:
                 swap(a[cur], a[high])
                 high -= 1
@@ -134,28 +135,34 @@ function DutchNationalFlag(data) {
 
     if (!data) return;
 
-    let pivot = 2;
-    let low = 0;
-    let current = 0;
-    let high = data.length - 1;
+    let pivot = 2; 
+
+    let low = 0; // will end up pointing at first 2 in array
+    let current = 0; // will point to element we are currently processing
+    let high = data.length - 1; // will end up point at last 2 in array
 
     while (current <= high) {
 
-        if (data[current] === pivot) {
-            current = current + 1;
-        }
+        // condition 1: data[currnet] === pivot
+        // - incrememnt current
+        if (data[current] === pivot) current++;
 
+        // condition 2: data[current]  < pivot
+        // - swap(data[current], data[low])
+        // - increment current and low
         else if (data[current] < pivot) {
             [data[current], data[low]] = [data[low], data[current]]
-            current = current + 1;
-            low = low + 1;
+            current++;
+            low++;
         }
 
+        // condition 3: data[current] > pivot
+        // - swap(data[current], data[high])
+        // - decrement high
         else if (data[current] > pivot) {
             [data[current], data[high]] = [data[high], data[current]]
-            high = high - 1;
+            high--;
         }
-
     }
 
     return data
@@ -163,7 +170,7 @@ function DutchNationalFlag(data) {
 }
 
 
-let data = [2, 3, 2, 2, 1, 3, 1, 2]
+let data = [2, 3, 2, 2, 1, 3, 1, 2, 1, 1, 2, 1, 2, 3, 2, 1]
 // expected result = [1, 1, 2, 2, 2, 2, 3, 3]
 
 let result = DutchNationalFlag(data);

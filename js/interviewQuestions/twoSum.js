@@ -1,6 +1,6 @@
 /*
     PROBLEM STATEMENT:
-        - given an array and a target suum,
+        - given an array and a target sum,
         return two numbers from the array which add up to the target sum
 
         - you can assume only two numbers (max) will add up to the target sum
@@ -66,27 +66,27 @@ function solution1TwoSum(array, target) {
  */
 function twoNumberSum(array, targetSum) {
     let results = []
-      let myDictionary = {}
-      
-      for (let i = 0; i < array.length; i++) {
-          if (array[i] in myDictionary) {
-            myDictionary[array[i]] += 1
-          } else {
-            myDictionary[array[i]] = 1
-          }
-      }
+    let myDictionary = {}
 
-      for (let i = 0; i < array.length; i++) {
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] in myDictionary) {
+            myDictionary[array[i]] += 1
+        } else {
+            myDictionary[array[i]] = 1
+        }
+    }
+
+    for (let i = 0; i < array.length; i++) {
         let key = array[i]
-		myDictionary[key] -= 1
-		let remainder = targetSum - key;
-		if (remainder in myDictionary && myDictionary[remainder] !== 0) {
-			results.push(remainder, Number(key))
-			return results
-		}
-      }
-    
-      return results
+        myDictionary[key] -= 1
+        let remainder = targetSum - key;
+        if (remainder in myDictionary && myDictionary[remainder] !== 0) {
+            results.push(remainder, Number(key))
+            return results
+        }
+    }
+
+    return results
 }
 
 let A = [3, 5, -4, 8, 11, 1, -1, 6]

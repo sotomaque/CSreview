@@ -1,11 +1,14 @@
 /*
-                         Worst Case
-    Selection Sort         O(n^2)
-    Bubble Sort            O(n^2)
-    Insertion Sort         O(n^2)
-    Merge Sort             O(nlog(n))
-    QuickSort              O(n^2)
-    HeapSort               O(nlog(n))
+    ----------------------------------------------------------------
+                          Worst Case             Stability  
+    ----------------------------------------------------------------
+    Selection Sort         O(n^2)               NOT STABLE
+    Bubble Sort            O(n^2)               STABLE
+    Insertion Sort         O(n^2)               STABLE
+    Merge Sort             O(nlog(n))           STABLE
+    QuickSort              O(n^2)               NOT STABLE
+    HeapSort               O(nlog(n))           NOT STABLE
+    ----------------------------------------------------------------
 
     -------------------
     In place algorithms:
@@ -14,7 +17,7 @@
     Bubble Sort
     Selection Sort
     Insertion Sort
-
+    --------------------
 
     is there a lowerbound in the worst case complexity of sorting algorithms?
         - in other words is there anyway to beat O(nlog(n)) or is it theoretically as good as we can expect?
