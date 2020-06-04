@@ -1,23 +1,27 @@
 /*
-    ----------------------------------------------------------------
-                          Worst Case             Stability  
-    ----------------------------------------------------------------
-    Selection Sort         O(n^2)               NOT STABLE
-    Bubble Sort            O(n^2)               STABLE
-    Insertion Sort         O(n^2)               STABLE
-    Merge Sort             O(nlog(n))           STABLE
-    QuickSort              O(n^2)               NOT STABLE
-    HeapSort               O(nlog(n))           NOT STABLE
-    ----------------------------------------------------------------
+    -------------------------------------------------------------------------------------------------------------------------------
+                                                    Algorithm Overview                                                 
+    -------------------------------------------------------------------------------------------------------------------------------
+                           Worst Case             Stability          Average Case        In Place?          Space Complexity       
+    -------------------------------------------------------------------------------------------------------------------------------
+     Selection Sort         O(n^2)               NOT STABLE           O(n^2)               YES                 O(1)
+     Bubble Sort            O(n^2)               STABLE               O(n^2)               YES                 O(1)
+     Insertion Sort         O(n^2)               STABLE               O(n^2)               YES                 O(n)****
+     Merge Sort             O(nlog(n))           STABLE               O(nlog(n))           NO                  O(n) + O(log(n))***
+     QuickSort              O(n^2)               NOT STABLE           O(nlog(n))           YES                 O(log(n))***
+     HeapSort               O(nlog(n))           NOT STABLE           O(nlog(n))           YES                 O(1)
+     CountingSort           O(n+k)*              Possible**           O(n+k)*              NO                  O(k)*
+    -------------------------------------------------------------------------------------------------------------------------------
+        * let k be the range of the values in the array (i.e. max - min)
 
-    -------------------
-    In place algorithms:
-    --------------------
-    QuickSort
-    Bubble Sort
-    Selection Sort
-    Insertion Sort
-    --------------------
+        ** Possible if implemented with a data structure that abides by FIFO
+
+        *** due to recursive nature, space-complexity proportional to max height of 
+        recursion stack in heap which in this case = log(n)
+
+        **** due to recursive nature, space-complexity proportional to max height of 
+        recursion stack in heap which in this case = n - 1 ~ n
+    --------------------------------------------------------------------------------------------------------------------------------
 
     is there a lowerbound in the worst case complexity of sorting algorithms?
         - in other words is there anyway to beat O(nlog(n)) or is it theoretically as good as we can expect?
