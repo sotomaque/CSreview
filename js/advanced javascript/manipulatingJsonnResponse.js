@@ -11,7 +11,7 @@ let response = {
             },
             "relationships": {
                 "author": {
-                "data": {"id": "42", "type": "people"}
+                    "data": {"id": "42", "type": "people"}
                 }
             }
         }, 
@@ -37,36 +37,45 @@ let response = {
             "type": "people",
             "id": "42",
             "attributes": {
-            "name": "John",
-            "age": 80,
-            "gender": "male"
+                "name": "John",
+                "age": 80,
+                "gender": "male"
             }
         }, 
         {
             "type": "people",
             "id": "43",
             "attributes": {
-            "name": "Enrique",
-            "age": 25,
-            "gender": "male"
+                "name": "Enrique",
+                "age": 25,
+                "gender": "male"
             }
         }
     ]
-  }
+}
 
-let {data, included} = response;
+let { data, included } = response;
 
 // print only the articles names and authors
-let formattedData = data.map((data) => {
-    let publicationDate = new Date(data.attributes.created)
-    let authorId = data.relationships.author.data.id;
-    let articleName = data.attributes.title;
-    let res = included.filter(person => person.id === authorId);
-    let authorName = res[0].attributes.name
-    
-    return {summary: `${articleName} written by ${authorName}`, date: publicationDate }
+let formattedData = data.map( article => {
+    // get article details
+    let articleName = article.attributes.title;
+    let publicationDate = new Date(article.attributes.created)
+
+    // get author details
+    let authorId = article.relationships.author.data.id;
+    let author = included.filter(person => person.id === authorId); // returns array, 0th index will hold authors info
+    let authorName = author[0].attributes.name
+
+    // return an object with a summary containing the article title and author name
+    // as well as a date object for the publication date
+    return {
+        headline: `${articleName} written by ${authorName}`, 
+        date: publicationDate 
+    }
 });
 
+// sort the formatted data in ascending order
 console.log(formattedData.sort((a,b) => {return a.date - b.date}))
 
 
