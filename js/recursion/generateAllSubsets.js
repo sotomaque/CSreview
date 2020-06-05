@@ -13,7 +13,7 @@
 */
 
 
-function helper(array, index, state_taken) {
+function helper(array, index = 0, state_taken = []) {
 
     if (index === array.length) {
         console.log(state_taken)
@@ -26,15 +26,15 @@ function helper(array, index, state_taken) {
 
 /**
  * time-complexity:
- *  -
+ *  - O(2^n)
  * 
  * space-complexity:
- *  -
+ *  - O(2^n)
  * 
  * @param {*} array 
  */
 function printAllSubsets(array) {
-    return helper(array, 0, [])
+    return helper(array)
 }
 
 
