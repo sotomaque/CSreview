@@ -104,11 +104,74 @@ function threeSum(array, target) {
     return results
 }
 
-let A = [3, 5, -4, 8, 11, 1, -1, 6, 0]
-let target = 121
 
-let results = threeSum(A, target)
+/***
+ * Three pointer approach
+ *  - first sort array
+ *  - have three pointers, left, currrent, right
+ * 
+ * time-complexity:     
+ *  - still approaches O(n^2)
+ * 
+ * space-complexity:    
+ *  -O(k) where k is the total # of magic triplets * 3
+ *      
+ */
+function threeSumAlt(array, target) {
+
+    let results = []
+    if (!array.length) return results
+
+    array.sort((a, b) => {return a - b})
+    let current_sum = 0;
+    let R = array.length - 1;
+
+    // if we change the second constraint to current < array.length instead
+    // of current < array.lenght - 2, on the last iteration, current = the 
+    // last element of the array, left will exceed the array bound, and right
+    // right will still be the last element of the array
+    for (let current = 0; current < array.length - 2; current++) {
+
+        // since we only want to add unique magic triplets, 
+        if (current > 0 && array[current] === array[current - 1]) continue
+
+        let L = current + 1;
+
+        while (L < R) {
+            current_sum = array[L] + array[current] + array[R];
+
+            if (current_sum === target) {
+                results.push([array[L], array[current], array[R]]);
+                break
+            }
+            
+            else if (current_sum < target) {
+                L += 1
+            }
+
+            // current_sum > target -> biggest number is too big -> R -= 1
+            else {
+                R -= 1
+            }
+        }
+    }
+
+    return results
+
+}
+
+
+let A = [10, 3, -4, -4, -4, 1, 1, 1, 1, -6, 9, 0, 0, 0]
+let target = 0
+console.log(A.sort((a, b) => {return a - b}))
+// let results = threeSum(A, target)
+
+// results.length 
+//     ? console.log(`three numbers in [${A}] that add up to ${target} are: [${results}]`)
+//     : console.log(`no three numbers in [${A}] add up to ${target}`)
+
+let results = threeSumAlt(A, target)
 
 results.length 
-    ? console.log(`three numbers in [${A}] that add up to ${target} are: [${results}]`)
+    ? console.log(`three numbers in [${A}] that add up to ${target} are:`, results)
     : console.log(`no three numbers in [${A}] add up to ${target}`)
