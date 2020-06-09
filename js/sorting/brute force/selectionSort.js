@@ -43,7 +43,7 @@ function selectionSort(someArray) {
 }
 
 function test() {
-    const testArray = [64, 25, 12, 22, 11]
+    const testArray = [2, 3, 5, 5, 6, 8, 9]
     const result = selectionSort(testArray)
     console.log(result)
 }

@@ -104,7 +104,8 @@ function pathWithMaxSumIterative(grid, row, column) {
     let n = column.length;
     let m = row.length;
 
-    let DP = [m][n]
+    // initalize a 2d array (with everything being false)
+    const DP = new Array(M+1).fill(0).map(() => new Array(N+1).fill(false));
 
     DP[m - 1][n - 1] = grid[m - 1][b - 1]
 

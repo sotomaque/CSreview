@@ -49,6 +49,6 @@ function printAll(array, index = 0, state_taken = []) {
     }
 }
 
-let array = [1, 8, 2, 32, 42, 3, 81]
+let array = [2, 4, 3, 9, 7, 11, 13, 8]
 
 printAll(array)
