@@ -124,7 +124,6 @@ function threeSumAlt(array, target) {
 
     array.sort((a, b) => {return a - b})
     let current_sum = 0;
-    let R = array.length - 1;
 
     // if we change the second constraint to current < array.length instead
     // of current < array.lenght - 2, on the last iteration, current = the 
@@ -136,13 +135,14 @@ function threeSumAlt(array, target) {
         if (current > 0 && array[current] === array[current - 1]) continue
 
         let L = current + 1;
+        let R = array.length - 1;
 
         while (L < R) {
             current_sum = array[L] + array[current] + array[R];
 
             if (current_sum === target) {
                 results.push([array[L], array[current], array[R]]);
-                break
+                L += 1
             }
             
             else if (current_sum < target) {
@@ -161,7 +161,7 @@ function threeSumAlt(array, target) {
 }
 
 
-let A = [10, 3, -4, -4, -4, 1, 1, 1, 1, -6, 9, 0, 0, 0]
+let A = [12, 3, 1, 2, -6, 5, 0, -8, -1, 6]
 let target = 0
 console.log(A.sort((a, b) => {return a - b}))
 // let results = threeSum(A, target)
