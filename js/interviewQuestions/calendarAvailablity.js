@@ -4,7 +4,6 @@
     and a meeting duration
 
     return a list of times that work for both people that satisfy the duration constraint
-
 */
 
 // approach: 
@@ -13,14 +12,15 @@
 // mergedCal = [["12:00", "13:30"], ["12:00", "12:30"], ["13:00", "15:30"], ["15:00", "17:00"], ["16:00", "17:00"]] ✅
 
 // iterate through mergedCal comparing neighbors
-    // case where end of slot 1 > beginging of slot 2:
-        // i.e. ["12:00", "13:30"], ["12:00", "12:30"]
-        // make end of slot1 = Math.max(slot1[1], slot2[1]) => max(13:30, 12:30) => 13:30
-        // mergedCal = [["12:00", "15:30"], ["15:00", "17:00"]]
-    // if any slot in mergedCal is greater than or equal to meeting duration, add to results array,
-    // return results array ✅
 
-// check each of the windows in results, if < duration, remove it
+// case where end of slot 1 > beginging of slot 2:
+    // i.e. ["12:00", "13:30"], ["12:00", "12:30"]
+    // make end of slot1 = Math.max(slot1[1], slot2[1]) => max(13:30, 12:30) => 13:30
+    // mergedCal = [["12:00", "15:30"], ["15:00", "17:00"]]
+// if any slot in mergedCal is greater than or equal to meeting duration, add to results array,
+// return results array ✅
+
+// check each of the windows in results, if < duration, remove it ✅
 
 function mergeTwoCalendars(s1, s2) {
     let i = 0;
@@ -103,7 +103,6 @@ function getTimeDifferenceOfStringInMinutes(time1, time2) {
 
     return res2 - res1
 }
-
 
 /**
  * function goes through each possible meeting time, and if the window length > meeting duration,
@@ -209,7 +208,6 @@ function suggestMeetingTime(s1, s2, b1, b2, duration) {
 
     return results
 }
-
 
 let cal1 = [["12:00", "12:30"], ["15:00", "17:00"]]
 let cal2 = [["13:00", "13:30"], ["16:00", "17:00"]]
