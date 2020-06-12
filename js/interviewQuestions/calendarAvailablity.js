@@ -69,6 +69,17 @@ function processTimeFromNumOfMinutesToString(timeInString) {
     return `${hours}:${minutes}`
 }
 
+// asumption time1 < time2
+function getTimeDifferenceOfStringInMinutes(time1, time2) {
+    let res1 = time1.split(':')
+    res1 = Number(res1[0] * 60) + Number(res1[1])
+
+    let res2 = time2.split(':')
+    res2 = Number(res2[0] * 60) + Number(res2[1])
+
+    return res2 - res1
+}
+
 function considerBounds(mergedArrays, availablity, b1, b2) {
     // consider bounds
     // max(b1[0], b2[0]) is our constraining starttime
@@ -91,17 +102,6 @@ function considerBounds(mergedArrays, availablity, b1, b2) {
     // spread in constraints set by passed in bounds to merged array
     availablity = [newFirstTime, ...availablity, newEndTime]
     return availablity
-}
-
-// asumption time1 < time2
-function getTimeDifferenceOfStringInMinutes(time1, time2) {
-    let res1 = time1.split(':')
-    res1 = Number(res1[0] * 60) + Number(res1[1])
-
-    let res2 = time2.split(':')
-    res2 = Number(res2[0] * 60) + Number(res2[1])
-
-    return res2 - res1
 }
 
 /**
