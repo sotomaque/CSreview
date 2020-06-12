@@ -7,7 +7,7 @@
 
 */
 
-
+// approach: 
 
 // create merged array of calendars
 // mergedCal = [["12:00", "13:30"], ["12:00", "12:30"], ["13:00", "15:30"], ["15:00", "17:00"], ["16:00", "17:00"]] ✅
@@ -106,6 +106,90 @@ function getTimeDifferenceOfStringInMinutes(time1, time2) {
 
 
 /**
+ * function goes through each possible meeting time, and if the window length > meeting duration,
+ * appends that window to an array to return 
+ * 
+ * time-complexity:
+ *  - O(n) 
+ * 
+ * space-complexity:
+ *  - O(k) where k is the length of the availability array we return
+ * 
+ * @param {array} results - array of tupes representing times when users can meet
+ * @param {int} duration - time of proposed meeting in minutes
+ * @returns {array} availability - either an array of tuples for possible meetings or an empty array if no times in 
+ *                                 resuults satisfy duration criteria
+ */
+function handleDurationConstraint(results, duration) {
+    let availablity = []
+    // handle meeting duration constraint
+    results.forEach(tuple => {
+        let availablityInMinutes = getTimeDifferenceOfStringInMinutes(tuple[0], tuple[1])
+        if (availablityInMinutes >= duration) {
+            availablity.push(tuple)
+        }
+    });
+    return availablity
+}
+
+/**
+ * function takes in an array 
+ *  i.e. input = [["12:00", "12:30"], ["12:00", "13:30"], ["13:00", "15:30"], ["15:00", "17:00"], ["16:00", "17:00"]] 
+ *  and compresses input to consider three cases:
+ *      case 1: 
+ *          - where end time of first event > start time of second event;
+ *      case 2:
+ *          - where end time of first event < start time of second event;
+ *      case 3:
+ *          - where end time of first event == start time of second event;
+ * 
+ * time-complexity:
+ *  - O(n)
+ * 
+ * space-complexity: 
+ *  - O(m) where m is the length of the 'results' array
+ *      - results being the times between scheduled appointments
+ * 
+ * @param {array} mergedArrays - array of tuples
+ * @returns {array} results - array of times when neither user is busy and they can potentially meet
+ */
+function reduceMergedArrays(mergedArrays) {
+    let results = []
+    for (let i = 0; i < mergedArrays.length - 1; i++) {
+        // case where end of slot 1 > beginging of slot 2:
+        // i.e. ["12:00", "13:30"], ["12:00", "12:30"]
+        // make end of slot1 = Math.max(slot1[1], slot2[1]) => max(13:30, 12:30) => 13:30
+        // mergedCal = [["12:00", "15:30"], ["15:00", "17:00"]]
+        // remove mergedArrays[i + 1] from mergedArrays
+        if (mergedArrays[i][1] > mergedArrays[i + 1][0]) {
+            let endOfSlot1 = Math.max(processTimeFromStringToNumOfMinutes(mergedArrays[i][1]), processTimeFromStringToNumOfMinutes(mergedArrays[i + 1][1]));
+            mergedArrays[i][1] = processTimeFromNumOfMinutesToString(endOfSlot1);
+            mergedArrays.splice(i + 1, 1);
+        }
+        // case where end of slot 1 < begining of slot 2:   
+        // i.e. ["12:00", "12:30"], ["13:00", "13:30"]
+        // we have a window of availablity
+        // window = [endOfSlot1, startOfSlot2]
+        // could potentially pre-process and ensure it satisfys out meeting time constraint 
+        // push window to results
+        else if (mergedArrays[i][1] < mergedArrays[i + 1][0]) {
+            results.push([mergedArrays[i][1], mergedArrays[i + 1][0]]);
+        }
+        // case where end of slot 1 === begining of slot 2
+        // i.e. ["12:00", "12:30"], ["12:30", "13:30"]
+        // make end of slot1 = endOfSlot2
+        // mergedCal = [["12:00", "13:30"]]
+        // remove mergedArrays[i + 1] from mergedArrays
+        else {
+            mergedArrays[i][1] = mergedArrays[i + 1][1];
+            mergedArrays.splice(i + 1, 1);
+        }
+    }
+    
+    return [ mergedArrays, results ]
+}
+
+/**
  * 
  * @param {array} s1 - list of tupes, representing times when person 1 is busy
  * @param {array} s2 - list of tupes, representing times when person 1 is busy
@@ -116,56 +200,14 @@ function getTimeDifferenceOfStringInMinutes(time1, time2) {
 function suggestMeetingTime(s1, s2, b1, b2, duration) {
 
     let mergedArrays = mergeTwoCalendars(s1, s2);
-    let results = []
-
     // process mergedArrays 'reducing' array 
-    for (let i = 0; i < mergedArrays.length - 1; i++) {
-        // case where end of slot 1 > beginging of slot 2:
-        // i.e. ["12:00", "13:30"], ["12:00", "12:30"]
-        // make end of slot1 = Math.max(slot1[1], slot2[1]) => max(13:30, 12:30) => 13:30
-        // mergedCal = [["12:00", "15:30"], ["15:00", "17:00"]]
-        // remove mergedArrays[i + 1] from mergedArrays
-        if (mergedArrays[i][1] > mergedArrays[i + 1][0]) {
-            let endOfSlot1 = Math.max(processTimeFromStringToNumOfMinutes(mergedArrays[i][1]), processTimeFromStringToNumOfMinutes(mergedArrays[i + 1][1]))
-            mergedArrays[i][1] = processTimeFromNumOfMinutesToString(endOfSlot1)
-            mergedArrays.splice(i + 1, 1)
-        }
-
-
-        // case where end of slot 1 < begining of slot 2:   
-        // i.e. ["12:00", "12:30"], ["13:00", "13:30"]
-        
-        // we have a window of availablity
-        // window = [endOfSlot1, startOfSlot2]
-            // could potentially pre-process and ensure it satisfys out meeting time constraint 
-        // push window to results
-        else if (mergedArrays[i][1] < mergedArrays[i + 1][0]) {
-            results.push([mergedArrays[i][1], mergedArrays[i + 1][0]])
-        }
-
-        // case where end of slot 1 === begining of slot 2
-        // i.e. ["12:00", "12:30"], ["12:30", "13:30"]
-        // make end of slot1 = endOfSlot2
-        // mergedCal = [["12:00", "13:30"]]
-        // remove mergedArrays[i + 1] from mergedArrays
-        else {
-            mergedArrays[i][1] = mergedArrays[i + 1][1]
-            mergedArrays.splice(i + 1, 1)
-        }
-    }
-    
+    [ mergedArrays, results ] = reduceMergedArrays(mergedArrays);
+    // handle time constraints of users
     results = considerBounds(mergedArrays, results, b1, b2)
-    let availablity = []
-    console.log(results)
-    // handle duration constraint
-    results.forEach(tuple => {
-        let availablityInMinutes = getTimeDifferenceOfStringInMinutes(tuple[0], tuple[1])
-        if (availablityInMinutes >= duration) {
-            availablity.push(tuple)
-        }
-    })
+    // handle duration constraint of meeting
+    results = handleDurationConstraint(results, duration)
 
-    return availablity
+    return results
 }
 
 
