@@ -78,16 +78,6 @@ function longestIncreasingSubsequence(array, index = 0, prev = -1) {
     return m
 }
 
-/**
- * 
- * @param {*} array 
- * @param {*} index 
- * @param {*} prev 
- */
-function longestIncreasingSubsequenceDP(array, index = 0, prev = -1) {
-
-}
-
 let array = [2, 4, 3, 9, 7, 11, 13, 8]
 
 let res = longestIncreasingSubsequence(array)
