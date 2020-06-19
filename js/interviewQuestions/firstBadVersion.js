@@ -12,32 +12,25 @@
 /**
  * time-complexity:
  *  - O(log(n)) -> BINARY SEARCH!!
+ * 
+ * space-complexity:
+ *  - O(1)
  */
 function firstBadVersion(array) {
-
-    // base case
-    if (!array || !array.length) return -1
-
-    let left = 0;
+    let left = 1;
     let right = array.length - 1;
-
     while (left < right) {
-        let midpoint = Math.floor((left + (right - left)) / 2);
-        // if we find a bad version
-            // keep going back to find first bad version
-        if (array[midpoint]) {
-            if (left === midpoint) return left
-            else right = midpoint;
+        let mid = Math.floor((left + right) / 2);
+        if (array[mid]) {
+            right = mid;
         } else {
-            left = midpoint + 1
+            left = mid + 1;
         }
     }
-
-    if (left === right && array[left]) return left
-    else return -1
+    return left;
 }
 
-let a = [false, false, false, true, true] //3
-
+let a = [false, true, true, true, true] //1
 let firstBadIndex = firstBadVersion(a)
+
 console.log(firstBadIndex)

@@ -32,37 +32,43 @@
  * @param {*} array 
  */
 function numberOfIslands(array) {
-    let numOfIslands = 0;
+
+    if (!array.length || array === null) return 0
+    let numIslands = 0;
 
     for (let i = 0; i < array.length; i++) {
         for (let j = 0; j < array[i].length; j++) {
             // if we see a 1, increment counter
-            // go thru whole island, turn all connected 1's to zeros
+            // however we dont want to always automatically increment by 1,
+            // otherwise we can double count what should be one connected island
+            // as multiple islands, instead we want to 'flip' all connected 1's to 0's
             if (array[i][j] === 1) {
-                numOfIslands += 1;
-                callBFS(array, i, j);
+                numIslands += callDFS(array, i, j);
             }
         }
     }
 
-    return numOfIslands;
+    return numIslands;
 }
 
-function callBFS(array, i, j) {
+function callDFS(array, i, j) {
     // boundry checks
-    if (i < 0 || i >= array.length || j < 0 || j >= array.length || array[i][j] === 0) return
+    if (i < 0 || i >= array.length || j < 0 || j >= array[i].length || array[i][j] === 0) return 0
 
-    array[i][j] = 0;
-    callBFS(array, i - 1, j) // up
-    callBFS(array, i + 1, j) // down
-    callBFS(array, i, j - 1) // left
-    callBFS(array, i, j + 1) // right
+    array[i][j] = 0; // ensures we dont revisit this recursively
+    
+    callDFS(array, i - 1, j) // up
+    callDFS(array, i + 1, j) // down
+    callDFS(array, i, j - 1) // left
+    callDFS(array, i, j + 1) // right
+
+    return 1; // account for original island that we saw while traversing the matrix
 }
 
 let input = [ [1, 1, 0, 1, 0], 
-              [1, 1, 0, 1, 0],
+              [1, 1, 0, 0, 0],
               [1, 1, 0, 1, 0], 
-              [0, 0, 0, 0, 0]]
+              [0, 0, 0, 0, 1]]
 
 let res = numberOfIslands(input)
 
