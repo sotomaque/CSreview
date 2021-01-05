@@ -1,6 +1,6 @@
 """
     #Intro
-        -classic problems:
+        - Classic Problems:
             - reverse a string
             - check if string is a paladrome
 

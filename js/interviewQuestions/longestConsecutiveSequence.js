@@ -52,8 +52,14 @@ function longestConecutiveSequence(arrayOfIntegers) {
   return runningConsecuitiveNums.length;
 }
 
+/**
+ * approach 2:
+ *  -
+ */
+
 function longestConecutiveSequenceV2(arrayOfIntegers) {}
 
+//
 const input = [100, 4, 200, 1, 3, 2];
 const res = longestConecutiveSequence(input);
 
