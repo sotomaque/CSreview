@@ -6,59 +6,59 @@
 /**
  * time-complexity:
  *  - O(2n) -> O(n)
- * 
+ *
  * space-complexity:
  *  - O(n)
- * @param {*} array 
+ * @param {*} array
  */
 function sortByParity(array) {
-    let result = []
-    let j = 0;
-    array.forEach(element => {
-        // evens go at front of array
-        if (element % 2 === 0) {
-            result[j] = element;
-            j += 1;
-        }
-    });
+  let result = [];
+  let j = 0;
+  array.forEach((element) => {
+    // evens go at front of array
+    if (element % 2 === 0) {
+      result[j] = element;
+      j += 1;
+    }
+  });
 
-    array.forEach(element => {
-        if (element % 2 === 1) {
-            result[j] = element;
-            j += 1;
-        }
-    });
+  array.forEach((element) => {
+    if (element % 2 === 1) {
+      result[j] = element;
+      j += 1;
+    }
+  });
 
-    return result;
+  return result;
 }
 
 /**
  * time-complexity:
  *  - O(2n) -> O(n)
- * 
+ *
  * space-complexity:
  *  - O(1)
- * @param {*} array 
+ * @param {*} array
  */
 function sortByParityInPlace(array) {
-    let left = 0;
-    let right = array.length - 1;
+  let left = 0;
+  let right = array.length - 1;
 
-    while (left < right) {
-        if (array[left] % 2 === 0) {
-            left += 1
-        } else {
-            [array[left], array[right]] = [array[right], array[left]]
-            left += 1
-            right -= 1
-        }
-    }        
+  while (left < right) {
+    if (array[left] % 2 === 0) {
+      left += 1;
+    } else {
+      [array[left], array[right]] = [array[right], array[left]];
+      left += 1;
+      right -= 1;
+    }
+  }
 
-    return array;
+  return array;
 }
 
-let a = [3, 1, 2, 4] 
+let a = [3, 1, 2, 4];
 // [4, 1, 2, 3]
 // [4, 2, 1, 3]
-let b = sortByParityInPlace(a)
-console.log(b)
+let b = sortByParityInPlace(a);
+console.log(b);

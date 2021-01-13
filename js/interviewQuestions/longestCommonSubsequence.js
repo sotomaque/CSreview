@@ -65,73 +65,73 @@
 */
 
 /**
- * time-complexity:     
+ * time-complexity:
  *  - O(2^n) where n is the max(a.length, b.length)
- * 
- * space-complexity:   
+ *
+ * space-complexity:
  *  -
- * 
+ *
  * @param {STRING} A - user input
  * @param {STRING} B - user input
  * @param {int} i - default value 0 - index of first string we are evaluating
  * @param {int} j - default value 0 - index of second string we are evaluating
  */
 function LCS_recursive(A, B, i = 0, j = 0) {
-
-    // base case
-    if (i > A.length - 1 || j > B.length - 1) return 0
-
-    // match case
-    else if (A[i] === B[i]) return 1 + LCS_recursive(A, B, i + 1, j + 1)
-    
-    // no match case
-    else return Math.max(LCS_recursive(A, B, i + 1, j), LCS_recursive(A, B, i, j + 1))
-    
+  // base case
+  if (i > A.length - 1 || j > B.length - 1) return 0;
+  // match case
+  else if (A[i] === B[i]) return 1 + LCS_recursive(A, B, i + 1, j + 1);
+  // no match case
+  else
+    return Math.max(
+      LCS_recursive(A, B, i + 1, j),
+      LCS_recursive(A, B, i, j + 1)
+    );
 }
 
 /**
- * time-complexity:     
+ * time-complexity:
  *  - O(m x n) where m is the length of s1 and n is the length of s2
- * 
- * space-complexity:   
+ *
+ * space-complexity:
  *  - O(m x n)
- * 
+ *
  * @param {STRING} A - user input
  * @param {STRING} B - user input
  * @param {int} i - default value 0 - index of first string we are evaluating
  * @param {int} j - default value 0 - index of second string we are evaluating
  */
 function LCS_dp(A, B) {
+  let DP = new Array(A.length + 1)
+    .fill(0)
+    .map(() => new Array(B.length + 1).fill(Number.MIN_SAFE_INTEGER));
 
-    let DP = new Array(A.length+1).fill(0).map(() => new Array(B.length + 1).fill(Number.MIN_SAFE_INTEGER));
-
-    // set base case values to 0
-    for (let row = 0; row < DP.length; row++ ) {
-        for (let col = 0; col < DP[0].length; col++) {
-            if (row === 0 || col === 0) DP[row][col] = 0
-        }
+  // set base case values to 0
+  for (let row = 0; row < DP.length; row++) {
+    for (let col = 0; col < DP[0].length; col++) {
+      if (row === 0 || col === 0) DP[row][col] = 0;
     }
+  }
 
-    for (let i = 1; i < DP.length; i++) {
-        for (let j = 1; j < DP[0].length; j++) {
-            // match
-            if (A[i - 1] === B[j - 1]) {
-                // cell value is max of cell above, cell to the left + 1
-                DP[i][j] = 1 + Math.max(DP[i - 1][j], DP[i][j - 1])
-            } else {
-                // cell value is max of cell above
-                DP[i][j] = Math.max(DP[i - 1][j], DP[i][j - 1])
-            }
-        }
+  for (let i = 1; i < DP.length; i++) {
+    for (let j = 1; j < DP[0].length; j++) {
+      // match
+      if (A[i - 1] === B[j - 1]) {
+        // cell value is max of cell above, cell to the left + 1
+        DP[i][j] = 1 + Math.max(DP[i - 1][j], DP[i][j - 1]);
+      } else {
+        // cell value is max of cell above
+        DP[i][j] = Math.max(DP[i - 1][j], DP[i][j - 1]);
+      }
     }
-    
-    return DP[A.length][B.length]
+  }
+
+  return DP[A.length][B.length];
 }
 
+let a = 'cab';
+let b = 'cab';
 
-let a = 'cab'
-let b = 'cab'
+let res = LCS_dp(a, b);
 
-let res = LCS_dp(a, b)
-
-console.log(`longest commong subsequence of ${a}, ${b} is of length ${res}`)
+console.log(`longest commong subsequence of ${a}, ${b} is of length ${res}`);

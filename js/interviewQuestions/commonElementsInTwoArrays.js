@@ -31,42 +31,35 @@
 /**
  * time-complexity:
  *  - O(n)
- * 
- * space-complexity:   
+ *
+ * space-complexity:
  *  - O(k) where k is the length of the array containing the common elements
- * 
- * @param {*} array1 
- * @param {*} array2 
+ *
+ * @param {*} array1
+ * @param {*} array2
  */
 function commonElements(array1, array2) {
+  let i = 0;
+  let j = 0;
+  let result = [];
 
-    let i = 0; 
-    let j = 0;
-    let result = []
-
-    while (i < array1.length && j < array2.length) {
-        
-        if (array1[i] === array2[j]) {
-            result.push(array1[i])
-            i += 1
-            j += 1
-        } 
-        
-        else if (array1[i] > array2[j]) {
-            j += 1
-        } 
-
-        else {
-            i += 1
-        }
+  while (i < array1.length && j < array2.length) {
+    if (array1[i] === array2[j]) {
+      result.push(array1[i]);
+      i += 1;
+      j += 1;
+    } else if (array1[i] > array2[j]) {
+      j += 1;
+    } else {
+      i += 1;
     }
+  }
 
-    return result
-
+  return result;
 }
 
-let a = [1, 3, 4, 6, 7, 9]
-let b = [1, 2, 4, 5, 9, 10]
-let c = commonElements(a, b)
+let a = [1, 3, 4, 6, 7, 9];
+let b = [1, 2, 4, 5, 9, 10];
+let c = commonElements(a, b);
 
-console.log(c)
+console.log(c);

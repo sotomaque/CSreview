@@ -3,14 +3,14 @@
 */
 
 function powerOfTwo(n) {
-    let powersOfTwo = 1;
+  let powersOfTwo = 1;
 
-    while (powersOfTwo < n) {
-        powersOfTwo *= 2;
-    }
+  while (powersOfTwo < n) {
+    powersOfTwo *= 2;
+  }
 
-    return n === powersOfTwo
+  return n === powersOfTwo;
 }
 
-let n = 32
-console.log(powerOfTwo(n))
+let n = 32;
+console.log(powerOfTwo(n));

@@ -8,28 +8,27 @@
 /**
  * time-complexity:
  *  - O(n)
- * 
+ *
  * space-complexity:
  *  - O(1)
- * @param {*} string 
+ * @param {*} string
  */
 function toLowercase(string) {
-    let results = ''
-    // adding 32 to ASCII value -> lowercase 
-    for (let i = 0; i < string.length; i++) {
-        if (string[i] === string[i].toUpperCase()) {
-            let lowercaseAsciiValue = string[i].charCodeAt(0) + 32
-            let lowercaseLetter = String.fromCharCode(lowercaseAsciiValue)
-            results += lowercaseLetter
-        } else {
-            results += string[i]
-        }
+  let results = '';
+  // adding 32 to ASCII value -> lowercase
+  for (let i = 0; i < string.length; i++) {
+    if (string[i] === string[i].toUpperCase()) {
+      let lowercaseAsciiValue = string[i].charCodeAt(0) + 32;
+      let lowercaseLetter = String.fromCharCode(lowercaseAsciiValue);
+      results += lowercaseLetter;
+    } else {
+      results += string[i];
     }
-    return results;
+  }
+  return results;
 }
 
+let test = 'eNrIQuE';
+let output = toLowercase(test);
 
-let test = "eNrIQuE"
-let output = toLowercase(test)
-
-console.log(output)
+console.log(output);

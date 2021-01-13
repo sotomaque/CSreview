@@ -36,34 +36,33 @@
 /**
  * time-complexity:
  *  - O(n) where n is the length of str
- * 
+ *
  * space-complexity:
  *  - O(1)
- * 
+ *
  * @param {string} str - user input
  * @returns {int} len - length of shorted compression of str
  */
 function compressedStringLength(str) {
-    let compressedStr = '';
-    let i = 0;
-    while (i < str.length) {
-        let j = i;
-        while (j < str.length && str[i] === str[j]) {
-            j += 1;
-        }
-        compressedStr += str[i];
-        if (j - i > 1) {
-            let count = j - i;
-            compressedStr += count.toString();
-        }
-
-        i = j;
+  let compressedStr = '';
+  let i = 0;
+  while (i < str.length) {
+    let j = i;
+    while (j < str.length && str[i] === str[j]) {
+      j += 1;
+    }
+    compressedStr += str[i];
+    if (j - i > 1) {
+      let count = j - i;
+      compressedStr += count.toString();
     }
 
-    return compressedStr.length
+    i = j;
+  }
+
+  return compressedStr.length;
 }
 
-
-let str = 'abbbbbbbbbb'
-let res = compressedStringLength(str)
-console.log(res)
+let str = 'abbbbbbbbbb';
+let res = compressedStringLength(str);
+console.log(res);

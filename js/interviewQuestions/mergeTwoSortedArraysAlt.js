@@ -38,55 +38,50 @@
 */
 
 /**
- * time-complexity: 
+ * time-complexity:
  *  - O(n)
- * 
+ *
  * space-complexity:
  *  - O(1)
- * 
+ *
  * @param {sorted array} array1 - sorted array of size N
  * @param {sorted array} array2 - sorted array of size 2N
  * @returns {sorted array} array2 - sorted array of size 2N
  */
 function sort(array1, array2) {
+  let i = array1.length - 1;
+  let j = array1.length - 1;
+  let k = array2.length - 1;
 
-    let i = array1.length - 1;
-    let j = array1.length - 1;
-    let k = array2.length - 1;
-
-
-    while (i >= 0 && j >= 0) {
-        if (array1[i] >= array2[j]) {
-            array2[k] = array1[i]
-            i--;
-            k--;
-        }
-        else if (array1[i] < array2[j]) {
-            array2[k] = array2[j];
-            j--;
-            k--;
-        }
+  while (i >= 0 && j >= 0) {
+    if (array1[i] >= array2[j]) {
+      array2[k] = array1[i];
+      i--;
+      k--;
+    } else if (array1[i] < array2[j]) {
+      array2[k] = array2[j];
+      j--;
+      k--;
     }
+  }
 
-    // collect remainder
-    while (i >= 0) {
-        array2[k] = array1[i];
-        i--;
-        k--;
-    }
-    while (j >= 0) {
-        array2[k] = array2[j];
-        j--;
-        k--;
-    }
+  // collect remainder
+  while (i >= 0) {
+    array2[k] = array1[i];
+    i--;
+    k--;
+  }
+  while (j >= 0) {
+    array2[k] = array2[j];
+    j--;
+    k--;
+  }
 
-    return array2
-    
+  return array2;
 }
 
+let array1 = [1, 3, 4, 5, 9];
+let array2 = [2, 3, 6, 10, 12, 0, 0, 0, 0, 0];
 
-let array1 = [1, 3, 4, 5, 9]
-let array2 = [2, 3, 6, 10, 12, 0, 0, 0, 0, 0]
-
-let result = sort(array1, array2)
-console.log(result)
+let result = sort(array1, array2);
+console.log(result);

@@ -4,25 +4,24 @@
 */
 
 /**
- * time-complexity: 
+ * time-complexity:
  *  - O(n)
- * 
- * space-complexity:   
+ *
+ * space-complexity:
  *  - O(n)
- * 
- * @param {*} array 
+ *
+ * @param {*} array
  */
 function isEverythingDistinct(array) {
-    let mySet = new Set();
+  let mySet = new Set();
 
-    array.forEach(element => {
-        mySet.add(element)
-    });
+  array.forEach((element) => {
+    mySet.add(element);
+  });
 
-    return (Array(...mySet).length === array.length)
+  return Array(...mySet).length === array.length;
 }
 
-
-const array = [1, 2, 3]
-const res = isEverythingDistinct(array)
-console.log(res)
+const array = [1, 2, 3];
+const res = isEverythingDistinct(array);
+console.log(res);

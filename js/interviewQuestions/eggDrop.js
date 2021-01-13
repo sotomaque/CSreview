@@ -43,13 +43,8 @@
 */
 
 function drop(totalEggs, totalFloors) {
-
-    if (totalEggs === 1) return totalFloors
-    else if (totalFloors === 1 || totalFloors === 0) return totalFloors
-
-    else {
-        
-
-    }
-
+  if (totalEggs === 1) return totalFloors;
+  else if (totalFloors === 1 || totalFloors === 0) return totalFloors;
+  else {
+  }
 }

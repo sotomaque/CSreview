@@ -20,34 +20,35 @@
 */
 
 /**
- * time-complexity: 
+ * time-complexity:
  *  - O(n) where n is the length of the longest array
- * 
+ *
  * space-complexity:
  *  - O(1)
- * 
- * @param {*} array1 
- * @param {*} array2 
+ *
+ * @param {*} array1
+ * @param {*} array2
  */
 function isRotation(array1, array2) {
-    let i = 0;
-    let j = 0;
+  let i = 0;
+  let j = 0;
 
-    while (j < array2.length) {
-        if (array1[i % array1.length] === array2[j % array2.length]) {
-            if (array1[(i + 1) % array1.length] !== array2[(j + 1) % array2.length]) return false
-            else {
-                i += 1
-                j += 1
-            }
-        } else {
-            i += 1
-        }
+  while (j < array2.length) {
+    if (array1[i % array1.length] === array2[j % array2.length]) {
+      if (array1[(i + 1) % array1.length] !== array2[(j + 1) % array2.length])
+        return false;
+      else {
+        i += 1;
+        j += 1;
+      }
+    } else {
+      i += 1;
     }
-    return true
+  }
+  return true;
 }
 
-let A = [1, 2, 3, 4, 5, 6, 7]
-let B = [4, 5, 6, 7, 1, 2, 3]
+let A = [1, 2, 3, 4, 5, 6, 7];
+let B = [4, 5, 6, 7, 1, 2, 3];
 
-console.log(isRotation(A, B))
+console.log(isRotation(A, B));
