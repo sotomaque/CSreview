@@ -31,59 +31,56 @@
 
 */
 
-
 /**
  * time-complexity:
  *  - let k be the range of the values in the array (i.e. max - min)
  *  - initialization + filling in age counts in hashmap: O(n) + O(k)
- *  - generating sortedArray from hashmap: O(n) + O(k) 
+ *  - generating sortedArray from hashmap: O(n) + O(k)
  *  - total: O(n + k) <- linear time sorting algorithm when k is confined to a narrow range
- * 
+ *
  * space-complexity:
  *  - O(k) auxilary space
  *  - no recursion
- * 
+ *
  * stability:
  *  - current implementation -> no stability
  *  - if implemented with a data structure with FIFO attribute instead of dictionary, it is
  *    possible to be stable
- * 
- * @param {*} someArray 
- * @param {*} minRange 
- * @param {*} maxRange 
+ *
+ * @param {*} someArray
+ * @param {*} minRange
+ * @param {*} maxRange
  */
 function countingSort(someArray, minRange, maxRange) {
-    let i = minRange;
-    let j = 0;
-    let len = someArray.length;
-    let count = [];
+  let i = minRange;
+  let j = 0;
+  let len = someArray.length;
+  let count = [];
 
-    for (i; i<= maxRange; i++) {
-        count[i] = 0;
+  for (i; i <= maxRange; i++) {
+    count[i] = 0;
+  }
+
+  for (i = 0; i < len; i++) {
+    count[someArray[i]] += 1;
+  }
+
+  for (i = minRange; i <= maxRange; i++) {
+    while (count[i] > 0) {
+      someArray[j] = i;
+      j++;
+      count[i]--;
     }
+  }
 
-    for (i = 0; i < len; i++) {
-        count[someArray[i]] += 1;
-    }
-
-    for (i = minRange; i <= maxRange; i++) {
-        while (count[i] > 0) {
-            someArray[j] = i;
-            j++;
-            count[i]--;
-        }
-    }
-
-    return someArray;
+  return someArray;
 }
-
 
 function test() {
-    const array = [1, 2, 5, 8, 4, 2, 2, 4, 2, 9, 4, 3, 7, 8, 1]
-    const result = countingSort(array, 1, 9)
+  const array = [1, 2, 5, 8, 4, 2, 2, 4, 2, 9, 4, 3, 7, 8, 1];
+  const result = countingSort(array, 1, 9);
 
-    console.log(result)
+  console.log(result);
 }
-
 
 test();

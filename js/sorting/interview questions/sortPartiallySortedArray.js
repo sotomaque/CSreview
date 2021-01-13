@@ -11,7 +11,4 @@
 
 */
 
-
-function sortPartiallySortedArray(data, k) {
-
-}
+function sortPartiallySortedArray(data, k) {}

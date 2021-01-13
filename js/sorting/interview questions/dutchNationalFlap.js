@@ -106,73 +106,66 @@
 
 /**
  * function swaps two elemetns of a given array in place
- * using es6 list deconstruction 
- * 
- * @param {array} list 
- * @param {index1} iA 
- * @param {index2} iB 
+ * using es6 list deconstruction
+ *
+ * @param {array} list
+ * @param {index1} iA
+ * @param {index2} iB
  */
-function swap(list, iA, iB){
-    [list[iA], list[iB]] = [list[iB], list[iA]];
-    return list;
+function swap(list, iA, iB) {
+  [list[iA], list[iB]] = [list[iB], list[iA]];
+  return list;
 }
-
-
 
 /**
  * time-complexity:
  *  - achieves this in one pass through the array
  *  - O(n)
- * 
+ *
  * space-complexity:
- *  - swaps in place; 
+ *  - swaps in place;
  *  - no recursive calls
  *  - O(1)
- * 
- * @param {array} data 
+ *
+ * @param {array} data
  */
 function DutchNationalFlag(data) {
+  if (!data) return;
 
-    if (!data) return;
+  let pivot = 2;
 
-    let pivot = 2; 
+  let low = 0; // will end up pointing at first 2 in array
+  let current = 0; // will point to element we are currently processing
+  let high = data.length - 1; // will end up point at last 2 in array
 
-    let low = 0; // will end up pointing at first 2 in array
-    let current = 0; // will point to element we are currently processing
-    let high = data.length - 1; // will end up point at last 2 in array
-
-    while (current <= high) {
-
-        // condition 1: data[currnet] === pivot
-        // - incrememnt current
-        if (data[current] === pivot) current++;
-
-        // condition 2: data[current]  < pivot
-        // - swap(data[current], data[low])
-        // - increment current and low
-        else if (data[current] < pivot) {
-            [data[current], data[low]] = [data[low], data[current]]
-            current++;
-            low++;
-        }
-
-        // condition 3: data[current] > pivot
-        // - swap(data[current], data[high])
-        // - decrement high
-        else if (data[current] > pivot) {
-            [data[current], data[high]] = [data[high], data[current]]
-            high--;
-        }
+  while (current <= high) {
+    // condition 1: data[currnet] === pivot
+    // - incrememnt current
+    if (data[current] === pivot) current++;
+    // condition 2: data[current]  < pivot
+    // - swap(data[current], data[low])
+    // - increment current and low
+    else if (data[current] < pivot) {
+      [data[current], data[low]] = [data[low], data[current]];
+      current++;
+      low++;
     }
 
-    return data
+    // condition 3: data[current] > pivot
+    // - swap(data[current], data[high])
+    // - decrement high
+    else if (data[current] > pivot) {
+      [data[current], data[high]] = [data[high], data[current]];
+      high--;
+    }
+  }
 
+  return data;
 }
 
-
-let data = [2, 3, 2, 2, 1, 3, 1, 2, 1, 1, 2, 1, 2, 3, 2, 1]
+let data = [2, 3, 2, 2, 1, 3, 1, 2, 1, 1, 2, 1, 2, 3, 2, 1];
 // expected result = [1, 1, 2, 2, 2, 2, 3, 3]
 
 let result = DutchNationalFlag(data);
 
-console.log(data)
+console.log(data);

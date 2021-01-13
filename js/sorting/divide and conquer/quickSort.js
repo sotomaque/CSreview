@@ -97,70 +97,74 @@
 
 /**
  * function returns a random int in range [min, max] inclusive
- * 
- * @param {*} min 
- * @param {*} max 
+ *
+ * @param {*} min
+ * @param {*} max
  */
 function getRandomInt(a, b) {
-    let min = Math.ceil(a);
-    let max = Math.floor(b);
-    return Math.floor(Math.random() * (max-min)) + min + 1;
+  let min = Math.ceil(a);
+  let max = Math.floor(b);
+  return Math.floor(Math.random() * (max - min)) + min + 1;
 }
 
 /**
  * function swaps two elemetns of a given array in place
- * using es6 list deconstruction 
- * 
- * @param {array} list 
- * @param {index1} iA 
- * @param {index2} iB 
+ * using es6 list deconstruction
+ *
+ * @param {array} list
+ * @param {index1} iA
+ * @param {index2} iB
  */
-function swap(list, iA, iB){
-    [list[iA], list[iB]] = [list[iB], list[iA]];
-    return list;
+function swap(list, iA, iB) {
+  [list[iA], list[iB]] = [list[iB], list[iA]];
+  return list;
 }
 
 /**
  * function which recursively calls itself to complete quicksort algo
- * 
- * @param {} someArray 
- * @param {*} startIndex 
- * @param {*} endIndex 
+ *
+ * @param {} someArray
+ * @param {*} startIndex
+ * @param {*} endIndex
  */
 function helper(someArray, startIndex, endIndex) {
-    // base case
-    if (startIndex >= endIndex) return
-    
-    // get random pivot index
-    const pivot_index = getRandomInt(startIndex, endIndex)
+  // base case
+  if (startIndex >= endIndex) return;
 
-    // swap that element with first element of array
-    someArray = swap(someArray, startIndex, pivot_index)
+  // get random pivot index
+  const pivot_index = getRandomInt(startIndex, endIndex);
 
-    // initialize pointers to begin iterating array
-    let slow_pointer = startIndex;
+  // swap that element with first element of array
+  someArray = swap(someArray, startIndex, pivot_index);
 
-    for (let fast_pointer = startIndex; fast_pointer <= endIndex; fast_pointer++) {
-        // advance fast pointer every iteration,
-        // if fast pointer points at something smaller than what the slow pointer points at
-            // swap
-            // incremement slow poitner
-        if (someArray[fast_pointer] < someArray[startIndex]) {
-            slow_pointer = slow_pointer + 1;
-            someArray = swap(someArray, slow_pointer, fast_pointer)
-        }
+  // initialize pointers to begin iterating array
+  let slow_pointer = startIndex;
+
+  for (
+    let fast_pointer = startIndex;
+    fast_pointer <= endIndex;
+    fast_pointer++
+  ) {
+    // advance fast pointer every iteration,
+    // if fast pointer points at something smaller than what the slow pointer points at
+    // swap
+    // incremement slow poitner
+    if (someArray[fast_pointer] < someArray[startIndex]) {
+      slow_pointer = slow_pointer + 1;
+      someArray = swap(someArray, slow_pointer, fast_pointer);
     }
-    // slow pointer now points at last element < pivot value
-    // fast pointer now points at end of array
+  }
+  // slow pointer now points at last element < pivot value
+  // fast pointer now points at end of array
 
-    // take pivot and insert it into its right place (where the slow pointer is pointing )
-    someArray = swap(someArray, startIndex, slow_pointer)
+  // take pivot and insert it into its right place (where the slow pointer is pointing )
+  someArray = swap(someArray, startIndex, slow_pointer);
 
-    // recursively call quickSort on left / right partitions
-    helper(someArray, startIndex, slow_pointer - 1) // left partition
-    helper(someArray, slow_pointer + 1, endIndex) // right partition
+  // recursively call quickSort on left / right partitions
+  helper(someArray, startIndex, slow_pointer - 1); // left partition
+  helper(someArray, slow_pointer + 1, endIndex); // right partition
 
-    return
+  return;
 }
 
 /**
@@ -168,26 +172,25 @@ function helper(someArray, startIndex, endIndex) {
  *  - best-case:  O(nLog(n))
  *  - worst-case:  O(n^2)
  *  - average-case: O(nLog(n))
- * 
+ *
  * space-complexity:
  *  - in place (unlike merge sort)
  *  - recursive algorithm -> using space in call stack
- * 
+ *
  * stability:
  *  - NOT STABLE
- *  
- * @param {*} someArray 
+ *
+ * @param {*} someArray
  */
 function quickSort(someArray) {
-    helper(someArray, 0, someArray.length - 1);
-    return someArray
+  helper(someArray, 0, someArray.length - 1);
+  return someArray;
 }
-
 
 function test() {
-    let testArray = [4, 2, 1, 7, 8, 3, 5, 6]
-    const result = quickSort(testArray, 0, testArray.length - 1)
-    console.log(result)
+  let testArray = [4, 2, 1, 7, 8, 3, 5, 6];
+  const result = quickSort(testArray, 0, testArray.length - 1);
+  console.log(result);
 }
 
-test()
+test();
