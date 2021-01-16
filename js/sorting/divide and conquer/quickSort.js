@@ -112,11 +112,11 @@ function getRandomInt(a, b) {
  * using es6 list deconstruction
  *
  * @param {array} list
- * @param {index1} iA
- * @param {index2} iB
+ * @param {number} i
+ * @param {number} j
  */
-function swap(list, iA, iB) {
-  [list[iA], list[iB]] = [list[iB], list[iA]];
+function swap(list, i, j) {
+  [list[i], list[j]] = [list[j], list[i]];
   return list;
 }
 

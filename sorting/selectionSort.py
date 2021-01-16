@@ -4,7 +4,6 @@
 #   - loop nested within another loop -> O(n^2)
 # space complexity: 
 #   - varaibles -> min_index, i, j,
-#   - second data structure -> i.e. second array for output
 def selectionSort(givenArray):
     # for every element in the array
     for i in range(len(givenArray)):
@@ -18,13 +17,7 @@ def selectionSort(givenArray):
         # once we have gone through all the remaining elments 
         # preform a swap
         givenArray[i], givenArray[min_index] = givenArray[min_index], givenArray[i]
-
-    # return a new array with sorted elements
-    sortedArray = []
-    for i in range(len(givenArray)):
-        sortedArray.append(givenArray[i])
-
-    return sortedArray
+    return givenArray
 
 testArray = [64, 25, 12, 22, 11]
 result = selectionSort(testArray)
