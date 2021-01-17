@@ -1,24 +1,22 @@
 /*
+  Problem Statement:
+    - given two sorted arrays, of length m and l, merge them 
+    to produce one sorted array of length m + l
 
-    Problem Statement:
-        - given two sorted arrays, of length m and l, merge them 
-        to produce one sorted array of length m + l
+  i.e.
+    - a = [1, 3, 4, 5, 9]
+    - b = [2, 3, 6]
 
-    i.e.
-        - a = [1, 3, 4, 5, 9]
-        - b = [2, 3, 6]
+    - c = [1, 2, 3, 3, 4, 5, 6, 9]
 
-        - c = [1, 2, 3, 3, 4, 5, 6, 9]
-
-    - approach, have two pointers, both starting at the begining of each array
-    - use the pointers to compare the values they sit on, 
-        if a[i] < b[j]:
-            result.append(a[i])
-            i++
-        else:
-            result.append(b[j])
-            j++
-
+  - approach, have two pointers, both starting at the begining of each array
+  - use the pointers to compare the values they sit on, 
+    if a[i] < b[j]:
+      result.append(a[i])
+      i++
+    else:
+      result.append(b[j])
+      j++
 */
 
 /**
@@ -29,10 +27,10 @@
  *  - auxilary space for returned array -> NOT IN PLACE -> O(m + l)
  *  - auxilary variables, i, j
  *
- * @param {ARRAY} data1 - sorted array
- * @param {ARRAY} data2 - sorted array
+ * @param {array} data1 - sorted array
+ * @param {array} data2 - sorted array
  *
- * @returns {ARRAY} mergedArray - sorted array
+ * @returns {array} mergedArray - sorted array
  */
 function mergeTwoSortedArrays(data1, data2) {
   let mergedArray = [];
@@ -63,7 +61,7 @@ function mergeTwoSortedArrays(data1, data2) {
 }
 
 let a = [1, 3, 4, 5, 9, 9, 10];
-let b = [2, 3, 6];
+let b = [1, 2, 3, 6];
 
 let c = mergeTwoSortedArrays(a, b);
 
