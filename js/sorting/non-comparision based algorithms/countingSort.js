@@ -52,33 +52,31 @@
  * @param {*} maxRange
  */
 function countingSort(someArray, minRange, maxRange) {
-  let i = minRange;
   let j = 0;
-  let len = someArray.length;
   let count = [];
 
-  for (i; i <= maxRange; i++) {
+  for (let i = 0; i <= maxRange; i++) {
     count[i] = 0;
   }
-
-  for (i = 0; i < len; i++) {
+  for (let i = 0; i < someArray.length; i++) {
     count[someArray[i]] += 1;
   }
-
-  for (i = minRange; i <= maxRange; i++) {
+  // iterate through 'count' array,
+  // printing counts for given index in
+  // right place in input array
+  for (let i = minRange; i <= maxRange; i++) {
     while (count[i] > 0) {
       someArray[j] = i;
       j++;
       count[i]--;
     }
   }
-
   return someArray;
 }
 
 function test() {
   const array = [1, 2, 5, 8, 4, 2, 2, 4, 2, 9, 4, 3, 7, 8, 1];
-  const result = countingSort(array, 1, 9);
+  const result = countingSort(array, 0, 9);
 
   console.log(result);
 }

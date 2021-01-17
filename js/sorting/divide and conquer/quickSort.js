@@ -28,7 +28,7 @@
 
             - Lomuto's Partitioning: O(n) time, in place - Gold Standard
                 - look at array[0], that value will be the pivot
-                - have to pointers start at array[1]; 
+                - have two pointers start at array[1]; 
                     - if the element you are looking at is greater than the pivot element
                         - mark that cell so that we know it will belong in the right subarray
                     - else mark the cell so we know it will belong in the left subarray
@@ -42,35 +42,35 @@
                     fast pointer is pointing at to avoid having discontigous regions
 
             i.e.
-                A = [4, 2, 1, 7, 8, 3, 5, 6]
+                A = [4, 2, 1, 7, 8, 3, 5, 6, 3]
 
                 step (0): set A[0] as the pivot
                     - anything less than 4 will be in the left subarray
                     - anything greater than 4 will be in the right subarray
                 
                 step(1): pointer iteation
-                    [4, 2, 1, 7, 8, 3, 5, 6]
+                    [4, 2, 1, 7, 8, 3, 5, 6, 3]
                         ^^
                     - two pointers first begin looiking at A[1] (ignoring A[0])
                         2 < 4 so we mark it as a left subarray
-                        [4, 2(L), 1, 7, 8, 3, 5, 6]
+                        [4, 2(L), 1, 7, 8, 3, 5, 6, 3]
                     
                     - advance fast pointer
-                    [4, 2(L), 1, 7, 8, 3, 5, 6]
+                    [4, 2(L), 1, 7, 8, 3, 5, 6, 3]
                         ^     ^
 
                     - (same as above, element is < pivot, mark as left, advance both pointers this time)
-                    [4, 2(L), 1(L), 7, 8, 3, 5, 6]
+                    [4, 2(L), 1(L), 7, 8, 3, 5, 6, 3]
                                 ^   ^
 
                     - now fast pointer envounters something greater than pivot
                         - mark as right subarray
                         - keep moving right pointer
-                    [4, 2(L), 1(L), 7(R), 8, 3, 5, 6]
+                    [4, 2(L), 1(L), 7(R), 8, 3, 5, 6, 3]
                                 ^         ^
 
-                    - (same as above, elemnt > pivot, mark as right, advance fast pointer)
-                    [4, 2(L), 1(L), 7(R), 8(R), 3, 5, 6]
+                    - (same as above, element > pivot, mark as right, advance fast pointer)
+                    [4, 2(L), 1(L), 7(R), 8(R), 3, 5, 6, 3]
                                 ^               ^
 
                     - now fast pointer sees something smaller than pointer
@@ -78,18 +78,28 @@
                         - swaps values with fast pointer
                         - preserves contiguous nature of subarrays
                         - fast pointer advances again
-                    [4, 2(L), 1(L), 3(L), 8(R), 7(R), 5, 6]
+                    [4, 2(L), 1(L), 3(L), 8(R), 7(R), 5, 6, 3]
                                      ^                ^
 
+                    - fast pointer encountered something < pivot
+                      1. increment slow pointer
+                      2. swap slow and fast pointers
+                    [4, 2(L), 1(L), 3(L), 8(R), 7(R), 5(R), 6(R), 3]
+                                     ^                            ^
+                1.  [4, 2(L), 1(L), 3(L), 8(R), 7(R), 5(R), 6(R), 3]
+                                          ^                       ^
+                2.  [4, 2(L), 1(L), 3(L), 3(L), 7(R), 5(R), 6(R), 8(R)]
+                                          ^                       ^
+
                     - repeat until fast pointer hits end of array
-                    [4, 2(L), 1(L), 3(L), 8(R), 7(R), 5(R), 6(R)]
-                                     ^                           ^
+                    [4, 2(L), 1(L), 3(L), 3(L), 7(R), 5(R), 6(R), 8(R)]
+                                            ^                      ^
 
                     - now every element in left subarray < pivot && every element 
                     in the right subarray > pivot
                         - swap pivot (A[0]) with slow pointer
-                        [3(L), 2(L), 1(L), 4, 8(R), 7(R), 5(R), 6(R)]
-                                        ^                           ^
+                    [4, 2(L), 1(L), 3(L), 3(L), 7(R), 5(R), 6(R), 8(R)]
+                                          ^                       ^
 
                     - now call quickSort recursively on left and right subarrays
 
@@ -147,8 +157,7 @@ function helper(someArray, startIndex, endIndex) {
   ) {
     // advance fast pointer every iteration,
     // if fast pointer points at something smaller than what the slow pointer points at
-    // swap
-    // incremement slow poitner
+    // incremement slow poitner and swap
     if (someArray[fast_pointer] < someArray[startIndex]) {
       slow_pointer = slow_pointer + 1;
       someArray = swap(someArray, slow_pointer, fast_pointer);
@@ -157,7 +166,7 @@ function helper(someArray, startIndex, endIndex) {
   // slow pointer now points at last element < pivot value
   // fast pointer now points at end of array
 
-  // take pivot and insert it into its right place (where the slow pointer is pointing )
+  // take pivot and insert it into its right place (where the slow pointer is pointing)
   someArray = swap(someArray, startIndex, slow_pointer);
 
   // recursively call quickSort on left / right partitions
@@ -189,7 +198,7 @@ function quickSort(someArray) {
 
 function test() {
   let testArray = [4, 2, 1, 7, 8, 3, 5, 6];
-  const result = quickSort(testArray, 0, testArray.length - 1);
+  const result = quickSort(testArray);
   console.log(result);
 }
 

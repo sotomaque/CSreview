@@ -1,8 +1,8 @@
 /**
  *
- * @param {ARRAY} array we want to build a heap out of
- * @param {INT} length of the array we want to build our heap from
- * @param {INT} index of the parent that we are heapifying
+ * @param {array} array we want to build a heap out of
+ * @param {number} length of the array we want to build our heap from
+ * @param {number} index of the parent that we are heapifying
  */
 function heapify(arr, length, i) {
   let largest = i;
@@ -54,15 +54,23 @@ function heapify(arr, length, i) {
  * @param {*} arr
  */
 function heapSort(arr) {
-  let length = arr.length;
-  let i = Math.floor(length / 2 - 1); // last parent node in our heap -> always at (index arr.length / 2) - 1
-  let k = length - 1; // last child ->  end of the array
+  let i = Math.floor(arr.length / 2 - 1); // last parent node in our heap -> always at (index arr.length / 2) - 1
+  let k = arr.length - 1; // last child ->  end of the array
 
   // builds our max heap so that max element is always on top
   while (i >= 0) {
-    heapify(arr, length, i);
+    heapify(arr, arr.length, i);
     i--;
   }
+
+  // now we have re arranged our array to be a max heap
+  // where for any given index, we can get its children by:
+  // left child = given index * 2
+  // right child = given index * 2 + 1
+  // parents have value >= children
+
+  // so we can iterate through the array pushing the root (which we know is the max value of the array)
+  // to be the kth element of the final array to achieve ascending order
 
   // swaps root with 'last child', popping last child, then re-heapifying
   // last child is always min so we are popping the smallest element left of in our heap

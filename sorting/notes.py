@@ -304,9 +304,10 @@ Design Strategy # 4:
     data structures to achieve the desired result
 
     - want to represent the input as an Abstract Data Type (ADT)
-        - think of ADT as a black box that tells us, (1) what kind of data it is,
+        - think of ADT as a black box that tells us,
+        (1) what kind of data it is,
         (2) the operations that will be preformed on the data
-            - description is calle the interface, it is what the user of the ADT will see,
+            - description is called the interface, it is what the user of the ADT will see,
             not how it would be implemented under the hood.
             - there could be different under the hood implementations of the same ADT
                 - i.e. a stack is an ADT, two operations, push, pop, however there are different
@@ -317,7 +318,7 @@ Design Strategy # 4:
         - called a priority queue
             - unlike a regular queue (FIFO) order that it comes out is determined by the 
             priority value (in this case min value)
-            - in general the data itself can be assumed to be a simple int, or it  could be any 
+            - in general the data itself can be assumed to be a simple int, or it could be any 
             type of object with a well defined comparsion operator
     
     - two kinds of priority queues:
@@ -348,7 +349,8 @@ Design Strategy # 4:
                 -extration -> O(1)
             
             better way: want insert / extract in log(n) so that n operations take O(n Log(n)) time
-            - a complete binary tree with n elements is log(n)
+            
+            - the height of a complete binary tree with n elements is log(n)
                 - since the only element directly accesible for a binary tree is the root, 
                 it makes sense to sowmhow have the item with the highest priority as the root
             - a binary heap is the most popular data structure that can do this
@@ -380,8 +382,8 @@ Design Strategy # 4:
                 the total time complexity of heapsort = the time complexity of heap + the time compelexity of n extractions,
                 = O(nlog n) + O(n) = O(n Log(n))
     
-    - heapsort -> Yes
-    - stable -> No, heapify distrubs relative ordering of like-valued nodes
+    - in place? -> Yes
+    - stable? -> No, heapify distrubs relative ordering of like-valued nodes
 
 
 """
