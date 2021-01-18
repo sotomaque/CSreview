@@ -20,40 +20,39 @@ Output: 4
  *   - .reverse() => O(n)
  *   - index lookup => O(1)
  *   - therefore O(nLogn)
- * @param {*} nums 
- * @param {*} k 
+ * @param {*} nums
+ * @param {*} k
  */
 function kthLargest(nums, k) {
-    if (k < 1 || !nums || !nums.length || k > nums.length) return
-    return nums.sort((a, b) => a - b).reverse()[k - 1]
+  if (k < 1 || !nums || !nums.length || k > nums.length) return;
+  return nums.sort((a, b) => a - b).reverse()[k - 1];
 }
 
 /**
  * intuition for an improvement
- * 
- * sort only to the point where the 
+ *
+ * sort only to the point where the
  * kth largest element fall into index
  * n - k
- * 
+ *
  * i.e. im looking for the 4th largest (k = 4)
  * sort only first 4 nums
- * 
+ *
  * modify quicksort
  * -when you find a pivot and place it in its correct place
  * - we then can only recurse on the subarray which holds
  * index (n - k)
  */
 
-
 /**
  * time-complexity:
  *  - on average O(n)
- * 
- * 
- * @param {} someArray 
- * @param {*} startIndex 
- * @param {*} endIndex 
- * @param {*} index 
+ *
+ *
+ * @param {} someArray
+ * @param {*} startIndex
+ * @param {*} endIndex
+ * @param {*} index
  */
 
 function helper(someArray, startIndex, endIndex, index) {
@@ -90,7 +89,7 @@ function helper(someArray, startIndex, endIndex, index) {
 
   // conditionally recurse on left / right partitions
   if (index === slow_pointer) {
-    return
+    return;
   } else if (index < slow_pointer) {
     helper(someArray, startIndex, slow_pointer - 1, index); // left partition
   } else {
@@ -118,13 +117,16 @@ function QuickSelect(nums, k) {
 
   // returning k - 1 returns kth smallest
   // number if nums is sorted
-  return nums[nums.length - k]
+  return nums[nums.length - k];
 }
 
-
-const nums = [3,2,1,5,6,4]
-const k = 2
+const nums = [3, 2, 1, 5, 6, 4];
+const k = 2;
 
 const kthLargestNumber = QuickSelect(nums, k);
-console.log(kthLargestNumber)
-// console.log(`Kth (k = ${k}) largest number of `, nums, ` = ${kthLargestNumber}`)
+console.log(kthLargestNumber);
+console.log(
+  `Kth (k = ${k}) largest number of `,
+  nums,
+  ` = ${kthLargestNumber}`
+);
