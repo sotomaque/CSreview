@@ -31,8 +31,14 @@ def kThLargestElement(givenArray, k):
     heapq.heapify(givenArray)
     result = []
     while len(givenArray) != 0:
-        result.append(heapq.heappop(givenArray))
-    return result[k-1]
+        # popping gives us min value since default heap type is min heap
+        temp = heapq.heappop(givenArray)
+        print temp
+        result.append(temp)
+    #   [3, 4, 5, 7, 12, 19, 26]
+    # if we want the 2nd largest element
+    # we want index len(givenArray) - k
+    return result[len(givenArray) - k]
         
      
 # idea is to pick a random pivot, do partitioning, put pivot in final position
@@ -86,7 +92,7 @@ def test():
     k = 3 # should be 5
     result = kthSmallest(array, 0, n - 1, k)
     print(result)
-    #result = kThLargestElement(array, k)
-    #print (result)
+    result = kThLargestElement(array, k)
+    print ('kth largest element where k is ', k, ' = ',result)
     
 test()

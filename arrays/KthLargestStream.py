@@ -19,11 +19,19 @@ KthLargest.add(10) // return 5
 import heapq
 
 
-def KthLargestStream(k, nums):
+def KthLargestStream(nums, k):
     # build min heap on initialized array
+    heapq.heapify(nums)
+    results = []
+    i = 0
     # while heap size > k:
+    while len(nums) != 0 and i < k:
     #   pop out the root
+        results.append(heapq.heappop(nums))
+        i += 1
+  
     # this sets up the heap to start out as a min heap of size k with the root holding the min (holding K largest elements)
+    print (results)
 
     # for each new number that comes in:
     #   compare it to the root:
@@ -97,3 +105,7 @@ psudocode:
 #         -> time complexity -> O(log(n)) per number
 
 '''
+array = [3, 4, 7, 5, 9, 8, 11, 11, 8]
+k = 4
+
+KthLargestStream(array, k)
