@@ -32,8 +32,8 @@ def subsetSum(givenArray, targetSum):
     return helper(givenArray, subset, targetSum, 0)
     
 def test():
-    a = [1, 2, 3]
-    target = 3
+    a = [1, 2, 4, 20, 5, 19, 6, 14, 13, 21]
+    target = 25
 
     subsetSum(a, target)
 

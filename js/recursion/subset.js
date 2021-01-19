@@ -28,20 +28,36 @@
  *  - each iteration reduces complexity from n -> n-1 until base case is met
  *  - there are n iterations
  *  - so the time-complexity is O(n)
- * 
+ *
  * space-complexity:
  *  - O(n)
- * 
- * @param {NUMBER} n 
- * @returns {NUMBER} of subsets for a set of size n
+ *
+ * @param {number} n
+ * @returns {number} of subsets for a set of size n
  */
 function subsets(n) {
-    if (n === 0) return 1
-    return 2 * subsets(n-1)
+  if (n === 0) return 1;
+  return 2 * subsets(n - 1);
 }
 
+/**
+ * time-complexity:
+ *  - O(n)
+ *
+ * space-complexity:
+ *  - O(1)
+ *
+ * @param {number} n
+ * @returns {number} of subsets for a set of size n
+ */
+function subsetsIteratve(n) {
+  let res = 1;
+  for (let i = 0; i < n; i++) {
+    res *= 2;
+  }
+  return res;
+}
 
-
-let n = 2
-let results = subsets(n)
-console.log(`there are ${results} subsets of a set of size ${n}`)
+let n = 5;
+let results = subsets(n);
+console.log(`there are ${results} subsets of a set of size ${n}`);

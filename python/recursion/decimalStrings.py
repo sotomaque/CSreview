@@ -9,7 +9,7 @@ def decimalString(n):
     dsHelper("", n)
 
 def test():
-    n = 3
+    n = 2
     decimalString(n)
 
 test()

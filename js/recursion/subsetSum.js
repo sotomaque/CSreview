@@ -17,39 +17,27 @@
                 - and another recursive call where we do not add it to the subset
 
 */
+function* subsetSum(nums, sum, subsets = []) {
+  var i, s;
 
-function helper(array, subset, targetSum, index) {
-    // perfect sum found when targetSum = 0
-    // print and return
-    if (targetSum === 0) {
-        console.log(subset)
-        return
+  for (i = 0; i < nums.length; i++) {
+    const remainingSumToAchieveTarget = sum - nums[i];
+    if (remainingSumToAchieveTarget === 0) {
+      // including values[i] in our current subset makes subset sum === targetSum
+      // so return a new array [...subsets, nums[i]]
+      yield [...subsets, nums[i]];
+    } else if (remainingSumToAchieveTarget > 0) {
+      // else recurse only if we havent exceeded bounds (i.e. runningSum > 0)
+      //   recursion should only look at remaining elements of nums (i.e. nums.slice(i + 1))
+      yield* subsetSum(nums.slice(i + 1), remainingSumToAchieveTarget, [
+        ...subsets,
+        nums[i],
+      ]);
     }
-    
-    // if we have exceeded our target sum (< 0) or 
-    // could exceed the array length (index === array.length)
-    // we no longer need to go down this path, return
-    if (targetSum < 0 || index === array.length) {
-        return
-    }   
-
-    // recursive case where we do add element to subset
-    subset.push(array[index])
-    helper(array, subset, targetSum - array[index], index + 1);
-
-    // recursive case where we do NOT add element to subset
-    subset = subset.filter(element => element !== array[index]) // only keep elements not equal to the one at given index
-    helper(array, subset, targetSum, index + 1)
-
-
+  }
 }
 
-function subsetSum(array, targetSum) {
-    let subset = []
-    return helper(array, subset, targetSum, 0)
-}
+const nums = [1, 2, 4, 20, 5, 19, 6, 14, 13, 21];
+const target = 25;
 
-
-let a = [1, 2]
-let target = 3
-// subsetSum(a, target)
+console.log([...subsetSum(nums, 25)]);

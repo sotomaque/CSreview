@@ -8,10 +8,10 @@
     - i.e. for, while loops, = perform a tast repeatedly (iteration)
     - i.e. if-then-else = make decisions based on some condtion
     - i.e. top down design or stepwise refinements via functinos = 
-        subdivide an overall high-level probelm into a set of lower-level
+        subdivide an overall high-level problem into a set of lower-level
         steps 
             i.e. bake a cake: {get cookbook, get ingredients, follow instructions, etc.}
-            additionally these tasks themselves can be broked into smaller, simpler tasks
+            additionally these tasks themselves can be broken into smaller, simpler tasks
     
     - however, recursion is different from the aformentioned programming features
 
@@ -53,7 +53,7 @@
                 compute a simple solution without recursion
             else:
                 divide and conquer or decrease and conquer
-                break the problem into sub-problmes of teh same form
+                break the problem into sub-problmes of the same form
                 solve each of these sub problems by calling this function recursively
                 reassemble the subproblem solutions into a solution for the whole
 
