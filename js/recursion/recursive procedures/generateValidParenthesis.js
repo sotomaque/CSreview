@@ -22,51 +22,65 @@
  *
  * @param {number} n - number of pairs of parenthesis we want to generate all valid pairs for
  * @param {string} result
- * @param {number} leftCount - number of opening parenthesis we can still place in result str; initially = n
- * @param {number} rightCount - number of closing parenthesis we can still place in result str; initially = n
+ * @param {number} remainingLeftPieces - number of opening parenthesis we can still place in result str; initially = n
+ * @param {number} remainingRightPieces - number of closing parenthesis we can still place in result str; initially = n
  */
-function generateValidParenthesis(
+function generateValidParenthesis(n) {
+  const validSets = [];
+  helper(n, [], n, n, validSets);
+  const results = [];
+  validSets.forEach((validString) => {
+    results.push(validString.join(''));
+  });
+  return results;
+}
+
+function helper(
   n,
-  result = [],
-  leftCount = n,
-  rightCount = n
+  result,
+  remainingLeftPieces,
+  remainingRightPieces,
+  validSets
 ) {
   // base case
-  if (leftCount === 0 && rightCount === 0) {
-    console.log(result);
+  if (remainingLeftPieces === 0 && remainingRightPieces === 0) {
+    validSets.push(result);
     return;
   }
 
-  // must add left parenthesis if leftCount === rightCount
-  if (leftCount === rightCount) {
-    generateValidParenthesis(
+  // must add left parenthesis if remainingLeftPieces === remainingRightPieces
+  if (remainingLeftPieces === remainingRightPieces) {
+    helper(
       n - 1,
       [...result, '('],
-      leftCount - 1,
-      rightCount
+      remainingLeftPieces - 1,
+      remainingRightPieces,
+      validSets
     );
   }
 
-  // can add a left or a right if rightCount > leftCount
-  if (rightCount > leftCount) {
-    // choose to add left parenthesis only if leftCount > 0
-    if (leftCount > 0) {
-      generateValidParenthesis(
+  // can add a left or a right if remainingRightPieces > remainingLeftPieces
+  if (remainingRightPieces > remainingLeftPieces) {
+    // choose to add left parenthesis only if remainingLeftPieces > 0
+    if (remainingLeftPieces > 0) {
+      helper(
         n - 1,
         [...result, '('],
-        leftCount - 1,
-        rightCount
+        remainingLeftPieces - 1,
+        remainingRightPieces,
+        validSets
       );
     }
 
     // choose to add right parenthesis
-    generateValidParenthesis(
+    helper(
       n - 1,
       [...result, ')'],
-      leftCount,
-      rightCount - 1
+      remainingLeftPieces,
+      remainingRightPieces - 1,
+      validSets
     );
   }
 }
 
-generateValidParenthesis(2);
+console.log(generateValidParenthesis(3));

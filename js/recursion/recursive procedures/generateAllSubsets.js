@@ -20,17 +20,17 @@
  *  - O(2^n) (require all subsets of length 2 to generate a subset of length 3)
  *  - can be improved
  *
- * @param {array} array
+ * @param {array} nums
  * @param {number} index
  * @param {array} state_taken
  */
-function subsetsNaive(array, index = 0, state_taken = []) {
-  if (index === array.length) {
+function subsetsNaive(nums, index = 0, state_taken = []) {
+  if (index === nums.length) {
     return console.log(state_taken);
   }
 
-  helper(array, index + 1, [...state_taken, array[index]]);
-  helper(array, index + 1, state_taken);
+  subsetsNaive(nums, index + 1, [...state_taken, nums[index]]);
+  subsetsNaive(nums, index + 1, state_taken);
 }
 
 /**
@@ -42,7 +42,7 @@ function subsetsNaive(array, index = 0, state_taken = []) {
  * previous times. at any given time the maximum depth of the recursive stack is bound
  * by the height of the recursive tree (height = n).
  *
- * @param {array} array
+ * @param {array} nums
  * @param {number} index
  * @param {array} state_taken
  */
@@ -56,8 +56,8 @@ function subsetsImproved(nums, state_taken = []) {
   subsetsImproved(nums.slice(1), [...state_taken, nums[0]]); // include cases
 }
 
-function printAllSubsets(array) {
-  return subsetsImproved(array);
+function printAllSubsets(nums) {
+  return subsetsImproved(nums);
 }
 
 let nums = ['1', '2'];

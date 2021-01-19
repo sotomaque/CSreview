@@ -29,26 +29,44 @@
 
 */
 
+function findSubsequences(nums) {
+  const results = new Set();
+  helper(nums, 0, [], results);
 
-
-function printAll(array, index = 0, state_taken = []) {
-
-    // base case:
-    if (index === array.length) {
-        console.log(state_taken)
-        return
-    }
-
-    // not taken case
-    printAll(array, index + 1, state_taken)
-
-    // taken case
-    // if we haven't take anything yet, or what we are considering taking >= what we have taken
-    if (!state_taken.length || array[index] >= state_taken[state_taken.length - 1]) {
-        printAll(array, index + 1, [...state_taken, array[index]])
-    }
+  return Array.from(results).map((permutationStr) => {
+    return permutationStr.split(',').map((value) => {
+      return parseInt(value, 10) || '';
+    });
+  });
 }
 
-let array = [2, 4, 3, 9, 7, 11, 13, 8]
+function helper(array, index, state_taken, increasingSubsequences) {
+  // base case:
+  if (index === array.length) {
+    state_taken.length >= 2 &&
+      increasingSubsequences.add(state_taken.toString());
+    return;
+  }
 
-printAll(array)
+  // not taken case
+  helper(array, index + 1, state_taken, increasingSubsequences);
+
+  // taken case
+  // if we haven't take anything yet, or what we are considering taking >= what we have taken
+  if (
+    !state_taken.length ||
+    array[index] >= state_taken[state_taken.length - 1]
+  ) {
+    helper(
+      array,
+      index + 1,
+      [...state_taken, array[index]],
+      increasingSubsequences
+    );
+  }
+}
+
+let array = [4, 6, 7, 7];
+
+const res = findSubsequences(array);
+console.log(res);
