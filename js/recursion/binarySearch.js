@@ -1,7 +1,18 @@
-/*
-
-
-*/
+/**
+ * time-complexity:
+ *  -O(log(n)) -> keep dividing array / 2 until we either find or exhaust our search domain
+ *
+ * space-complexity:
+ *  -O(log(n)) -> max depth of recursion tree
+ *
+ * @param {array} array -> SORTED ARRAY!
+ * @param {int} k -> term we are searching for
+ *
+ * @returns {int} index - index of k in original array
+ */
+function binarySearch(array, k) {
+  return helper(array, k, 0, array.length - 1);
+}
 
 function helper(array, target, left, right) {
   // base case, is left pointer > right pointer
@@ -17,22 +28,6 @@ function helper(array, target, left, right) {
   } else {
     return helper(array, target, left + 1, right);
   }
-}
-
-/**
- * time-complexity:
- *  -O(log(n)) -> keep dividing array / 2 until we either find or exhaust our search domain
- *
- * space-complexity:
- *  -O(log(n)) -> max depth of recursion tree
- *
- * @param {array} array -> SORTED ARRAY!
- * @param {int} k -> term we are searching for
- *
- * @returns {int} index - index of k in original array
- */
-function binarySearch(array, k) {
-  return helper(array, k, 0, array.length - 1);
 }
 
 let sortedArray = [0, 1, 21, 33, 45, 45, 61, 71, 72, 73];

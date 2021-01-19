@@ -401,7 +401,7 @@ MCQ:
         
 """
 
-# exhaustive search/ enumeration sombinatorials
+# exhaustive search/ enumeration combinatorials
 """
     - given a set of n distinct object, enumerate all possible 'combinatorial objects'
         - a combinatorial object can either be a permutation or a combination
