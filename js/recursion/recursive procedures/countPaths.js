@@ -21,9 +21,8 @@
 
 */
 
-
 /**
- * 
+ *
  * @param {*} grid - 2D array
  * @param {*} row - current row we are looking at
  * @param {*} column - current column we are looking at
@@ -31,75 +30,74 @@
  * cell of grid
  */
 function helper(grid, row, column) {
-    // guards
-    if (row >= grid.length) return 0
-    if (column >= grid[0].length) return 0
+  // guards
+  if (row >= grid.length) return 0;
+  if (column >= grid[0].length) return 0;
 
-    // base case
-    if (row === grid.length - 1 && column === grid[0].length - 1) return 1
+  // base case
+  const isAtBottomRight =
+    row === grid.length - 1 && column === grid[0].length - 1;
+  if (isAtBottomRight) return 1; // found a path (return 1)
 
-    // recursion (transitions)
-    let numDown = helper(grid, row + 1, column)
-    let numRight = helper(grid, row, column + 1)
+  // recursion (transitions)
+  const pathsGoingDown = helper(grid, row + 1, column); // can only move down
+  const pathsGoingRight = helper(grid, row, column + 1); // and right
 
-    return numDown + numRight
+  // return sum of pathsGoingDown + pathsGoingRight
+  return pathsGoingDown + pathsGoingRight;
 }
 
 /**
  * time-complexity:
  *  - O(2^(n+m-1)) => O(2^(n+m))
- * 
+ *
  * space-complexity:
  *  - variables -> O(1)
  *  - recursive depth in stack -> O(n + m - 1) -> O(n+m)
  *  - O(1) * O(n + m) => O(n + m)
- * 
- * @param {*} grid 
+ *
+ * @param {*} grid
  */
 function countPaths(grid) {
-    return helper(grid, 0, 0)
+  return helper(grid, 0, 0);
 }
-
-
 
 /**
  * instead of passing in a whole grid, if we were asked to compute
  * all the different ways to get from coord (0, 0) to cord (n, m)
  * given n, m and the rules about moving,
- * 
+ *
  * we can modify our function signature(s) to meet that criteria
  */
 function helperAlt(n, m, row, column) {
-    // guards
-    if (row > n) return 0
-    if (column > m) return 0
+  // guards
+  if (row > n) return 0;
+  if (column > m) return 0;
 
-    // base case
-    if (row === n && column === m ) return 1
+  // base case
+  if (row === n && column === m) return 1;
 
-    // recursion (transitions)
-    let numDown = helperAlt(n, m, row + 1, column)
-    let numRight = helperAlt(n, m, row, column + 1)
+  // recursion (transitions)
+  let numDown = helperAlt(n, m, row + 1, column);
+  let numRight = helperAlt(n, m, row, column + 1);
 
-    return numDown + numRight
+  return numDown + numRight;
 }
 function countPathsAlt(n, m) {
-    return helperAlt(n, m, 0, 0)
+  return helperAlt(n, m, 0, 0);
 }
-
-
 
 /**
  * test solution(s)
  */
 let matrix = [
-    [0, 1, 1], 
-    [1, 1, 1], 
-    [1, 1, 1], 
-    [1, 1, 2]
-]
-console.log(`matrix has ${matrix.length} rows and ${matrix[0].length} column`)
-let result = countPaths(matrix)
-console.log(result)
+  [0, 1, 1],
+  [1, 1, 1],
+  [1, 1, 1],
+  [1, 1, 2],
+];
+// console.log(`matrix has ${matrix.length} rows and ${matrix[0].length} column`);
+// let result = countPathsAlt(matrix);
+// console.log(result);
 
-// console.log(countPathsAlt(3, 2))
+console.log(countPathsAlt(3, 2));

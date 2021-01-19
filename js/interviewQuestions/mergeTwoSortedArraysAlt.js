@@ -46,7 +46,6 @@
  *
  * @param {sorted array} array1 - sorted array of size N
  * @param {sorted array} array2 - sorted array of size 2N
- * @returns {sorted array} array2 - sorted array of size 2N
  */
 function sort(array1, array2) {
   let i = array1.length - 1;

@@ -33,14 +33,7 @@ function swap(nums, indexA, indexB) {
   return ([nums[indexA], nums[indexB]] = [nums[indexB], nums[indexA]]);
 }
 
-//
-//
-//               i
-//                 V
-// end of ones                                     startOfThrees
-//          V                                          v
 let array = [2, 2, 3, 1, 1, 2, 3, 1, 2, 3, 3, 3, 2, 1, 1, 3];
-//          [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3];
+// expectedOutput = [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3]
 
-let sortedArray = dutchNationalFlag(array);
-console.log(sortedArray);
+console.log(dutchNationalFlag(array));

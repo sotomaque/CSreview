@@ -27,38 +27,46 @@
 
 */
 
-
 function helper(grid, row, column) {
-    // guards
-    if (row >= grid.length) return 0 // return -infitiy if we are allowing negative values in our grid
-    if (column >= grid[0].length) return 0
+  // guards
+  if (row >= grid.length) return 0; // return -infitiy if we are allowing negative values in our grid
+  if (column >= grid[0].length) return 0;
 
-    // base case
-    if (row === grid.length - 1 && column === grid[0].length - 1) return grid[row][column]
+  // base case
+  const isAtBottomRight =
+    row === grid.length - 1 && column === grid[0].length - 1;
+  if (isAtBottomRight) return grid[row][column];
 
-    let maxDown = helper(grid, row + 1, column);
-    let maxRight = helper(grid, row, column + 1);
+  let maxDown = helper(grid, row + 1, column);
+  let maxRight = helper(grid, row, column + 1);
 
-    return (Math.max(maxDown, maxRight) + grid[row][column])
+  return Math.max(maxDown, maxRight) + grid[row][column];
 }
 
-
+/**
+ * time-complexity:
+ *   - O(2^(n+m))
+ *
+ * space-complexity:
+ *   - O(n + m)
+ *
+ * @param {*} grid
+ */
 function pathWithMaxSum(grid) {
-    return helper(grid, 0, 0)
+  return helper(grid, 0, 0);
 }
-
 
 /**
  * test solution(s)
  */
 let matrix = [
-    [1, 2, 3, 4, 5],
-    [31, 10, 10, 10, 10],
-    [1, 51, 10, 10, 1],
-    [1, 49, 11, 11, 0]
-] // should be 164
+  [1, 2, 3, 4, 5],
+  [31, 10, 10, 10, 10],
+  [1, 51, 10, 10, 1],
+  [1, 49, 11, 11, 0],
+]; // should be 164
 
-console.log(`matrix has ${matrix.length} rows and ${matrix[0].length} column`)
-let result = pathWithMaxSum(matrix)
+console.log(`matrix has ${matrix.length} rows and ${matrix[0].length} column`);
+let result = pathWithMaxSum(matrix);
 
-console.log(result)
+console.log(result);
