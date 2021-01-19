@@ -41,11 +41,11 @@ function fib_dp(n, cache = { 1: 0, 2: 1 }) {
  * @param {int} n - function returns the n-th fibinacci number
  */
 function fib_iterative(n) {
-  let last_two = [0, 1];
+  const last_two = [0, 1];
   let counter = 3;
 
   while (counter <= n) {
-    let nextFib = last_two[0] + last_two[1];
+    let nextFib = last_two.reduce((a, b) => a + b);
     last_two[0] = last_two[1];
     last_two[1] = nextFib;
     counter = counter + 1;

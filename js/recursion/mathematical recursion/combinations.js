@@ -1,3 +1,13 @@
+/**
+ * time-complexity:
+ *  - O(2^n)
+ *
+ * space-complexity:
+ *
+ *
+ * @param {*} n
+ * @param {*} k
+ */
 function nChooseK(n, k) {
   if (k === 0 || k === n) return 1;
 

@@ -92,9 +92,9 @@
                 with a lot of null values, all to store a small amount of values
             - now lets drop this simplifying assumption
                 - how could we draw some inspiration from this solution?
-                - i.e. what of our keys are strings or floats or objects?
+                - i.e. what if our keys are strings or floats or objects?
                     - we could attempt to convert the key to an int
-                - we want to somehow map each key to an integer grom range (0, m - 1)
+                - we want to somehow map each key to an integer from range (0, m - 1)
                 in a way that the keys get distributed to different indexes (or at random)
                 minimizing collisions
                     - we could map the first letter of the color to a rank(alphabetically)
