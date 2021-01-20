@@ -22,7 +22,7 @@ import math
 def coinChange(coinList, amount):
     # initialize cache array of size amount + 1
     cache = [math.inf] * (amount + 1)
-
+    print cache
     # base case:
     # cache[0] = 0 because if you want to construct an amount = 0 you dont need any coins
     cache[0] = 0
@@ -38,7 +38,7 @@ def coinChange(coinList, amount):
         # to ignore those subproblems
 
         # i.e. when we are just starting and want to know how many optimal way of making change for 2 cents
-        # but our coins array has [1, 3, 4, 5], we doint want to consider 3, 4, or 5 as subproblems
+        # but our coins array has [1, 3, 4, 5], we do not want to consider 3, 4, or 5 as subproblems
         for coin in coinList:
             if i - coin >= 0:
                 cache[i] = min(cache[i], cache[i-coin])
