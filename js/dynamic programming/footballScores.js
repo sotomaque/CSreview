@@ -64,23 +64,31 @@
 
 /**
  * time-complexity:
- *  -O(n)
- * 
+ *  - O(n)
+ *
  * space-complexity:
- *  -O(n)
- * 
- * @param {*} N 
+ *  - O(n)
+ *
+ * @param {*} N
  */
 function count(N) {
-    DP = new Array(N + 1)
-    DP[0] = 1
-    for (let n = 1; i <= N; n++) {
-        let s = 0;
-        if (n >= 2) s += DP[n-2]
-        if (n >= 3) s += DP[n-3]
-        if (n >= 7) s += DP[n-7]
-        
-        DP[n] = s
+  DP = new Array(N + 1);
+  DP[0] = 1;
+  for (let i = 1; i <= N; i++) {
+    let runningSum = 0;
+    if (i >= 2) {
+      runningSum += DP[i - 2];
     }
-    return DP[N]
+    if (i >= 3) {
+      runningSum += DP[i - 3];
+    }
+    if (i >= 7) {
+      runningSum += DP[i - 7];
+    }
+
+    DP[i] = runningSum;
+  }
+  return DP[N];
 }
+
+console.log(count(10));

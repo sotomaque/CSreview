@@ -62,52 +62,49 @@
                     |               |*| <- BASE CASE (where i === j)
                     -------------------
                           (j = N)
-*/  
-
+*/
 
 /**
  * time-complexity:
  *  - O(M*N)
  * space-complexity:
  *  - O(M*N)
- * 
+ *
  * @param {STRING} s - string which may or may not be interwoven product of s1 + s2
- * @param {STRING} s1 
- * @param {STRING} s2 
- * @param {int} i 
- * @param {int} j 
+ * @param {STRING} s1
+ * @param {STRING} s2
  */
-function isInterwoven(s, s1, s2, i = 0, j = 0) {
-    let M = s1.length;
-    let N = s2.length;
+function isInterwoven(str1, str2, potentialProduct) {
+  let M = str1.length;
+  let N = str2.length;
 
-    // initalize a 2d array (with everything being false)
-    const DP = new Array(M+1).fill(0).map(() => new Array(N+1).fill(false));
-    
-    // base case
-    DP[M][N] = true
+  // initalize a 2d array (with everything being false)
+  const DP = new Array(M + 1).fill(0).map(() => new Array(N + 1).fill(false));
 
-    // special case for last row
-    for (let j = N - 1; j >= 0; j--) {
-        DP[M][j] = s2[j] === s[M + j] && DP[M][j + 1]
+  // base case
+  DP[M][N] = true;
+
+  // special case for last row
+  for (let j = N - 1; j >= 0; j--) {
+    DP[M][j] = str2[j] === potentialProduct[M + j] && DP[M][j + 1];
+  }
+
+  for (let i = M - 1; i >= 0; i--) {
+    // special case for last column
+    DP[i][N] = str1[i] === potentialProduct[i + N] && DP[i + 1][N];
+    // iterate through remaining cells of grid
+    for (j = N - 1; j >= 0; j--) {
+      DP[i][j] =
+        (str2[j] === potentialProduct[i + j] && DP[i][j + 1]) ||
+        (str1[i] === potentialProduct[i + j] && DP[i + 1][j]);
     }
-
-    for (let i = M - 1; i >= 0; i--) {
-        // special case for last column
-        DP[i][N] = s1[i] === s[i + N] && DP[i+1][N]
-
-        for (j = N - 1; j >= 0; j--) {
-            DP[i][j] = ((s2[j] === s[i + j] && DP[i][j + 1]) || (s1[i] === s[i + j] && DP[i+1][j]))
-        }
-    }
-
-    return DP[0][0]
+  }
+  return DP[0][0];
 }
 
+let s1 = 'enrique';
+let s2 = 'sotomayor';
+let s = 'enrsoitoquemayor';
+let res = isInterwoven(s1, s2, s);
 
-let s1 = 'aba'
-let s2 = 'aca'
-let s = 'aabaca'
-let res = isInterwoven(s, s1, s2)
-
-console.log(res)
+console.log(res);
