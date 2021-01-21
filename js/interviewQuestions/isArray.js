@@ -9,5 +9,6 @@ function isArray(arr) {
 let myArray = new Array(4).fill(4);
 
 console.log(isArray(myArray));
+console.log(isArray({}));
 console.log(isArray([1, 2, 3]));
 console.log(isArray('enrique'));

@@ -46,40 +46,38 @@
 
 */
 
-
 /**
  * time-complexity:
  *  -
- * 
+ *
  * space-complexity:
  *  -
- * 
+ *
  * @param {ARRAY} array - given array
  * @param {int} index - index we are currently examining in our array
  * @param {int} prev - index of the previous element in the array that we picked for our subsequence
  */
 function longestIncreasingSubsequence(array, index = 0, prev = -1) {
+  // base case:
+  if (index === array.length) {
+    return 0;
+  }
 
-    // base case:
-    if (index === array.length) {
-        return 0
-    }
+  // dont take element at i = index
+  let m = longestIncreasingSubsequence(array, index + 1, prev);
 
-    // dont take element at i = index
-    let m = longestIncreasingSubsequence(array, index + 1, prev)
+  // take element at i = index
+  // if we haven't take anything yet, or what we are considering taking >= what we have taken
+  if (prev === -1 || array[index] > array[prev]) {
+    let didTakeI = longestIncreasingSubsequence(array, index + 1, index);
+    m = 1 + Math.max(m, didTakeI);
+  }
 
-    // take element at i = index
-    // if we haven't take anything yet, or what we are considering taking >= what we have taken
-    if (prev === -1 || array[index] > array[prev]) {
-        let didTakeI = longestIncreasingSubsequence(array, index + 1, index)
-        m = 1 + Math.max(m, didTakeI)
-    }
-
-    return m
+  return m;
 }
 
-let array = [2, 4, 3, 9, 7, 11, 13, 8]
+let array = [2, 4, 3, 9, 7, 11, 13, 8];
 
-let res = longestIncreasingSubsequence(array)
+let res = longestIncreasingSubsequence(array);
 
-console.log(res)
+console.log(res);
