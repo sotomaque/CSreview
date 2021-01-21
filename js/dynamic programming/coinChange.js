@@ -26,11 +26,17 @@
 */
 
 /**
+ * time-complexity:
+ *  - O(a*k) where a is the target and k is the total amount of given coins
  *
- * @param {*} nums
+ * space-complexity:
+ *  - O(a) (size of table we allocated)
+ *
+ * @param {array} nums - array of coin values (i.e. [1, 3, 5, 7])
+ * @param {number} target - targetSum
  */
 function coinChange(nums, target) {
-  const cache = new Array(target + 1).fill(Number.MAX_SAFE_INTEGER);
+  const cache = new Array(target + 1).fill(Number.MAX_VALUE);
 
   // base case
   cache[0] = 0;
@@ -38,17 +44,18 @@ function coinChange(nums, target) {
     cache[1] = 1;
   }
 
+  // iterate through length of cache
   for (let i = 1; i < target + 1; i++) {
+    // iterate through given coins
     for (let j = 0; j < nums.length; j++) {
+      // only consider valid subproblems
       if (i - nums[j] >= 0) {
         cache[i] = Math.min(cache[i], cache[i - nums[j]]);
       }
     }
     cache[i]++;
   }
-
-  console.log(cache);
-  return cache[target];
+  return cache[target] === Number.MAX_VALUE ? -1 : cache[target];
 }
 
 console.log(coinChange([1, 5, 7], 10));

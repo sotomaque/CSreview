@@ -22,8 +22,44 @@
 
 /**
  * time-complexity:
+ *   - O(2^(m + n))
+ *
+ * space-complexity:
+ *   - max length of recursive stack
+ *   - O(n + m)
+ *
+ * @param {*} grid
+ * @param {*} row
+ * @param {*} col
+ */
+function pathWithMaxSumRecursive(grid, row = 0, col = 0) {
+  // base case
+  if (row === grid.length - 1 && col === grid[0].length - 1)
+    return grid[row][col];
+
+  // last row (can only go right)
+  if (row === grid.length - 1) {
+    return grid[row][col] + pathWithMaxSumRecursive(grid, row, col + 1);
+  }
+  // last column (can only go down)
+  if (col === grid[0].length - 1) {
+    return grid[row][col] + pathWithMaxSumRecursive(grid, row + 1, col);
+  }
+
+  return (
+    grid[row][col] +
+    Math.max(
+      pathWithMaxSumRecursive(grid, row + 1, col),
+      pathWithMaxSumRecursive(grid, row, col + 1)
+    )
+  );
+}
+
+/**
+ * time-complexity:
  *  - only compute every subproblem once
- *  - therefore we spend only constant time on every subproblem
+ *  - each subproblem requires a constant amount of computation
+ *  - total (n * m) subproblems
  *  - O(n * m)
  *
  * space-complexity:
@@ -155,3 +191,5 @@ let memo = [
 // console.log(result);
 
 console.log(pathWithMaxSumIterative(matrix));
+
+console.log(pathWithMaxSumRecursive(matrix));
