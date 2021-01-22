@@ -13,6 +13,7 @@ class BinarySearchTree {
     this.root = null;
   }
 
+  // time-complexity: O(logn)
   insert(data) {
     // Creating a node and initailising
     // with data
@@ -47,6 +48,7 @@ class BinarySearchTree {
     }
   }
 
+  // time-complexity: O(logn)
   remove(data) {
     // root is re-initialized with
     // root of a modified tree.
@@ -98,16 +100,25 @@ class BinarySearchTree {
       return node;
     }
   }
-
+  // time-complexity: O(logn)
   findMinNode(node) {
     // if left of a node is null
     // then it must be minimum node
     if (node.left === null) return node;
     else return this.findMinNode(node.left);
   }
+  // time-complexity: O(logn)
+  findMaxNode(node) {
+    // if right of a node is null
+    // then it must be maximum node
+    if (node.right === null) return node;
+    else return this.findMaxNode(node.right);
+  }
+
   getRootNode() {
     return this.root;
   }
+
   inorder(node) {
     if (node !== null) {
       this.inorder(node.left);
@@ -115,6 +126,7 @@ class BinarySearchTree {
       this.inorder(node.right);
     }
   }
+
   preorder(node) {
     if (node !== null) {
       console.log(node.data);
@@ -122,6 +134,7 @@ class BinarySearchTree {
       this.preorder(node.right);
     }
   }
+
   postorder(node) {
     if (node !== null) {
       this.postorder(node.left);
@@ -129,6 +142,7 @@ class BinarySearchTree {
       console.log(node.data);
     }
   }
+
   search(node, data) {
     // if trees is empty return null
     if (node === null) return null;
