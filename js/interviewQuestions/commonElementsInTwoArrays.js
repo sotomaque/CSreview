@@ -1,32 +1,54 @@
 /*
-    function takes two arrays, return the common elements in both arrays
+  function takes two SORTED arrays, return the common elements in both arrays
 
-    assume both arrays are sorted
+  assume both arrays are sorted
 
-    i.e. 
-        A = [1, 3, 4, 6, 7, 9]
-        B = [1, 2, 4, 5, 9, 20]
+  i.e. 
+      A = [1, 3, 4, 6, 7, 9]
+      B = [1, 2, 4, 5, 9, 20]
 
-        result = [1, 4, 9]
+      result = [1, 4, 9]
 
-    - brute force approach,     
-        two for loops,
-            for each element in a, 
-                check if its is also in b by iterating through all of b
-                    - if it is add it to resulting array
-            return resulting array
-        - draw back: O(n*m) time-complexity ~ O(n^2) when both arrays are of 
-        comparable lengths
+  - brute force approach,     
+      two for loops,
+          for each element in a, 
+              check if its is also in b by iterating through all of b
+                  - if it is add it to resulting array
+          return resulting array
+      - draw back: O(n*m) time-complexity ~ O(n^2) when both arrays are of 
+      comparable lengths
 
-    - better appraoch:
-        - use two pointers, 
-            - both initalized to 0
-            - if they point to items of same value 
-                - add to resulting array
-                - increment both pointers
-
-
+  - better appraoch:
+      - use two pointers, 
+          - both initalized to 0
+          - if they point to items of same value 
+              - add to resulting array
+              - increment both pointers
 */
+
+/**
+ * time-complexity:
+ *  - O(n^2)
+ *
+ * space-complexity:
+ *  - O(k) where k is the length of the common elements between nums1 and nums2
+ *
+ * @param {*} nums1
+ * @param {*} nums2
+ * @returns {array}
+ */
+function commonElementsBruteForce(nums1, nums2) {
+  const common = [];
+
+  for (let i = 0; i < nums1.length; i++) {
+    for (let j = 0; j < nums2.length; j++) {
+      if (nums1[i] === num2[j]) {
+        common.push(nums1[i]);
+      }
+    }
+  }
+  return common;
+}
 
 /**
  * time-complexity:
