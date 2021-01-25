@@ -8,6 +8,15 @@
  * Output: [1,3,12,0,0]
  */
 
+/**
+ * time-complexity:
+ *  - O(n)
+ * 
+ * space-complexity:
+ *  - O(1)
+ * 
+ * @param {*} nums 
+ */
 function moveZeros(nums) {
   // index of where we should set the next 0
   let currentIndex = 0;
@@ -16,8 +25,9 @@ function moveZeros(nums) {
     // if we run into a non 0
     if (nums[i] !== 0) {
       // put that # at our variable index
+      nums[currentIndex] = nums[i];
       // and increment index
-      nums[currentIndex++] = nums[i];
+      currentIndex++;
     }
   }
   // now weve scanned through array,

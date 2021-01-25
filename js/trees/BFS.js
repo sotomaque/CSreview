@@ -8,6 +8,7 @@ function BFS(treeNode) {
   queue.enqueue(treeNode);
   while (!queue.isEmpty()) {
     const node = queue.dequeue();
+    // do something with node.value
     console.log(node);
     if (node.left !== null) {
       queue.enqueue(node.left);

@@ -1,11 +1,11 @@
 /*
-given n queens that we want to place on an n x n cless board such that
-no queens can attack eachother
+  given n queens that we want to place on an n x n cless board such that
+  no queens can attack each other
 */
 
 /**
  * time-complexity:
- *  - O()
+ *  - O(n)
  *
  * space-complexity:
  *  - O()
@@ -39,7 +39,6 @@ function helper(n, currentIndex, partialSolution, globalSolution) {
 // only checks for conflicts at the column / diagonal level
 // since the way we have implented our solution we cannot
 // build a slate with conflicts at the row level
-
 function hasConflict(slate) {
   if (slate.length < 2) return false;
 
