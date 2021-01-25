@@ -22,7 +22,7 @@ function findCeleb(n) {
       candidate = i;
     }
   }
-  // make sure everyone else konws our candidate
+  // make sure everyone else knows our candidate
   // and our candidate doesnt know anyone else
   for (let i = 0; i < n; i++) {
     // dont make comparison to self
