@@ -50,6 +50,15 @@ class Stack {
   }
 }
 
+/**
+ * time-complexity:
+ *  - O(n)
+ * 
+ * space-complexity:
+ *  - O(n) potentially
+ * 
+ * @param {*} moves 
+ */
 function willReturnHome(moves) {
   if (moves.length <= 1) return false
 
@@ -70,4 +79,32 @@ function willReturnHome(moves) {
   return myStack.isEmpty();
 }
 
-console.log(willReturnHome('RUULLDRD'))
+/**
+ * time-complexity:
+ *  - O(n)
+ * 
+ * space-complexity:
+ *  - O(1)
+ * 
+ * @param {*} moves 
+ */
+function willReturnHomeIterative(moves) {
+  let UD = 0;
+  let LR = 0;
+  for (let i = 0; i < moves.length; i++) {
+    const current = moves[i];
+    if (current === 'U') {
+      UD++;
+    } else if (current === 'D') {
+      UD--;
+    } else if (current === 'L') {
+      LR++;
+    } else if (current === 'R') {
+      LR--;
+    }
+  }
+
+  return UD === 0 && LR === 0;
+}
+
+console.log(willReturnHomeIterative('RUULLDRD'))
