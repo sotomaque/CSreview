@@ -18,7 +18,7 @@ class Stack {
     // return top most element in the stack
     // and removes it from the stack
     // Underflow if stack is empty
-    if (this.items.length == 0) return 'Underflow';
+    if (this.items.length == 0) return "Underflow";
     return this.items.pop();
   }
   peek() {
@@ -35,8 +35,8 @@ class Stack {
 
   // printStack function
   printStack() {
-    var str = '';
-    for (var i = 0; i < this.items.length; i++) str += this.items[i] + ' ';
+    var str = "";
+    for (var i = 0; i < this.items.length; i++) str += this.items[i] + " ";
     return str;
   }
 }
@@ -59,28 +59,14 @@ class Stack {
 function hasPathSum(root, sum) {
   if (!root) return false;
 
-  let nodeStack = new Stack();
-  let sumStack = new Stack();
-
-  nodeStack.push(root);
-  sumStack.push(sum - root.value);
-
-  while (!nodeStack.isEmpty()) {
-    let currentNode = nodeStack.pop();
-    let currentSum = sumStack.pop();
-
-    if (!currentNode.left && !currentNode.right) return currentSum === 0;
-
-    // consider left children
-    if (currentNode.left) {
-      nodeStack.push(currentNode.left);
-      sumStack.push(currentSum - currentNode.left.value);
-    }
-
-    // consider right children
-    if (currentNode.right) {
-      nodeStack.push(currentNode.right);
-      sumStack.push(currentSum - currentNode.rightvalue);
-    }
+  // check leaf
+  if (!root.left && !root.right) {
+    return sum === root.val;
+  } else {
+    // continue DFS
+    return (
+      hasPathSum(root.left, sum - root.val) ||
+      hasPathSum(root.right, sum - root.val)
+    );
   }
 }
