@@ -9,18 +9,27 @@
   jewels = "AYOPD", stones = "ayopd", return 0
 */
 
+/**
+ * time-complexity:
+ *  - O(n)
+ *
+ * space-complexity:
+ *  - O(1)
+ *
+ * @param {*} jewels
+ * @param {*} stones
+ */
 function jewelsAndStones(jewels, stones) {
   let result = 0;
   // for each letter in stones
-  // count how many times it occurs in jewels
-  // return total sum
   stones.split('').forEach((letter) => {
+    // count how many times it occurs in jewels
     const matches = jewels.split('').filter((a) => a === letter);
     if (matches?.length > 0) {
       result += matches.length;
     }
   });
-
+  // return total sum
   return result;
 }
 
