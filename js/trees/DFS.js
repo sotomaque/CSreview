@@ -50,22 +50,4 @@ function postOrderDFS(root) {
   console.log(root.value);
 }
 
-function DFS(root) {
-  if (root === null) {
-    return -1
-  }
-}
-
-function DFSHelper(node) {
-  // print here -> preOrder
-  if (node.left !== null) {
-    DFSHelper(node.left)
-  }
-  // print here -> inOrder
-  if (node.right !== null) {
-    DFSHelper(node.right)
-  }
-  // print here -> postOrder
-}
- 
 export { preOrderDFS, inOrderDFS, postOrderDFS };
