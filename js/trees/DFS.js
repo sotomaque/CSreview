@@ -8,6 +8,8 @@
  *
  * @param {*} root
  */
+
+//  Node -> Left subtree -> Right subtree
 function preOrderDFS(root) {
   if (root === null) return;
   // print here -> pre order
@@ -22,6 +24,7 @@ function preOrderDFS(root) {
   //  print here -> post order
 }
 
+// Left subtree -> Node -> Right subtree
 function inOrderDFS(root) {
   if (root === null) return;
   // print here -> pre order
@@ -36,6 +39,7 @@ function inOrderDFS(root) {
   //  print here -> post order
 }
 
+// Left subtree -> Right subtree -> Node
 function postOrderDFS(root) {
   if (root === null) return;
   // print here -> pre order

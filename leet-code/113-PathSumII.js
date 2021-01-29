@@ -23,7 +23,7 @@ var pathSum = function (root, target) {
 };
 
 function helper(node, target, slate, slateSum, results) {
-  //     base case
+  // base case
   if (!node.left && !node.right) {
     if (slateSum + node.val === target) {
       results.push([...slate, node.val]);
@@ -31,7 +31,7 @@ function helper(node, target, slate, slateSum, results) {
     }
   }
 
-  //     recursive case
+  // recursive case
   if (node.left) {
     helper(
       node.left,

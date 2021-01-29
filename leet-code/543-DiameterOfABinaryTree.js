@@ -28,7 +28,7 @@
  *  - O(n)
  *
  * space-complexity:
- *  - O(lgn)
+ *  - O(log n)
  *
  * @param {*} root
  */
@@ -65,23 +65,32 @@ function helper(root, globalMax) {
   return myHeight;
 }
 
+/**
+ * time-complexity:
+ *  - O(n)
+ *
+ * space-complexity:
+ *  - O(log n)
+ *
+ * @param {*} root
+ */
 function diameterAlt(root) {
   if (!root || root === null || typeof root === 'undefined') return 0;
 
-  let longestPath = 0;
-  helperAlt(root, longestPath);
-  return longestPath;
+  let diameter = 0;
+  helperAlt(root, diameter);
+  return diameter;
 }
 
 function helperAlt(node, diameter) {
   if (!node) return 0;
 
-  const left = dfs(node.left);
-  const right = dfs(node.right);
+  const left = helperAlt(node.left, diameter);
+  const right = helperAlt(node.right, diameter);
 
   // update diameter at every node
   diameter = Math.max(diameter, left + right);
 
-  // update the largest number of edge so far
+  // update the largest number of edges so far
   return Math.max(left, right) + 1;
 }
