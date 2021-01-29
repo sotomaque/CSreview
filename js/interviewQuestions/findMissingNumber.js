@@ -1,5 +1,6 @@
 /*
   Given a sorted array with values ranging from 1 - 100 (inclusive)
+  [1, 2,..., 100] -> 5050
   Find the one mising element
 */
 

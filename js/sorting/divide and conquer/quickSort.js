@@ -43,6 +43,8 @@
 
             i.e.
                 A = [4, 2, 1, 7, 8, 3, 5, 6, 3]
+                     ^   [------>               ]
+                A = [4, 2, 1, 7, 8, 3, 5, 6, 3]
 
                 step (0): set A[0] as the pivot
                     - anything less than 4 will be in the left subarray
@@ -148,7 +150,7 @@ function helper(someArray, startIndex, endIndex) {
   someArray = swap(someArray, startIndex, pivot_index);
 
   // initialize pointers to begin iterating array
-  let slow_pointer = startIndex;
+  let slow_pointer = startIndex; // points at last element < array[pivotIndex]
 
   for (
     let fast_pointer = startIndex;
@@ -198,6 +200,9 @@ function quickSort(someArray) {
 
 function test() {
   let testArray = [4, 2, 1, 7, 8, 3, 5, 6];
+
+  // testArray[7] => 1 || O(1) - amount of time to get that answer
+  // ideally id like to get min(testArray) in O(1)
   const result = quickSort(testArray);
   console.log(result);
 }

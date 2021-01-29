@@ -18,6 +18,7 @@
  */
 function mergeSort(someArray) {
   if (someArray.length > 1) {
+    // "CHEAP" PARTIONING STEP
     const midPoint = someArray.length / 2;
     const leftSubArray = someArray.slice(0, midPoint);
     const rightSubArray = someArray.slice(midPoint);
@@ -27,12 +28,13 @@ function mergeSort(someArray) {
     mergeSort(rightSubArray);
 
     // two iterators for traversing the two subproblems
-    let i = 0;
-    let j = 0;
+    let i = 0; // left index
+    let j = 0; // right index
 
     // iterator for the main list
     let k = 0;
 
+    // EXPENSIVE MERGING STEP
     while (i < leftSubArray.length && j < rightSubArray.length) {
       if (leftSubArray[i] <= rightSubArray[j]) {
         someArray[k] = leftSubArray[i];

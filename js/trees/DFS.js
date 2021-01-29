@@ -39,6 +39,26 @@ function inOrderDFS(root) {
   //  print here -> post order
 }
 
+// Left subtree -> Node -> Right subtree
+function inOrderStack(root) {
+  if (root === null) return;
+
+  const s = new Stack();
+  pushLeft(root, s); // by the time this is done, we have pushed all left items onto our stack
+  while (!s.isEmpty()) {
+    const current = s.pop();
+    console.log(current.data);
+    pushLeft(current.right, s);
+  }
+}
+
+function pushLeft(node, stack) {
+  while (node !== null) {
+    stack.push(node);
+    node = node.left;
+  }
+}
+
 // Left subtree -> Right subtree -> Node
 function postOrderDFS(root) {
   if (root === null) return;

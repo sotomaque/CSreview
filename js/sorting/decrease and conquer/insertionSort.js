@@ -97,9 +97,9 @@ function insertionSortIterative(someArray, n) {
 }
 
 function test() {
-  const testArray = [1, 2, 3, 4];
+  const testArray = [3, 5, 1, 6, 1, 9];
   const n = testArray.length;
-  const result = insertionSortIterative(testArray, n);
+  const result = insertionSortRecursive(testArray, n);
   console.log(result);
 }
 
