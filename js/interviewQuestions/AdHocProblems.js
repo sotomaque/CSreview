@@ -21,6 +21,7 @@ class Stream {
     this.mapping = new Map();
   }
 
+  // insert into map (O(1) time)
   insert(num) {
     if (this.mapping.has(num)) {
       this.mapping.set(num, this.mapping.get(num) + 1);
@@ -29,19 +30,22 @@ class Stream {
     }
   }
 
+  // decrement map value or remove from map (O(1))
   remove(num) {
     if (this.mapping.has(num) && this.mapping.get(num) >= 1) {
       this.mapping.set(num, this.mapping.get(num) - 1);
     }
   }
 
+  // check if map has value (O(1))
   isPresent(num) {
     return this.mapping.has(num);
   }
 
+  //
   getRandom() {
     const possibleNums = [];
-    this.mapping.forEach((value, key, map) => {
+    this.mapping.forEach((value, key) => {
       for (let i = 0; i < value; i++) {
         possibleNums.push(key);
       }

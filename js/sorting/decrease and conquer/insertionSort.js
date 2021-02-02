@@ -75,12 +75,9 @@ function insertionSortRecursive(someArray, n) {
  * @param {[int]} someArray - array we want sorted
  * @param {int} n - represents the length of the array
  */
-function insertionSortIterative(someArray, n) {
-  // base case
-  if (n <= 1) return;
-
+function insertionSortIterative(someArray) {
   // bottom up approach
-  for (let i = 1; i < n; i++) {
+  for (let i = 1; i < someArray.length; i++) {
     let currentValue = someArray[i];
     let position = i;
 

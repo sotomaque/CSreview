@@ -48,7 +48,6 @@ function kthLargest(nums, k) {
  * time-complexity:
  *  - on average O(n)
  *
- *
  * @param {} someArray
  * @param {*} startIndex
  * @param {*} endIndex
