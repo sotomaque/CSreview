@@ -15,3 +15,7 @@ function nChooseK(n, k) {
 }
 
 console.log(nChooseK(8, 2));
+s = 'aaa';
+
+console.log(s.toUpperCase());
+console.log(s);

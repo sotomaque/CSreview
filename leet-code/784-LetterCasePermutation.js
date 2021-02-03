@@ -1,5 +1,5 @@
 /*
-fiven a string we can transform every letter individually to be lowercase
+given a string we can transform every letter individually to be lowercase
 or uppercase to create another string.
 
 return a list of all possible strings.
@@ -15,10 +15,10 @@ function isLetter(char) {
 
 /**
  * time-complexity:
- *  - O(n * 2^n) (branching factor)
+ *  - O(2^n * n) (branching factor) * (n bc each node has to deal with immutatble strings and therfore create a new string (amount of work is proportinal to length of string))
  *
  * space-complexity:
- *  - O(n) (max depth of recursive stack)
+ *  - O(n^2) (max depth of recursive stack)
  *
  * @param {*} str
  */
@@ -64,3 +64,31 @@ function letterCaseHelper(str, currentIndex, partialSolution, result) {
 }
 
 console.log(letterCasePermutation('a1b2'));
+
+// ALT
+// /**
+//  * @param {string} S
+//  * @return {string[]}
+//  */
+// var letterCasePermutation = function(S) {
+//   const res = []
+//   helper(S, 0, [], res);
+//   return res;
+// };
+
+// function helper(array, index, partialAnswer, globalAnswer) {
+//   // base case: leaf node
+//   if (index >= array.length) {
+//       globalAnswer.push(partialAnswer.join(''));
+//       return
+//   }
+//   // recursive case: internal node
+//   if (array[index].toUpperCase() !== array[index].toLowerCase()) {
+//       // we have a letter
+//       helper(array, index + 1, [...partialAnswer, array[index].toUpperCase()], globalAnswer)
+//       helper(array, index + 1, [...partialAnswer, array[index].toLowerCase()], globalAnswer)
+
+//   } else {
+//       helper(array, index + 1, [...partialAnswer, array[index]], globalAnswer)
+//   }
+// }
