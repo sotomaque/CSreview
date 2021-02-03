@@ -16,6 +16,7 @@ function isLetter(char) {
 /**
  * time-complexity:
  *  - O(2^n * n) (branching factor) * (n bc each node has to deal with immutatble strings and therfore create a new string (amount of work is proportinal to length of string))
+ *  - O(2^n) if we utilize mutable string for our partial solution
  *
  * space-complexity:
  *  - O(n^2) (max depth of recursive stack)
