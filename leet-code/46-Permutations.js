@@ -43,5 +43,36 @@ function printAllPermutationsOfAString(
   }
 }
 
-let inputString = 'taco';
-printAllPermutationsOfAString(inputString);
+var permute = function (nums) {
+  let res = [];
+  let hasPlaced = Array(nums.length).fill(false);
+  dfs(nums, [], hasPlaced, res);
+
+  return res;
+};
+
+function dfs(nums, path, used, res) {
+  if (path.length == nums.length) {
+    // make a deep copy since otherwise we'd be append the same list over and over
+    res.push(Array.from(path));
+    return;
+  }
+  for (let i = 0; i < nums.length; i++) {
+    // skip used nums
+    if (used[i]) continue;
+    // add nums to permutation, mark nums as used
+    path.push(nums[i]);
+    used[i] = true;
+    dfs(nums, path, used, res);
+    // remove nums from permutation, mark nums as unused
+    path.pop();
+    used[i] = false;
+  }
+}
+
+// let inputString = 'tac';
+// printAllPermutationsOfAString(inputString);
+
+let a = [1, 2, 3];
+let res = permute(a);
+console.log(res);
