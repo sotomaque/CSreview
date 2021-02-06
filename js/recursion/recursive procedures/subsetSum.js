@@ -17,27 +17,9 @@
                 - and another recursive call where we do not add it to the subset
 
 */
-function* subsetSum(nums, sum, subsets = []) {
-  var i, s;
-
-  for (i = 0; i < nums.length; i++) {
-    const remainingSumToAchieveTarget = sum - nums[i];
-    if (remainingSumToAchieveTarget === 0) {
-      // including values[i] in our current subset makes subset sum === targetSum
-      // so return a new array [...subsets, nums[i]]
-      yield [...subsets, nums[i]];
-    } else if (remainingSumToAchieveTarget > 0) {
-      // else recurse only if we havent exceeded bounds (i.e. runningSum > 0)
-      //   recursion should only look at remaining elements of nums (i.e. nums.slice(i + 1))
-      yield* subsetSum(nums.slice(i + 1), remainingSumToAchieveTarget, [
-        ...subsets,
-        nums[i],
-      ]);
-    }
-  }
-}
+function* subsetSum(nums, sum, subsets = []) {}
 
 const nums = [1, 2, 4, 20, 5, 19, 6, 14, 13, 21];
-const target = 25;
+const target = 17;
 
 console.log([...subsetSum(nums, 25)]);

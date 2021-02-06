@@ -58,3 +58,5 @@ function hasConflict(slate) {
   // else we have iterated through entire slate and did not find conflicts
   return false;
 }
+
+console.log(nQueens(4));
