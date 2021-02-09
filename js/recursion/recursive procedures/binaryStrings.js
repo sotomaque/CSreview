@@ -39,7 +39,7 @@ function binaryString(n) {
  * @param {*} n
  */
 function binaryStringIterative(n) {
-  const result = ['0', '1'];
+  let result = ['0', '1'];
   for (let i = 1; i < n; i++) {
     const newRes = [];
     result.forEach((str) => {
@@ -78,4 +78,4 @@ function binaryStringIterativeAlt(n, prefix = '') {
   }
 }
 
-binaryStringIterativeAlt(3);
+console.log(binaryStringIterative(3));
