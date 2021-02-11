@@ -34,12 +34,14 @@ function mergeTwoLinkedLists(head1, head2) {
     }
     temp = temp.next;
   }
-  //Since the two lists can be of different lengths
-  //once we’ve reached the end of one list we need to remember to append the remainder of the other list.
-  if (head1 !== null) {
+  // Collect Remainder
+  while (head1 !== null) {
     temp.next = head1;
-  } else {
+    head1 = head1.next;
+  }
+  while (head2 !== null) {
     temp.next = head2;
+    head2 = head2.next;
   }
 
   return head.next;
