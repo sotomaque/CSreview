@@ -9,8 +9,6 @@ Output: false
 */
 
 function meetingRooms(array) {
-  console.log('input array', array);
-
   // sort interval
   let startTimes = [];
   let endTimes = [];
