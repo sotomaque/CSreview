@@ -4,27 +4,11 @@
  */
 function find_all_well_formed_brackets(n) {
   const validSets = [];
-  const finalResult = [];
-
-  helper(0, [], n, n, validSets);
-
-  // format the array to be comma seperated
-  validSets.forEach((validSet) => {
-    finalResult.push(validSet.join(''));
-  });
-
-  return finalResult;
+  helper([], n, n, validSets);
+  return validSets;
 }
 
-// approach:
-// use recursion!
-function helper(
-  currentIndex,
-  result,
-  remainingLeft,
-  remainingRight,
-  validSets
-) {
+function helper(result, remainingLeft, remainingRight, validSets) {
   // base case
   if (remainingLeft === 0 && remainingRight === 0) {
     validSets.push(result);
@@ -33,37 +17,21 @@ function helper(
 
   // add left if remainingLeft === remainingRight
   if (remainingLeft === remainingRight) {
-    helper(
-      currentIndex - 1,
-      [...result, '('],
-      remainingLeft - 1,
-      remainingRight,
-      validSets
-    );
+    helper([...result, '('], remainingLeft - 1, remainingRight, validSets);
   }
 
   // can only add a left or right if remainingRight > remainingLeft
+  // i.e. only recurse further if we number of closing brackets (right)
+  // are greater than the number of opening brackets (left)
   if (remainingRight > remainingLeft) {
     // this is where we have the tree split into two valid paths:
     // add left
     if (remainingLeft > 0) {
-      helper(
-        currentIndex - 1,
-        [...result, '('],
-        remainingLeft - 1,
-        remainingRight,
-        validSets
-      );
+      helper([...result, '('], remainingLeft - 1, remainingRight, validSets);
     }
 
     // add right
-    helper(
-      currentIndex - 1,
-      [...result, ')'],
-      remainingLeft,
-      remainingRight - 1,
-      validSets
-    );
+    helper([...result, ')'], remainingLeft, remainingRight - 1, validSets);
   }
 }
 
