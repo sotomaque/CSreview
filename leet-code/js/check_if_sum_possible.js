@@ -1,3 +1,21 @@
+/**
+ *
+ * time complexity: O(2^n * n)
+ * // making copies of each array takes O(n) time
+ * // there are 2^n subsets (each step we decide to include or exclude an element)
+ * // therefore O(2^n * n)
+ *
+ *
+ * space complexity: O(2^n) -> we need space for every subset
+ * // call stack -> n (height of tree)
+ * // state -> max number of elements in a subset -> n
+ * // result -> 2^n
+ *
+ * @param {*} arr
+ * @param {*} k
+ * @returns
+ */
+
 function check_if_sum_possible(arr, k) {
   // enumerate all possible subsets of the array
   const result = new Array();
